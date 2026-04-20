@@ -36,7 +36,11 @@ export default function LocaleSwitch() {
       disabled={pending}
       onClick={handle}
       data-no-snap
-      className="group fixed bottom-6 right-6 z-50 flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-ink-200 backdrop-blur-md transition-all duration-500 ease-cine hover:-translate-y-0.5 hover:border-white/25 hover:text-white disabled:opacity-60"
+      style={{
+        bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.25rem)',
+        right: 'calc(env(safe-area-inset-right, 0px) + 1.25rem)'
+      }}
+      className="group fixed z-50 flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-black/40 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-ink-200 backdrop-blur-md transition-all duration-500 ease-cine hover:-translate-y-0.5 hover:border-white/25 hover:text-white disabled:opacity-60"
     >
       <motion.span
         className="inline-block h-1 w-1 rounded-full bg-ink-100"

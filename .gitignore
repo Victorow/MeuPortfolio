@@ -41,3 +41,8 @@ next-env.d.ts
 # IDE
 .vscode/
 .idea/
+
+# Windsurf / Cascade (local project rules, workflows, memories)
+.windsurf/
+.windsurfrules
+.cascade/

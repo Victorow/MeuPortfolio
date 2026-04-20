@@ -3,6 +3,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { usePerfTier } from '@/lib/device';
 
 /* -------------------------------------------------------------------------
  * Deterministic PRNG (mulberry32) + helpers, so SSR and client agree.
@@ -506,9 +507,14 @@ function Planet({ config }: { config: PlanetConfig }) {
 }
 
 export default function Planets() {
+  const tier = usePerfTier();
+  // Scale planet count with GPU budget: desktop gets the full universe,
+  // mobile/mid-tier gets a carefully chosen subset to stay above 60fps.
+  const count = tier === 'high' ? UNIVERSE.length : tier === 'mid' ? 4 : 2;
+  const subset = UNIVERSE.slice(0, count);
   return (
     <group>
-      {UNIVERSE.map((p, i) => (
+      {subset.map((p, i) => (
         <Planet key={i} config={p} />
       ))}
     </group>
