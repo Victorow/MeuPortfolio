@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "Victor — FullStack Developer",
+    "description": "Engineering digital systems at stellar scale. Robust backends, cinematic frontends, secure architecture, and product-grade performance."
+  },
+  "nav": {
+    "hero": "Start",
+    "projects": "Projects",
+    "about": "About",
+    "expertise": "Expertise",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "FullStack Developer — Systems at scale",
+    "title1": "Engineering",
+    "title2": "at stellar",
+    "title3": "scale.",
+    "subtitle": "I build robust, scalable and secure digital systems — pairing backend depth with refined frontend execution, and an obsession with performance, architecture and product quality.",
+    "ctaProjects": "View projects",
+    "ctaAbout": "About me",
+    "scroll": "Scroll to navigate"
+  },
+  "projects": {
+    "eyebrow": "— Featured builds",
+    "title": "Selected projects",
+    "caption": "Platforms and systems built with a focus on architecture, performance and reliability.",
+    "labels": {
+      "problem": "Challenge",
+      "solution": "Solution",
+      "stack": "Stack",
+      "architecture": "Architecture",
+      "links": "Links",
+      "liveDemo": "Live",
+      "caseStudy": "Case study",
+      "repository": "Repository"
+    },
+    "items": {
+      "auth": {
+        "title": "Distributed Identity Platform",
+        "summary": "Unified authentication and authorization layer for multi-tenant products, with SSO, granular RBAC and real-time auditing.",
+        "problem": "Fragmented identity across services, with risk of permission leaks and weak observability.",
+        "solution": "Stateless auth core with rotating tokens, declarative policies and audit event streaming to a data lake.",
+        "architecture": "Edge gateway · Policy service · Event bus · Encrypted storage · Real-time audit console"
+      },
+      "analytics": {
+        "title": "Realtime Analytics Pipeline",
+        "summary": "Event ingestion, processing and visualization at scale, with sub-second latency and exactly-once delivery guarantees.",
+        "problem": "Stale dashboards and brittle pipelines prevented fast product decisions.",
+        "solution": "Event-driven architecture with windowed processing, incremental materialization and a read-optimized query API.",
+        "architecture": "Stream ingestion · Windowed processing · Columnar store · Query API · Streaming reactive UI"
+      },
+      "ai": {
+        "title": "AI-Assisted Operations Console",
+        "summary": "Internal console combining telemetry, runbooks and AI agents to accelerate operations and reduce MTTR.",
+        "problem": "Ops teams spending hours correlating logs, metrics and manual procedures.",
+        "solution": "Contextual signal aggregation, LLM-backed action recommendations and auditable runbook execution.",
+        "architecture": "Telemetry collector · Agent orchestrator · Policy layer · Sandboxed execution · Audit trail"
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "— About",
+    "title": "Product engineering, from core to pixel.",
+    "p1": "I work as a FullStack Developer focused on production systems: high-availability APIs, secure architectures, well-modeled databases and interfaces that turn complexity into clarity.",
+    "p2": "I'm drawn to the point where engineering meets product — where architectural decisions set the ceiling for velocity, reliability and experience. I write code with intent, prioritize readability, and treat performance as a requirement, not a final tweak.",
+    "p3": "I work well in uncertain territory: defining contracts, shaping data flows, hardening systems and shipping refined interfaces in the same cycle."
+  },
+  "expertise": {
+    "eyebrow": "— Expertise",
+    "title": "Technical stack",
+    "caption": "Tools and domains that sustain serious systems in production.",
+    "clusters": {
+      "backend": { "name": "Backend", "desc": "Resilient APIs, stateless services, queues, workers and integrations." },
+      "frontend": { "name": "Frontend", "desc": "Performant, accessible interfaces with high-grade motion." },
+      "apis": { "name": "APIs", "desc": "REST, GraphQL, gRPC and versioned contracts with observability." },
+      "auth": { "name": "Auth", "desc": "OAuth2, OIDC, JWT, RBAC/ABAC and cryptographic auditing." },
+      "db": { "name": "Databases", "desc": "Relational and NoSQL, modeling, indexing and tuning." },
+      "cloud": { "name": "Cloud", "desc": "AWS, containers, IaC, CI/CD and reproducible environments." },
+      "automation": { "name": "Automation", "desc": "Pipelines, scheduled jobs and event-driven orchestration." },
+      "ai": { "name": "AI", "desc": "LLM integrations, RAG, agents and sandboxed execution." },
+      "performance": { "name": "Performance", "desc": "Load profiles, layered caching and end-to-end tuning." },
+      "security": { "name": "Security", "desc": "Threat modeling, hardening, secrets and attack surface." }
+    }
+  },
+  "contact": {
+    "eyebrow": "— Contact",
+    "title1": "Building",
+    "title2": "premium digital",
+    "title3": "systems.",
+    "caption": "Available for selected collaborations in product engineering.",
+    "emailLabel": "Send a message",
+    "email": "hello@example.dev",
+    "socials": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "x": "X"
+    },
+    "final": "Engineering as craft. Product as purpose."
+  },
+  "footer": {
+    "builtWith": "This experience uses",
+    "stack": "Next.js · React · Tailwind CSS · Framer Motion · React Three Fiber · Drei · Lenis · next-intl",
+    "rights": "All rights reserved.",
+    "locale": "Language"
+  },
+  "locale": { "switchTo": "PT" }
+}

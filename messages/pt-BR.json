@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "Victor — FullStack Developer",
+    "description": "Engenharia de sistemas digitais em escala estelar. Backend robusto, frontend cinematográfico, arquitetura segura e performance em nível de produto."
+  },
+  "nav": {
+    "hero": "Início",
+    "projects": "Projetos",
+    "about": "Sobre",
+    "expertise": "Competências",
+    "contact": "Contato"
+  },
+  "hero": {
+    "eyebrow": "FullStack Developer — Sistemas em escala",
+    "title1": "Engenharia",
+    "title2": "em escala",
+    "title3": "estelar.",
+    "subtitle": "Construo sistemas digitais robustos, escaláveis e seguros — unindo profundidade de backend, execução frontend refinada e uma obsessão por performance, arquitetura e qualidade de produto.",
+    "ctaProjects": "Ver projetos",
+    "ctaAbout": "Sobre mim",
+    "scroll": "Role para navegar"
+  },
+  "projects": {
+    "eyebrow": "— Builds em destaque",
+    "title": "Projetos selecionados",
+    "caption": "Plataformas e sistemas construídos com foco em arquitetura, performance e confiabilidade.",
+    "labels": {
+      "problem": "Desafio",
+      "solution": "Solução",
+      "stack": "Stack",
+      "architecture": "Arquitetura",
+      "links": "Links",
+      "liveDemo": "Demo",
+      "caseStudy": "Case study",
+      "repository": "Repositório"
+    },
+    "items": {
+      "auth": {
+        "title": "Plataforma de Identidade Distribuída",
+        "summary": "Camada unificada de autenticação e autorização para produtos multi-tenant, com SSO, RBAC granular e auditoria em tempo real.",
+        "problem": "Gestão fragmentada de identidade entre serviços, com risco de vazamento de permissões e perda de observabilidade.",
+        "solution": "Núcleo de auth stateless com tokens rotacionáveis, policies declarativas e streaming de eventos de auditoria para um data lake.",
+        "architecture": "Edge gateway · Serviço de policies · Event bus · Armazenamento criptografado · Painel de auditoria em tempo real"
+      },
+      "analytics": {
+        "title": "Pipeline de Analytics em Tempo Real",
+        "summary": "Ingestão, processamento e visualização de eventos em escala, com latência sub-segundo e garantias de entrega exactly-once.",
+        "problem": "Dashboards defasados e pipelines frágeis impediam decisões rápidas no produto.",
+        "solution": "Arquitetura event-driven com processamento em janelas, materialização incremental e API de consulta otimizada para leitura.",
+        "architecture": "Stream ingestion · Processamento em janelas · Store colunar · API de consulta · UI com streaming reativo"
+      },
+      "ai": {
+        "title": "Console Operacional Assistido por IA",
+        "summary": "Console interno que combina telemetria, runbooks e agentes de IA para acelerar operações e reduzir MTTR.",
+        "problem": "Times de operações gastando horas correlacionando logs, métricas e procedimentos manuais.",
+        "solution": "Agregação contextual de sinais, recomendações de ação baseadas em LLM e execução auditável de runbooks.",
+        "architecture": "Coletor de telemetria · Orquestrador de agentes · Camada de políticas · Execução sandboxed · Trilha de auditoria"
+      }
+    }
+  },
+  "about": {
+    "eyebrow": "— Sobre",
+    "title": "Engenharia de produto, do núcleo ao pixel.",
+    "p1": "Atuo como FullStack Developer com foco em sistemas de produção: APIs de alta disponibilidade, arquiteturas seguras, bancos de dados bem modelados e interfaces que traduzem complexidade em clareza.",
+    "p2": "Me interessa o ponto em que engenharia encontra produto — onde decisões de arquitetura determinam velocidade, confiabilidade e experiência. Escrevo código com intenção, priorizo legibilidade e trato performance como requisito, não como ajuste final.",
+    "p3": "Trabalho bem em territórios de incerteza: definir contratos, desenhar fluxos de dados, endurecer sistemas e entregar interfaces refinadas no mesmo ciclo."
+  },
+  "expertise": {
+    "eyebrow": "— Competências",
+    "title": "Stack técnico",
+    "caption": "Ferramentas e domínios que sustentam sistemas sérios em produção.",
+    "clusters": {
+      "backend": { "name": "Backend", "desc": "APIs resilientes, serviços stateless, filas, workers e integrações." },
+      "frontend": { "name": "Frontend", "desc": "Interfaces performáticas, acessíveis e com motion de alta qualidade." },
+      "apis": { "name": "APIs", "desc": "REST, GraphQL, gRPC e contratos versionados com observabilidade." },
+      "auth": { "name": "Auth", "desc": "OAuth2, OIDC, JWT, RBAC/ABAC e auditoria criptográfica." },
+      "db": { "name": "Bancos de dados", "desc": "Relacionais e NoSQL, modelagem, índices e tuning." },
+      "cloud": { "name": "Cloud", "desc": "AWS, containers, IaC, CI/CD e ambientes reproduzíveis." },
+      "automation": { "name": "Automação", "desc": "Pipelines, jobs agendados e orquestração event-driven." },
+      "ai": { "name": "IA", "desc": "Integrações com LLMs, RAG, agentes e execução sandboxed." },
+      "performance": { "name": "Performance", "desc": "Perfis de carga, caching em camadas e tuning ponta a ponta." },
+      "security": { "name": "Segurança", "desc": "Threat modeling, hardening, secrets e superfícies de ataque." }
+    }
+  },
+  "contact": {
+    "eyebrow": "— Contato",
+    "title1": "Construindo",
+    "title2": "sistemas digitais",
+    "title3": "premium.",
+    "caption": "Disponível para colaborações selecionadas em engenharia de produto.",
+    "emailLabel": "Envie uma mensagem",
+    "email": "ola@exemplo.dev",
+    "socials": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "x": "X"
+    },
+    "final": "Engenharia como ofício. Produto como propósito."
+  },
+  "footer": {
+    "builtWith": "Esta experiência utiliza",
+    "stack": "Next.js · React · Tailwind CSS · Framer Motion · React Three Fiber · Drei · Lenis · next-intl",
+    "rights": "Todos os direitos reservados.",
+    "locale": "Idioma"
+  },
+  "locale": { "switchTo": "EN" }
+}
