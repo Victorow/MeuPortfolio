@@ -55,7 +55,12 @@ export async function generateMetadata({
       description: t('description'),
       type: 'website'
     },
-    icons: { icon: '/favicon.ico' }
+    icons: {
+      icon: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+        { url: '/favicon.ico', sizes: 'any' }
+      ]
+    }
   };
 }
 

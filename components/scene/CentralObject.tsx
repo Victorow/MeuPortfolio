@@ -110,9 +110,10 @@ export default function CentralObject() {
   // Internal smoothed state
   const state = useRef<Config>({ ...CONFIGS.hero });
 
-  // Shared geometry: an icosahedron subdivided for rich silhouette
-  const geom = useMemo(() => new THREE.IcosahedronGeometry(1.4, 3), []);
-  const wireGeom = useMemo(() => new THREE.IcosahedronGeometry(1.42, 2), []);
+  // Perfectly round sphere with dense tessellation — reads as a pristine
+  // spherical body at every zoom level, no faceting artefacts on the rim.
+  const geom = useMemo(() => new THREE.SphereGeometry(1.4, 128, 128), []);
+  const wireGeom = useMemo(() => new THREE.SphereGeometry(1.42, 64, 64), []);
 
   // Distinctive cool-titanium tone with a faint cyan/violet bias — reads as
   // a luminous iridium body, clearly different from the muted gas-giant palettes

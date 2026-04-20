@@ -20,7 +20,7 @@ export default function ScrollSnap() {
 
     let isAnimating = false;
     let lastTriggerTs = 0;
-    const COOLDOWN = 850; // ms between snaps
+    const COOLDOWN = 520; // ms between snaps — snappy but not overshooting
 
     let touchStartY: number | null = null;
 
@@ -56,21 +56,21 @@ export default function ScrollSnap() {
       lastTriggerTs = now;
       isAnimating = true;
       const onDone = () => {
-        // Small tail cooldown to absorb residual wheel inertia from trackpads
+        // Tiny tail cooldown to absorb residual wheel inertia from trackpads
         window.setTimeout(() => {
           isAnimating = false;
-        }, 120);
+        }, 60);
       };
 
       if (lenis) {
         lenis.scrollTo(target, {
-          duration: 1.1,
-          easing: (t: number) => 1 - Math.pow(1 - t, 4),
+          duration: 0.7,
+          easing: (t: number) => 1 - Math.pow(1 - t, 3),
           onComplete: onDone
         });
       } else {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        window.setTimeout(onDone, 1000);
+        window.setTimeout(onDone, 700);
       }
     }
 
