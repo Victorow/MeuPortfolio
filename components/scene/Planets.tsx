@@ -1,12 +1,14 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { usePerfTier } from '@/lib/device';
 
 /* -------------------------------------------------------------------------
- * Deterministic PRNG (mulberry32) + helpers, so SSR and client agree.
+ * PRNG (mulberry32) — seeded at mount time on the client so every visit
+ * generates a fresh cosmos. SSR renders an empty scene (matching the
+ * client's first render) and the universe is built inside useEffect.
  * ----------------------------------------------------------------------- */
 function prng(seed: number) {
   let t = seed >>> 0;
@@ -16,14 +18,6 @@ function prng(seed: number) {
     r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
     return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
   };
-}
-const GLOBAL_SEED = 0xC05A03; // cosmos seed — change to regenerate universe
-const rand = prng(GLOBAL_SEED);
-function rr(min: number, max: number) {
-  return min + rand() * (max - min);
-}
-function pickOne<T>(arr: readonly T[]): T {
-  return arr[Math.floor(rand() * arr.length)];
 }
 
 /* -------------------------------------------------------------------------
@@ -229,13 +223,17 @@ const GAS_PALETTES: Palette[] = [
   ['#3D4A3B', '#7A9570', '#C8DEB8']  // sage
 ];
 
+// Rocky planets — firmly grounded in earth & brown tones. Colour triplet is
+// [base/ocean-or-shadow, mid/land, highlight/ridge].
 const ROCKY_PALETTES: Palette[] = [
-  ['#1E2A33', '#6B5A4A', '#C7B39A'], // earth-like
-  ['#2A1F1C', '#6E3E2E', '#D9A17A'], // mars rust
-  ['#1A1A1E', '#4A4846', '#A8A59E'], // lunar grey
-  ['#2A2530', '#5E4F60', '#BFA8C2'], // shadowed violet rock
-  ['#1F2A26', '#4F6E5E', '#B9D6C4'], // olivine
-  ['#2A2220', '#7E5A42', '#E0BC93']  // sandstone
+  ['#1A3A52', '#5A7A3E', '#C9A87A'], // earth: deep ocean, forest, sand
+  ['#22110A', '#6E3520', '#D99862'], // mars rust: dark crust, rust, dune
+  ['#1A0F08', '#5C3A20', '#B88150'], // deep brown earth: soil, bark, tan
+  ['#241810', '#7A4E2E', '#E8BC88'], // sandstone: shadow, sandstone, bone
+  ['#14261A', '#4E6A3A', '#B09066'], // moss earth: peat, moss, clay
+  ['#2A1A10', '#8A5A38', '#E6B483'], // copper earth: umber, copper, sunlit sand
+  ['#102818', '#3E5E38', '#A68A5C'], // forest floor: deep green, olive, tan
+  ['#1F140E', '#6B3E22', '#C99266']  // burnt sienna
 ];
 
 const FROZEN_PALETTES: Palette[] = [
@@ -248,10 +246,22 @@ const FROZEN_PALETTES: Palette[] = [
 
 type PlanetType = 'gas' | 'rocky' | 'frozen';
 
+type DriftParams = {
+  ampX: number;
+  ampY: number;
+  ampZ: number;
+  freqX: number;
+  freqY: number;
+  freqZ: number;
+  phaseX: number;
+  phaseY: number;
+  phaseZ: number;
+};
+
 type PlanetConfig = {
   type: PlanetType;
   radius: number;
-  position: [number, number, number]; // local position within the Planets group
+  position: [number, number, number]; // base anchor within the Planets group
   axialTilt: [number, number, number];
   selfSpeed: number;
   palette: Palette;
@@ -264,6 +274,9 @@ type PlanetConfig = {
   moon?: { radius: number; distance: number; speed: number; tilt: number };
   hasSun: boolean;
   sun?: { position: [number, number, number]; radius: number; color: string };
+  // Continuous drift around the anchor point — each planet gets its own
+  // Lissajous-like motion so nothing feels static or synchronised.
+  drift: DriftParams;
 };
 
 /* -------------------------------------------------------------------------
@@ -279,8 +292,10 @@ const RING_CHANCE_BY_TYPE: Record<PlanetType, number> = {
   frozen: 0.18
 };
 
-function buildUniverse(): PlanetConfig[] {
-  const count = 7;
+function buildUniverse(seed: number, count: number): PlanetConfig[] {
+  const rand = prng(seed);
+  const rr = (min: number, max: number) => min + rand() * (max - min);
+  const pickOne = <T,>(arr: readonly T[]): T => arr[Math.floor(rand() * arr.length)];
   const out: PlanetConfig[] = [];
 
   for (let i = 0; i < count; i++) {
@@ -341,7 +356,20 @@ function buildUniverse(): PlanetConfig[] {
             radius: rr(0.35, 0.7),
             color: pickOne(['#FFE7B3', '#FFD69A', '#E9F1FF', '#F5E6D4'])
           }
-        : undefined
+        : undefined,
+      drift: {
+        // Larger amplitude on X/Z so planets clearly traverse the scene;
+        // Y drift is smaller to keep the "galactic plane" feel.
+        ampX: rr(1.8, 3.6),
+        ampY: rr(0.6, 1.6),
+        ampZ: rr(1.8, 3.6),
+        freqX: rr(0.04, 0.11),
+        freqY: rr(0.03, 0.08),
+        freqZ: rr(0.04, 0.11),
+        phaseX: rr(0, Math.PI * 2),
+        phaseY: rr(0, Math.PI * 2),
+        phaseZ: rr(0, Math.PI * 2)
+      }
     };
 
     out.push(cfg);
@@ -350,8 +378,8 @@ function buildUniverse(): PlanetConfig[] {
   return out;
 }
 
-// Build once per module load. Seed is fixed → deterministic universe.
-const UNIVERSE = buildUniverse();
+// Universe is no longer built at module load — see the `Planets` component
+// below, which seeds a fresh cosmos on every mount via useEffect.
 
 /* -------------------------------------------------------------------------
  * Planet component — body, atmosphere, optional moon/rings/sun.
@@ -406,7 +434,8 @@ function Planet({ config }: { config: PlanetConfig }) {
     };
   }, [config.palette, config.seed, config.bandFreq, typeIndex, light]);
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
+    const t = state.clock.elapsedTime;
     if (matRef.current) {
       (matRef.current.uniforms.uTime.value as number) += delta;
     }
@@ -415,6 +444,15 @@ function Planet({ config }: { config: PlanetConfig }) {
     }
     if (moonOrbit.current && config.moon) {
       moonOrbit.current.rotation.y += delta * config.moon.speed;
+    }
+    // Continuous Lissajous drift around the anchor point. This is applied
+    // to the outer group so the atmosphere, rings, moon and sun travel
+    // together with the planet.
+    if (group.current) {
+      const d = config.drift;
+      group.current.position.x = config.position[0] + Math.sin(t * d.freqX + d.phaseX) * d.ampX;
+      group.current.position.y = config.position[1] + Math.cos(t * d.freqY + d.phaseY) * d.ampY;
+      group.current.position.z = config.position[2] + Math.sin(t * d.freqZ + d.phaseZ) * d.ampZ;
     }
   });
 
@@ -506,17 +544,42 @@ function Planet({ config }: { config: PlanetConfig }) {
   );
 }
 
+function PlanetsRoot({ children }: { children: React.ReactNode }) {
+  const group = useRef<THREE.Group>(null);
+  useFrame((state, delta) => {
+    if (!group.current) return;
+    // Very slow galactic swirl — the whole cosmos turns lazily so no planet
+    // ever reads as pinned to a fixed spot, even if its local drift paused.
+    group.current.rotation.y += delta * 0.012;
+    group.current.rotation.x =
+      Math.sin(state.clock.elapsedTime * 0.04) * 0.03;
+  });
+  return <group ref={group}>{children}</group>;
+}
+
 export default function Planets() {
   const tier = usePerfTier();
-  // Scale planet count with GPU budget: desktop gets the full universe,
-  // mobile/mid-tier gets a carefully chosen subset to stay above 60fps.
-  const count = tier === 'high' ? UNIVERSE.length : tier === 'mid' ? 4 : 2;
-  const subset = UNIVERSE.slice(0, count);
+  const [universe, setUniverse] = useState<PlanetConfig[]>([]);
+
+  useEffect(() => {
+    // Count ranges — never exceed 4, chosen fully at random within the tier
+    // budget so every visit feels like a different cosmos.
+    const [min, max] =
+      tier === 'high' ? [3, 4] : tier === 'mid' ? [2, 4] : [1, 2];
+    const count = min + Math.floor(Math.random() * (max - min + 1));
+
+    // Fresh random seed per mount — each page load produces a distinct
+    // arrangement of planets, colours, orbits, moons and suns. Generated
+    // only on the client so SSR stays empty and no hydration mismatch.
+    const seed = (Math.random() * 0xffffffff) >>> 0;
+    setUniverse(buildUniverse(seed, count));
+  }, [tier]);
+
   return (
-    <group>
-      {subset.map((p, i) => (
-        <Planet key={i} config={p} />
+    <PlanetsRoot>
+      {universe.map((p, i) => (
+        <Planet key={`${p.seed}-${i}`} config={p} />
       ))}
-    </group>
+    </PlanetsRoot>
   );
 }
