@@ -1,107 +1,149 @@
 {
   "meta": {
-    "title": "Victor — FullStack Developer",
-    "description": "Engenharia de sistemas digitais em escala estelar. Backend robusto, frontend cinematográfico, arquitetura segura e performance em nível de produto."
+    "title": "Victor Augusto — FullStack Developer",
+    "description": "FullStack Developer em São José dos Campos. Apps publicados nas lojas, back-end na AWS com PostgreSQL e ferramentas open source para fluxos com agentes de IA."
   },
-  "nav": {
-    "hero": "Início",
-    "projects": "Projetos",
-    "about": "Sobre",
-    "expertise": "Competências",
-    "contact": "Contato"
+  "preloader": {
+    "caption": "inicializando sistemas · carregando Terra"
   },
+  "header": {
+    "cv": "Currículo",
+    "menu": "Menu",
+    "close": "Fechar",
+    "soundOn": "Som ligado",
+    "soundOff": "Som desligado",
+    "home": "Início"
+  },
+  "chapters": {
+    "earth": "Terra",
+    "mars": "Marte",
+    "jupiter": "Júpiter",
+    "saturn": "Saturno",
+    "uranus": "Urano",
+    "venus": "Vênus",
+    "neptune": "Netuno",
+    "deep": "Espaço profundo"
+  },
+  "menu": {
+    "earth": "Início",
+    "mars": "OppyConnect",
+    "jupiter": "LinkBiz",
+    "saturn": "Duo",
+    "uranus": "Telegram Bridge",
+    "venus": "Extensões VS Code",
+    "neptune": "Sobre & Skills",
+    "deep": "Contato"
+  },
+  "marquee": "ENGENHARIA · PERFORMANCE · ARQUITETURA · PRODUTO · ",
   "hero": {
-    "eyebrow": "FullStack Developer — Sistemas em escala",
-    "title1": "Engenharia",
-    "title2": "em escala",
-    "title3": "estelar.",
-    "subtitle": "Construo sistemas digitais robustos, escaláveis e seguros — unindo profundidade de backend, execução frontend refinada e uma obsessão por performance, arquitetura e qualidade de produto.",
+    "eyebrow": "FullStack Developer · São José dos Campos, SP",
+    "name1": "Victor",
+    "name2": "Augusto",
+    "subtitle": "Entrego produto de ponta a ponta: apps publicados nas lojas, back-end na AWS com PostgreSQL e ferramentas open source para fluxos com agentes de IA.",
     "ctaProjects": "Ver projetos",
-    "ctaAbout": "Sobre mim",
-    "scroll": "Role para navegar"
+    "ctaContact": "Contato",
+    "scroll": "Role para explorar"
   },
   "projects": {
-    "eyebrow": "— Builds em destaque",
-    "title": "Projetos selecionados",
-    "caption": "Plataformas e sistemas construídos com foco em arquitetura, performance e confiabilidade.",
+    "kind": {
+      "professional": "Profissional · código fechado",
+      "oss": "Open source"
+    },
     "labels": {
       "problem": "Desafio",
       "solution": "Solução",
+      "impact": "Impacto",
       "stack": "Stack",
-      "architecture": "Arquitetura",
-      "links": "Links",
-      "liveDemo": "Demo",
-      "caseStudy": "Case study",
-      "repository": "Repositório"
+      "repo": "Repositório",
+      "live": "Site",
+      "store": "Lojas",
+      "marketplace": "Marketplace"
     },
     "items": {
-      "auth": {
-        "title": "Plataforma de Identidade Distribuída",
-        "summary": "Camada unificada de autenticação e autorização para produtos multi-tenant, com SSO, RBAC granular e auditoria em tempo real.",
-        "problem": "Gestão fragmentada de identidade entre serviços, com risco de vazamento de permissões e perda de observabilidade.",
-        "solution": "Núcleo de auth stateless com tokens rotacionáveis, policies declarativas e streaming de eventos de auditoria para um data lake.",
-        "architecture": "Edge gateway · Serviço de policies · Event bus · Armazenamento criptografado · Painel de auditoria em tempo real"
+      "oppyconnect": {
+        "title": "OppyConnect",
+        "summary": "Mensageiro do ecossistema LinkBiz, publicado na App Store e no Google Play.",
+        "problem": "A plataforma precisava de um canal de conversa próprio, com mídia, documentos e voz, sem depender de apps de terceiros.",
+        "solution": "Desenvolvi o aplicativo integralmente: chat individual e em grupo, envio de mídia e documentos, mensagens de voz e busca.",
+        "impact": "App completo em produção nas duas lojas, mantido por mim de ponta a ponta."
       },
-      "analytics": {
-        "title": "Pipeline de Analytics em Tempo Real",
-        "summary": "Ingestão, processamento e visualização de eventos em escala, com latência sub-segundo e garantias de entrega exactly-once.",
-        "problem": "Dashboards defasados e pipelines frágeis impediam decisões rápidas no produto.",
-        "solution": "Arquitetura event-driven com processamento em janelas, materialização incremental e API de consulta otimizada para leitura.",
-        "architecture": "Stream ingestion · Processamento em janelas · Store colunar · API de consulta · UI com streaming reativo"
+      "linkbiz": {
+        "title": "LinkBiz",
+        "summary": "Plataforma de networking e oportunidades de negócio com IA, para iOS e Android.",
+        "problem": "Produto em crescimento, com demanda contínua por novas funcionalidades sem abrir mão de estabilidade e segurança.",
+        "solution": "Atuo no time de desenvolvimento: novas features, correção de bugs e itens de segurança, do front-end ao back-end na AWS.",
+        "impact": "Entregas constantes em um app em produção com usuários reais."
       },
-      "ai": {
-        "title": "Console Operacional Assistido por IA",
-        "summary": "Console interno que combina telemetria, runbooks e agentes de IA para acelerar operações e reduzir MTTR.",
-        "problem": "Times de operações gastando horas correlacionando logs, métricas e procedimentos manuais.",
-        "solution": "Agregação contextual de sinais, recomendações de ação baseadas em LLM e execução auditável de runbooks.",
-        "architecture": "Coletor de telemetria · Orquestrador de agentes · Camada de políticas · Execução sandboxed · Trilha de auditoria"
+      "duo": {
+        "title": "Duo",
+        "summary": "Ponte MCP entre duas instâncias do Claude Code: um Tech Lead delega trabalho a um Executor em outra máquina.",
+        "problem": "Um único agente não consegue ter, ao mesmo tempo, a visão do líder técnico e as mãos no projeto em outra máquina.",
+        "solution": "Servidores MCP nos dois lados, rede via Tailscale, cache semântico local, delegação de tasks e barreira de publicação por branch protegida.",
+        "impact": "Fluxo agente-a-agente funcional, com contenção real de risco no Git."
+      },
+      "telegram": {
+        "title": "claude-telegram-bridge",
+        "summary": "Bridge self-hosted que avisa no Telegram quando uma sessão do Claude Code termina e permite continuar respondendo pelo chat.",
+        "problem": "Sessões longas de agente exigiam ficar na frente do computador para saber quando acabavam ou precisavam de uma decisão.",
+        "solution": "Binário por sistema operacional, long-polling sem servidor público, múltiplos projetos e usuários em um só bot, hooks instalados automaticamente.",
+        "impact": "Publicado com releases por OS; configuração em dois passos."
+      },
+      "vscode": {
+        "title": "Extensões VS Code",
+        "summary": "AI Diff Tracker e Mini Browser, publicadas no Marketplace do VS Code.",
+        "problem": "Agentes de IA alteram muitos arquivos de uma vez; é difícil enxergar o que mudou em tempo real.",
+        "solution": "AI Diff Tracker mostra visualmente as alterações feitas por agentes conforme acontecem. Mini Browser traz um navegador lateral com abas, favoritos, histórico e modo áudio.",
+        "impact": "Duas extensões públicas no Marketplace, feitas para o meu próprio fluxo diário."
       }
     }
   },
   "about": {
-    "eyebrow": "— Sobre",
-    "title": "Engenharia de produto, do núcleo ao pixel.",
-    "p1": "Atuo como FullStack Developer com foco em sistemas de produção: APIs de alta disponibilidade, arquiteturas seguras, bancos de dados bem modelados e interfaces que traduzem complexidade em clareza.",
-    "p2": "Me interessa o ponto em que engenharia encontra produto — onde decisões de arquitetura determinam velocidade, confiabilidade e experiência. Escrevo código com intenção, priorizo legibilidade e trato performance como requisito, não como ajuste final.",
-    "p3": "Trabalho bem em territórios de incerteza: definir contratos, desenhar fluxos de dados, endurecer sistemas e entregar interfaces refinadas no mesmo ciclo."
+    "eyebrow": "Sobre",
+    "title": "Produto de ponta a ponta, do app na loja ao banco de dados.",
+    "p1": "Sou FullStack Developer em São José dos Campos. Hoje atuo como Desenvolvedor Júnior na CDT Software, com front-end em React/Vite, back-end hospedado na AWS e bancos PostgreSQL. Antes, fui estagiário no SESI, em sistemas internos, automação e infraestrutura.",
+    "p2": "Gosto de entregar o produto inteiro: o app publicado, a API que o sustenta e o banco bem modelado. Nos últimos tempos, construo ferramentas que tornam fluxos com agentes de IA (MCP, Claude Code) utilizáveis no dia a dia.",
+    "p3": "Formação em Análise e Desenvolvimento de Sistemas pela Faculdade de Tecnologia Senai Félix Guisard. Complementar: Orientação a Objetos e Banco de Dados com Java/SQL (Coursera) e Cybersecurity Defense Analyst (Cisco, em andamento). Inglês intermediário."
   },
-  "expertise": {
-    "eyebrow": "— Competências",
-    "title": "Stack técnico",
-    "caption": "Ferramentas e domínios que sustentam sistemas sérios em produção.",
+  "skills": {
+    "eyebrow": "Competências",
+    "title": "Constelação técnica",
     "clusters": {
-      "backend": { "name": "Backend", "desc": "APIs resilientes, serviços stateless, filas, workers e integrações." },
-      "frontend": { "name": "Frontend", "desc": "Interfaces performáticas, acessíveis e com motion de alta qualidade." },
-      "apis": { "name": "APIs", "desc": "REST, GraphQL, gRPC e contratos versionados com observabilidade." },
-      "auth": { "name": "Auth", "desc": "OAuth2, OIDC, JWT, RBAC/ABAC e auditoria criptográfica." },
-      "db": { "name": "Bancos de dados", "desc": "Relacionais e NoSQL, modelagem, índices e tuning." },
-      "cloud": { "name": "Cloud", "desc": "AWS, containers, IaC, CI/CD e ambientes reproduzíveis." },
-      "automation": { "name": "Automação", "desc": "Pipelines, jobs agendados e orquestração event-driven." },
-      "ai": { "name": "IA", "desc": "Integrações com LLMs, RAG, agentes e execução sandboxed." },
-      "performance": { "name": "Performance", "desc": "Perfis de carga, caching em camadas e tuning ponta a ponta." },
-      "security": { "name": "Segurança", "desc": "Threat modeling, hardening, secrets e superfícies de ataque." }
+      "languages": "Linguagens",
+      "frameworks": "Frameworks",
+      "databases": "Bancos de dados",
+      "cloud": "Cloud, DevOps & Redes",
+      "ai": "IA & Integrações",
+      "methods": "Métodos & Ferramentas"
+    },
+    "othersTitle": "Outros projetos",
+    "others": {
+      "mcpDevflow": "mcp-devflow — servidor MCP integrado ao sistema de tasks da empresa",
+      "focuspt": "focuspt — site freelance para personal trainer (Angular, Supabase, IA)",
+      "radar": "radar-de-vagas — radar de vagas por e-mail (GitHub Actions + Gemini)"
     }
   },
   "contact": {
-    "eyebrow": "— Contato",
-    "title1": "Construindo",
-    "title2": "sistemas digitais",
-    "title3": "premium.",
-    "caption": "Disponível para colaborações selecionadas em engenharia de produto.",
-    "emailLabel": "Envie uma mensagem",
-    "email": "ola@exemplo.dev",
+    "eyebrow": "Contato",
+    "title1": "Vamos construir",
+    "title2": "algo que",
+    "title3": "dure.",
+    "caption": "Aberto a oportunidades como desenvolvedor full-stack. Respondo rápido.",
+    "emailLabel": "Envie um e-mail",
+    "cv": "Baixar currículo (PDF)",
     "socials": {
       "github": "GitHub",
-      "linkedin": "LinkedIn",
-      "x": "X"
+      "linkedin": "LinkedIn"
     },
     "final": "Engenharia como ofício. Produto como propósito."
   },
   "footer": {
-    "builtWith": "Esta experiência utiliza",
-    "stack": "Next.js · React · Tailwind CSS · Framer Motion · React Three Fiber · Drei · Lenis · next-intl",
+    "credits": "Texturas: Solar System Scope (CC BY 4.0) · Fotos de galáxias e nebulosas: NASA, ESA, CSA, STScI (Hubble / JWST)",
+    "builtWith": "Feito com",
+    "stack": "Next.js · React Three Fiber · GSAP · Tailwind",
     "rights": "Todos os direitos reservados.",
     "locale": "Idioma"
   },
-  "locale": { "switchTo": "EN" }
+  "locale": {
+    "switchTo": "EN"
+  }
 }

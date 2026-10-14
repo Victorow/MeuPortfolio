@@ -46,3 +46,12 @@ next-env.d.ts
 .windsurf/
 .windsurfrules
 .cascade/
+
+# raw textures (downloaded by scripts/assets.mjs)
+assets/raw/
+# e2e output
+e2e/test-results/
+e2e/screenshots/
+
+# build output used by e2e
+.next-e2e/

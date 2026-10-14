@@ -1,0 +1,107 @@
+{
+  "earth_day": {
+    "high": "/textures/high/earth_day.jpg",
+    "mid": "/textures/mid/earth_day.jpg",
+    "low": "/textures/low/earth_day.jpg"
+  },
+  "earth_night": {
+    "high": "/textures/high/earth_night.jpg",
+    "mid": "/textures/mid/earth_night.jpg",
+    "low": "/textures/low/earth_night.jpg"
+  },
+  "earth_clouds": {
+    "high": "/textures/high/earth_clouds.jpg",
+    "mid": "/textures/mid/earth_clouds.jpg",
+    "low": "/textures/low/earth_clouds.jpg"
+  },
+  "earth_specular": {
+    "high": "/textures/high/earth_specular.jpg",
+    "mid": "/textures/mid/earth_specular.jpg",
+    "low": "/textures/low/earth_specular.jpg"
+  },
+  "earth_normal": {
+    "high": "/textures/high/earth_normal.jpg",
+    "mid": "/textures/mid/earth_normal.jpg",
+    "low": "/textures/low/earth_normal.jpg"
+  },
+  "moon": {
+    "high": "/textures/high/moon.jpg",
+    "mid": "/textures/mid/moon.jpg",
+    "low": "/textures/low/moon.jpg"
+  },
+  "mars": {
+    "high": "/textures/high/mars.jpg",
+    "mid": "/textures/mid/mars.jpg",
+    "low": "/textures/low/mars.jpg"
+  },
+  "jupiter": {
+    "high": "/textures/high/jupiter.jpg",
+    "mid": "/textures/mid/jupiter.jpg",
+    "low": "/textures/low/jupiter.jpg"
+  },
+  "saturn": {
+    "high": "/textures/high/saturn.jpg",
+    "mid": "/textures/mid/saturn.jpg",
+    "low": "/textures/low/saturn.jpg"
+  },
+  "saturn_ring": {
+    "high": "/textures/high/saturn_ring.png",
+    "mid": "/textures/mid/saturn_ring.png",
+    "low": "/textures/low/saturn_ring.png"
+  },
+  "uranus": {
+    "high": "/textures/high/uranus.jpg",
+    "mid": "/textures/mid/uranus.jpg",
+    "low": "/textures/low/uranus.jpg"
+  },
+  "venus": {
+    "high": "/textures/high/venus.jpg",
+    "mid": "/textures/mid/venus.jpg",
+    "low": "/textures/low/venus.jpg"
+  },
+  "neptune": {
+    "high": "/textures/high/neptune.jpg",
+    "mid": "/textures/mid/neptune.jpg",
+    "low": "/textures/low/neptune.jpg"
+  },
+  "sun": {
+    "high": "/textures/high/sun.jpg",
+    "mid": "/textures/mid/sun.jpg",
+    "low": "/textures/low/sun.jpg"
+  },
+  "milkyway": {
+    "high": "/textures/high/milkyway.jpg",
+    "mid": "/textures/mid/milkyway.jpg",
+    "low": "/textures/low/milkyway.jpg"
+  },
+  "galaxy_whirlpool": {
+    "high": "/textures/high/galaxy_whirlpool.jpg",
+    "mid": "/textures/mid/galaxy_whirlpool.jpg",
+    "low": "/textures/low/galaxy_whirlpool.jpg"
+  },
+  "galaxy_pinwheel": {
+    "high": "/textures/high/galaxy_pinwheel.jpg",
+    "mid": "/textures/mid/galaxy_pinwheel.jpg",
+    "low": "/textures/low/galaxy_pinwheel.jpg"
+  },
+  "galaxy_barred": {
+    "high": "/textures/high/galaxy_barred.jpg",
+    "mid": "/textures/mid/galaxy_barred.jpg",
+    "low": "/textures/low/galaxy_barred.jpg"
+  },
+  "nebula_orion": {
+    "high": "/textures/high/nebula_orion.jpg",
+    "mid": "/textures/mid/nebula_orion.jpg",
+    "low": "/textures/low/nebula_orion.jpg"
+  },
+  "nebula_pillars": {
+    "high": "/textures/high/nebula_pillars.jpg",
+    "mid": "/textures/mid/nebula_pillars.jpg",
+    "low": "/textures/low/nebula_pillars.jpg"
+  },
+  "nebula_helix": {
+    "high": "/textures/high/nebula_helix.jpg",
+    "mid": "/textures/mid/nebula_helix.jpg",
+    "low": "/textures/low/nebula_helix.jpg"
+  }
+}

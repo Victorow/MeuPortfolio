@@ -1,107 +1,149 @@
 {
   "meta": {
-    "title": "Victor — FullStack Developer",
-    "description": "Engineering digital systems at stellar scale. Robust backends, cinematic frontends, secure architecture, and product-grade performance."
+    "title": "Victor Augusto — FullStack Developer",
+    "description": "FullStack Developer based in São José dos Campos, Brazil. Apps shipped to the stores, AWS back-ends on PostgreSQL and open-source tooling for AI-agent workflows."
   },
-  "nav": {
-    "hero": "Start",
-    "projects": "Projects",
-    "about": "About",
-    "expertise": "Expertise",
-    "contact": "Contact"
+  "preloader": {
+    "caption": "initializing systems · loading Earth"
   },
+  "header": {
+    "cv": "Resume",
+    "menu": "Menu",
+    "close": "Close",
+    "soundOn": "Sound on",
+    "soundOff": "Sound off",
+    "home": "Home"
+  },
+  "chapters": {
+    "earth": "Earth",
+    "mars": "Mars",
+    "jupiter": "Jupiter",
+    "saturn": "Saturn",
+    "uranus": "Uranus",
+    "venus": "Venus",
+    "neptune": "Neptune",
+    "deep": "Deep space"
+  },
+  "menu": {
+    "earth": "Home",
+    "mars": "OppyConnect",
+    "jupiter": "LinkBiz",
+    "saturn": "Duo",
+    "uranus": "Telegram Bridge",
+    "venus": "VS Code Extensions",
+    "neptune": "About & Skills",
+    "deep": "Contact"
+  },
+  "marquee": "ENGINEERING · PERFORMANCE · ARCHITECTURE · PRODUCT · ",
   "hero": {
-    "eyebrow": "FullStack Developer — Systems at scale",
-    "title1": "Engineering",
-    "title2": "at stellar",
-    "title3": "scale.",
-    "subtitle": "I build robust, scalable and secure digital systems — pairing backend depth with refined frontend execution, and an obsession with performance, architecture and product quality.",
-    "ctaProjects": "View projects",
-    "ctaAbout": "About me",
-    "scroll": "Scroll to navigate"
+    "eyebrow": "FullStack Developer · São José dos Campos, Brazil",
+    "name1": "Victor",
+    "name2": "Augusto",
+    "subtitle": "I ship product end to end: apps in the stores, AWS back-ends on PostgreSQL and open-source tooling for AI-agent workflows.",
+    "ctaProjects": "See projects",
+    "ctaContact": "Contact",
+    "scroll": "Scroll to explore"
   },
   "projects": {
-    "eyebrow": "— Featured builds",
-    "title": "Selected projects",
-    "caption": "Platforms and systems built with a focus on architecture, performance and reliability.",
+    "kind": {
+      "professional": "Professional · closed source",
+      "oss": "Open source"
+    },
     "labels": {
       "problem": "Challenge",
       "solution": "Solution",
+      "impact": "Impact",
       "stack": "Stack",
-      "architecture": "Architecture",
-      "links": "Links",
-      "liveDemo": "Live",
-      "caseStudy": "Case study",
-      "repository": "Repository"
+      "repo": "Repository",
+      "live": "Website",
+      "store": "Stores",
+      "marketplace": "Marketplace"
     },
     "items": {
-      "auth": {
-        "title": "Distributed Identity Platform",
-        "summary": "Unified authentication and authorization layer for multi-tenant products, with SSO, granular RBAC and real-time auditing.",
-        "problem": "Fragmented identity across services, with risk of permission leaks and weak observability.",
-        "solution": "Stateless auth core with rotating tokens, declarative policies and audit event streaming to a data lake.",
-        "architecture": "Edge gateway · Policy service · Event bus · Encrypted storage · Real-time audit console"
+      "oppyconnect": {
+        "title": "OppyConnect",
+        "summary": "Messenger of the LinkBiz ecosystem, published on the App Store and Google Play.",
+        "problem": "The platform needed its own conversation channel, with media, documents and voice, without relying on third-party apps.",
+        "solution": "I built the app in its entirety: one-to-one and group chat, media and document sharing, voice messages and search.",
+        "impact": "A complete app in production on both stores, maintained by me end to end."
       },
-      "analytics": {
-        "title": "Realtime Analytics Pipeline",
-        "summary": "Event ingestion, processing and visualization at scale, with sub-second latency and exactly-once delivery guarantees.",
-        "problem": "Stale dashboards and brittle pipelines prevented fast product decisions.",
-        "solution": "Event-driven architecture with windowed processing, incremental materialization and a read-optimized query API.",
-        "architecture": "Stream ingestion · Windowed processing · Columnar store · Query API · Streaming reactive UI"
+      "linkbiz": {
+        "title": "LinkBiz",
+        "summary": "AI-powered networking and business-opportunity platform for iOS and Android.",
+        "problem": "A growing product with continuous demand for new features without giving up stability and security.",
+        "solution": "I work on the development team: new features, bug fixes and security items, from the front-end to the AWS back-end.",
+        "impact": "Steady delivery on a production app with real users."
       },
-      "ai": {
-        "title": "AI-Assisted Operations Console",
-        "summary": "Internal console combining telemetry, runbooks and AI agents to accelerate operations and reduce MTTR.",
-        "problem": "Ops teams spending hours correlating logs, metrics and manual procedures.",
-        "solution": "Contextual signal aggregation, LLM-backed action recommendations and auditable runbook execution.",
-        "architecture": "Telemetry collector · Agent orchestrator · Policy layer · Sandboxed execution · Audit trail"
+      "duo": {
+        "title": "Duo",
+        "summary": "MCP bridge between two Claude Code instances: a Tech Lead delegates work to an Executor on another machine.",
+        "problem": "A single agent cannot hold the tech lead's overview and the hands on a project living on another machine at the same time.",
+        "solution": "MCP servers on both sides, networking over Tailscale, local semantic cache, task delegation and a publish barrier via protected branches.",
+        "impact": "A working agent-to-agent flow with real risk containment in Git."
+      },
+      "telegram": {
+        "title": "claude-telegram-bridge",
+        "summary": "Self-hosted bridge that pings you on Telegram when a Claude Code session finishes and lets you continue it from the chat.",
+        "problem": "Long agent sessions meant sitting at the computer just to know when they ended or needed a decision.",
+        "solution": "Per-OS binaries, long-polling with no public server, multiple projects and users on one bot, hooks installed automatically.",
+        "impact": "Published with per-OS releases; a two-step setup."
+      },
+      "vscode": {
+        "title": "VS Code Extensions",
+        "summary": "AI Diff Tracker and Mini Browser, published on the VS Code Marketplace.",
+        "problem": "AI agents change many files at once; seeing what changed in real time is hard.",
+        "solution": "AI Diff Tracker visually shows the edits agents make as they happen. Mini Browser adds a side browser with tabs, bookmarks, history and an audio mode.",
+        "impact": "Two public extensions on the Marketplace, built for my own daily workflow."
       }
     }
   },
   "about": {
-    "eyebrow": "— About",
-    "title": "Product engineering, from core to pixel.",
-    "p1": "I work as a FullStack Developer focused on production systems: high-availability APIs, secure architectures, well-modeled databases and interfaces that turn complexity into clarity.",
-    "p2": "I'm drawn to the point where engineering meets product — where architectural decisions set the ceiling for velocity, reliability and experience. I write code with intent, prioritize readability, and treat performance as a requirement, not a final tweak.",
-    "p3": "I work well in uncertain territory: defining contracts, shaping data flows, hardening systems and shipping refined interfaces in the same cycle."
+    "eyebrow": "About",
+    "title": "Product end to end, from the app in the store to the database.",
+    "p1": "I'm a FullStack Developer based in São José dos Campos, Brazil. Today I'm a Junior Developer at CDT Software, working on React/Vite front-ends, AWS-hosted back-ends and PostgreSQL databases. Before that I interned at SESI on internal systems, automation and infrastructure.",
+    "p2": "I like shipping the whole product: the published app, the API behind it and a well-modelled database. Lately I build tooling that makes AI-agent workflows (MCP, Claude Code) usable day to day.",
+    "p3": "Degree in Systems Analysis and Development from Faculdade de Tecnologia Senai Félix Guisard. Also: OOP and Databases with Java/SQL (Coursera) and Cybersecurity Defense Analyst (Cisco, in progress). Intermediate English."
   },
-  "expertise": {
-    "eyebrow": "— Expertise",
-    "title": "Technical stack",
-    "caption": "Tools and domains that sustain serious systems in production.",
+  "skills": {
+    "eyebrow": "Skills",
+    "title": "Technical constellation",
     "clusters": {
-      "backend": { "name": "Backend", "desc": "Resilient APIs, stateless services, queues, workers and integrations." },
-      "frontend": { "name": "Frontend", "desc": "Performant, accessible interfaces with high-grade motion." },
-      "apis": { "name": "APIs", "desc": "REST, GraphQL, gRPC and versioned contracts with observability." },
-      "auth": { "name": "Auth", "desc": "OAuth2, OIDC, JWT, RBAC/ABAC and cryptographic auditing." },
-      "db": { "name": "Databases", "desc": "Relational and NoSQL, modeling, indexing and tuning." },
-      "cloud": { "name": "Cloud", "desc": "AWS, containers, IaC, CI/CD and reproducible environments." },
-      "automation": { "name": "Automation", "desc": "Pipelines, scheduled jobs and event-driven orchestration." },
-      "ai": { "name": "AI", "desc": "LLM integrations, RAG, agents and sandboxed execution." },
-      "performance": { "name": "Performance", "desc": "Load profiles, layered caching and end-to-end tuning." },
-      "security": { "name": "Security", "desc": "Threat modeling, hardening, secrets and attack surface." }
+      "languages": "Languages",
+      "frameworks": "Frameworks",
+      "databases": "Databases",
+      "cloud": "Cloud, DevOps & Networking",
+      "ai": "AI & Integrations",
+      "methods": "Methods & Tools"
+    },
+    "othersTitle": "Other projects",
+    "others": {
+      "mcpDevflow": "mcp-devflow — MCP server integrated with the company's task system",
+      "focuspt": "focuspt — freelance site for a personal trainer (Angular, Supabase, AI)",
+      "radar": "radar-de-vagas — job radar by e-mail (GitHub Actions + Gemini)"
     }
   },
   "contact": {
-    "eyebrow": "— Contact",
-    "title1": "Building",
-    "title2": "premium digital",
-    "title3": "systems.",
-    "caption": "Available for selected collaborations in product engineering.",
-    "emailLabel": "Send a message",
-    "email": "hello@example.dev",
+    "eyebrow": "Contact",
+    "title1": "Let's build",
+    "title2": "something that",
+    "title3": "lasts.",
+    "caption": "Open to full-stack developer opportunities. Quick to reply.",
+    "emailLabel": "Send an e-mail",
+    "cv": "Download resume (PDF)",
     "socials": {
       "github": "GitHub",
-      "linkedin": "LinkedIn",
-      "x": "X"
+      "linkedin": "LinkedIn"
     },
     "final": "Engineering as craft. Product as purpose."
   },
   "footer": {
-    "builtWith": "This experience uses",
-    "stack": "Next.js · React · Tailwind CSS · Framer Motion · React Three Fiber · Drei · Lenis · next-intl",
+    "credits": "Textures: Solar System Scope (CC BY 4.0) · Galaxy and nebula photos: NASA, ESA, CSA, STScI (Hubble / JWST)",
+    "builtWith": "Built with",
+    "stack": "Next.js · React Three Fiber · GSAP · Tailwind",
     "rights": "All rights reserved.",
     "locale": "Language"
   },
-  "locale": { "switchTo": "PT" }
+  "locale": {
+    "switchTo": "PT"
+  }
 }

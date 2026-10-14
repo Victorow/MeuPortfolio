@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --bg: #060607;
-  --ink: #E6E6E8;
-  --silver: #9A9AA0;
+  --bg: #030305;
+  --fg: #f2f2f0;
+  --muted: #9a9aa0;
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
-  --glow: rgba(220, 230, 255, 0.08);
+  --accent: #5fa8ff;
 }
 
 * {
@@ -20,17 +20,34 @@
 html,
 body {
   background: var(--bg);
-  color: var(--ink);
+  color: var(--fg);
 }
 
 html {
   scroll-behavior: auto;
 }
 
+html,
+body {
+  /* clip (not hidden): prevents horizontal overflow from widening the mobile
+     layout viewport without turning html/body into scroll containers. */
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
   min-height: 100vh;
+}
+
+/* overflow: clip keeps position: sticky working inside each chapter. */
+.chapter {
+  overflow-x: clip;
+}
+
+body.has-cursor,
+body.has-cursor a,
+body.has-cursor button {
+  cursor: none;
 }
 
 /* Lenis */
@@ -41,86 +58,117 @@ html.lenis body {
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
 .lenis.lenis-stopped {
   overflow: hidden;
 }
 
-/* Selection */
 ::selection {
-  background: rgba(230, 230, 232, 0.2);
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
   color: #fff;
 }
 
-/* Scrollbar minimal */
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-/* Utilities */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Desktop: no scrim. Planets are framed on the opposite side of the text, and a
+   boxed gradient reads as a visible rectangle over a planet. Text gets a soft
+   shadow for the moments a planet passes behind it during camera travel. */
+.chapter-content {
+  text-shadow: 0 1px 2px rgba(3, 3, 5, 0.85);
+}
+/* Mobile: the planet sits behind the full-width text column, so a viewport-wide
+   vertical gradient (no visible side edges) keeps the text readable. */
+@media (max-width: 768px) {
+  .chapter-content::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    bottom: -10%;
+    left: -24px;
+    right: -24px;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(3, 3, 5, 0) 0%, rgba(3, 3, 5, 0.78) 12%, rgba(3, 3, 5, 0.85) 88%, rgba(3, 3, 5, 0) 100%);
+  }
+}
+
+/* Accent-aware helpers */
+.accent-text {
+  color: var(--accent);
+}
+.accent-bg {
+  background: var(--accent);
+}
+.accent-border {
+  border-color: var(--accent);
+}
+
+/* Underline link */
+.u-link {
+  position: relative;
+  display: inline-block;
+}
+.u-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.08em;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.u-link:hover::after,
+.u-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg);
+  background: rgba(3, 3, 5, 0.35);
+  transition: border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s, background 0.4s;
+}
+.chip:hover,
+.chip[data-hot='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-  .hairline {
-    box-shadow: inset 0 0 0 1px var(--line);
+  .hairline-t {
+    border-top: 1px solid var(--line);
   }
   .hairline-b {
     border-bottom: 1px solid var(--line);
   }
-  .hairline-t {
-    border-top: 1px solid var(--line);
-  }
-  .gpu {
-    transform: translate3d(0, 0, 0);
-    will-change: transform, opacity;
-    backface-visibility: hidden;
-  }
-  .mask-fade-b {
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
-    mask-image: linear-gradient(to bottom, black 60%, transparent);
-  }
-  .mask-fade-t {
-    -webkit-mask-image: linear-gradient(to top, black 60%, transparent);
-    mask-image: linear-gradient(to top, black 60%, transparent);
-  }
 }
 
-/* Grain overlay (SVG noise) */
-.grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 60;
-  mix-blend-mode: overlay;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
-  background-size: 160px 160px;
-}
-
-/* Vignette */
-.vignette::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 55;
-  background: radial-gradient(120% 80% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.65) 100%);
-}
-
-/* Section dividers — hairline */
-.section {
-  position: relative;
-  z-index: 1;
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.001ms !important;
-    transition-duration: 0.001ms !important;
+  .animate-marquee {
+    animation: none !important;
   }
 }
