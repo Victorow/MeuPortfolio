@@ -142,7 +142,7 @@ export default function SixtySeconds() {
         </div>
 
         <div className="mt-8 grid flex-1 grid-cols-1 gap-10 md:mt-0 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-[5vw]">
-          <div>
+          <div className="min-w-0">
             <p className="font-mono text-[11px] uppercase tracking-wider2 text-fg/60">{th('eyebrow')}</p>
             <h2 id="sixty-title" className="mt-3 font-display text-[clamp(2.6rem,6.4vw,6rem)] font-bold uppercase leading-[0.9] tracking-tightest text-fg">
               <span className="block">{th('name1')}</span>
@@ -190,7 +190,7 @@ export default function SixtySeconds() {
             </a>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <p className="font-mono text-[11px] uppercase tracking-wider2 text-fg/45">{t('featured')}</p>
             <ul className="mt-3">
               {featured.map((p) => {
