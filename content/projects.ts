@@ -9,6 +9,8 @@ export type Project = {
   planet: ProjectPlanet;
   kind: 'professional' | 'oss';
   stack: string[];
+  /** Shown in the "60 seconds" summary. */
+  featured?: boolean;
   links: {
     repo?: string;
     live?: string;
@@ -23,6 +25,7 @@ export const TODO = 'TODO-VICTOR';
 export const projects: Project[] = [
   {
     key: 'oppyconnect',
+    featured: true,
     index: '01',
     planet: 'mars',
     kind: 'professional',
@@ -39,6 +42,7 @@ export const projects: Project[] = [
   },
   {
     key: 'duo',
+    featured: true,
     index: '03',
     planet: 'saturn',
     kind: 'oss',
@@ -47,6 +51,7 @@ export const projects: Project[] = [
   },
   {
     key: 'telegram',
+    featured: true,
     index: '04',
     planet: 'uranus',
     kind: 'oss',
@@ -62,6 +67,8 @@ export const projects: Project[] = [
     links: { marketplace: TODO }
   }
 ];
+
+export const featuredProjects = () => projects.filter((p) => p.featured);
 
 export const projectByPlanet = (planet: ProjectPlanet) => projects.find((p) => p.planet === planet)!;
 

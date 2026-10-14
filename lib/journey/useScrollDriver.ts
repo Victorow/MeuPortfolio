@@ -105,7 +105,7 @@ export function useScrollDriver(reduced: boolean, enabled: boolean) {
     let lastWheel = 0;
     const tryStep = (dir: 1 | -1, e?: Event) => {
       const st = useJourney.getState();
-      if (!st.ready || st.menuOpen || st.warping) return;
+      if (!st.ready || st.menuOpen || st.sixtyOpen || st.warping) return;
       const sec = document.querySelector<HTMLElement>(`[data-chapter="${st.chapter}"]`);
       if (sec?.dataset.layout === 'flow') {
         const r = sec.getBoundingClientRect();

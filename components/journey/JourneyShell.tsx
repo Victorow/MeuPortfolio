@@ -15,6 +15,9 @@ import ChapterIndicator from './ChapterIndicator';
 import ProgressRail from './ProgressRail';
 import CustomCursor from './CustomCursor';
 import WarpOverlay from './WarpOverlay';
+import SixtySeconds from './SixtySeconds';
+import MissionControl from './MissionControl';
+import PhotoMode from './PhotoMode';
 import LocaleTransition from '@/components/ui/LocaleTransition';
 
 const SpaceScene = dynamic(() => import('@/components/scene/SpaceScene'), { ssr: false });
@@ -53,16 +56,42 @@ export default function JourneyShell({ children, locale }: { children: ReactNode
   }, [soundOn]);
 
   useEffect(() => {
-    if (ready) whoosh();
+    if (ready && !useJourney.getState().warping) whoosh(chapter);
   }, [chapter, ready]);
 
   // Deep link / locale switch: #chapter → jump there once the journey is ready.
   useEffect(() => {
     if (!ready) return;
+    if (window.location.hash === '#60s') {
+      useJourney.getState().setSixtyOpen(true);
+      return;
+    }
     const id = window.location.hash.replace('#', '') as ChapterId;
     if (!CHAPTERS.includes(id) || id === 'earth') return;
     scrollToProgress(rangeOf(id).start, true);
   }, [ready]);
+
+  // Tool keys: ~ or ` toggles Mission Control, P toggles photo mode. Neither opens over the 60s summary.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const el = e.target as HTMLElement | null;
+      if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)) return;
+      const s = useJourney.getState();
+      if (!s.ready || s.sixtyOpen || s.menuOpen) return;
+      const tilde = e.key === '~' || e.key === '`' || e.code === 'Backquote' || (e.key === 'Dead' && e.code === 'Quote');
+      if (tilde) {
+        e.preventDefault();
+        s.setMissionOpen(!s.missionOpen);
+      } else if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        s.setPhotoMode(!s.photoMode);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+  const photo = useJourney((s) => s.photoMode);
 
   // ?poster=1 → scene only (used by scripts/posters.mjs to render fallback posters)
   const [poster, setPoster] = useState(false);
@@ -74,15 +103,18 @@ export default function JourneyShell({ children, locale }: { children: ReactNode
     <>
       <SpaceScene />
       <Preloader />
-      {!poster && <Header />}
+      {!poster && !photo && <Header />}
       {!poster && <MenuOverlay />}
-      <main className="relative z-10" style={poster ? { opacity: 0 } : undefined}>
+      <main className="relative z-10" style={poster ? { opacity: 0 } : photo ? { visibility: 'hidden' } : undefined}>
         {children}
       </main>
-      {!poster && <ChapterIndicator />}
-      {!poster && <ProgressRail />}
+      {!poster && !photo && <ChapterIndicator />}
+      {!poster && !photo && <ProgressRail />}
       {!poster && <WarpOverlay />}
-      {!poster && <CustomCursor />}
+      {!poster && !photo && <CustomCursor />}
+      {!poster && <SixtySeconds />}
+      {!poster && !photo && <MissionControl />}
+      {!poster && <PhotoMode />}
       <LocaleTransition locale={locale} />
     </>
   );

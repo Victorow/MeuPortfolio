@@ -12,7 +12,9 @@
     "close": "Close",
     "soundOn": "Sound on",
     "soundOff": "Sound off",
-    "home": "Home"
+    "home": "Home",
+    "sixty": "60s",
+    "sixtyLabel": "60-second summary"
   },
   "chapters": {
     "earth": "Earth",
@@ -32,7 +34,10 @@
     "uranus": "Telegram Bridge",
     "venus": "VS Code Extensions",
     "neptune": "About & Skills",
-    "deep": "Contact"
+    "deep": "Contact",
+    "tools": "Tools",
+    "mission": "Mission Control",
+    "photo": "Photo"
   },
   "marquee": "ENGINEERING · PERFORMANCE · ARCHITECTURE · PRODUCT · ",
   "hero": {
@@ -145,5 +150,48 @@
   },
   "locale": {
     "switchTo": "PT"
+  },
+  "sixty": {
+    "eyebrow": "In 60 seconds",
+    "pitch": "Full-stack developer who ships the whole product: the app in the stores, the API on AWS and a well-modelled PostgreSQL database.",
+    "featured": "Featured projects",
+    "copy": "Copy e-mail",
+    "copied": "E-mail copied",
+    "cv": "Resume",
+    "linkedin": "LinkedIn",
+    "explore": "Explore the full version",
+    "close": "Close summary",
+    "hint": "Esc closes",
+    "chapter": "See chapter"
+  },
+  "mission": {
+    "title": "Mission Control",
+    "close": "Close Mission Control",
+    "hint": "~ closes",
+    "fps": "fps",
+    "min": "min",
+    "gpu": "gpu",
+    "chapter": "chapter",
+    "progress": "progress",
+    "textures": "textures",
+    "draws": "draw calls",
+    "tris": "tris",
+    "canvas": "canvas",
+    "sound": "sound",
+    "on": "on",
+    "off": "off",
+    "last": "last",
+    "tier": "tier",
+    "forceTier": "Force tier {tier}",
+    "footer": "R3F + GSAP · code on GitHub"
+  },
+  "photo": {
+    "label": "Photo mode",
+    "capture": "Capture",
+    "withText": "With text",
+    "back": "Back",
+    "busy": "Rendering…",
+    "meta": "P · {w}×{h} · PNG",
+    "heroCaption": "FullStack Developer"
   }
 }

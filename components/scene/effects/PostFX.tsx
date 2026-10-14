@@ -1,12 +1,13 @@
 'use client';
 
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom, Vignette, Noise, SMAA, ToneMapping, ChromaticAberration, GodRays } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 import * as THREE from 'three';
 import { useJourney } from '@/lib/journey/store';
 import { usePerfTier } from '@/lib/device';
+import { glRef } from '@/lib/journey/glRef';
 
 type Props = { sun: THREE.Mesh | null };
 
@@ -19,6 +20,10 @@ export default function PostFX({ sun }: Props) {
   const bloom = useRef<any>(null);
   const ca = useRef<any>(null);
   const offset = useRef(new THREE.Vector2(0.0004, 0.0004));
+  // expose the composer so photo mode can render a frame with post-processing
+  const composerRef = useCallback((c: (typeof glRef)['composer']) => {
+    glRef.composer = c;
+  }, []);
 
   useFrame(() => {
     const v = Math.min(1, Math.abs(useJourney.getState().velocity) * 0.5);
@@ -32,7 +37,7 @@ export default function PostFX({ sun }: Props) {
   if (tier === 'low') return null;
 
   return (
-    <EffectComposer multisampling={0}>
+    <EffectComposer ref={composerRef as never} multisampling={0}>
       <SMAA />
       {sun ? (
         <GodRays

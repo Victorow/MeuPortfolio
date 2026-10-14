@@ -4,9 +4,10 @@ import type { ChapterId } from '@/content/planets';
 import { useJourney } from './store';
 import { CHAPTERS, chapterIndex, rangeOf } from './timeline';
 import { scrollToProgress } from './useScrollDriver';
+import { WARP_IN_MS, WARP_OUT_MS } from './warp';
+import { playWarp } from '@/lib/audio';
 
-export const WARP_IN_MS = 520;
-export const WARP_OUT_MS = 700;
+export { WARP_IN_MS, WARP_OUT_MS };
 
 /**
  * Go to a chapter. Neighbouring chapters glide (smooth scroll + camera travel);
@@ -24,6 +25,8 @@ export function goToChapter(id: ChapterId) {
     return;
   }
   s.setWarping(true);
+  // Sound is scheduled on the AudioContext clock with the same timings as the overlay.
+  if (s.soundOn) playWarp();
   window.setTimeout(() => {
     scrollToProgress(rangeOf(id).start, true);
     useJourney.getState().requestSnap();

@@ -9,6 +9,7 @@ import { usePerfTier, useReducedMotion } from '@/lib/device';
 import { useJourney } from '@/lib/journey/store';
 import Atmosphere from './Atmosphere';
 import { useChapterVisible } from './Planet';
+import { MOON_SHADOW_GLSL, moonState } from '@/lib/scene/eclipse';
 
 const vert = /* glsl */ `
   attribute vec4 tangent;
@@ -45,6 +46,10 @@ const frag = /* glsl */ `
   uniform float uTime;
   uniform float uExposure;
   uniform float uCloudShadow;
+  uniform vec3 uMoonPos;
+  uniform float uMoonRadius;
+  uniform float uMoonPenumbra;
+${MOON_SHADOW_GLSL}
 
   void main() {
     // normal mapping (subtle, keeps the sphere reading as photographic)
@@ -81,6 +86,10 @@ const frag = /* glsl */ `
     // cloud layer, lit by the same sun
     vec3 cloudCol = vec3(1.0) * (0.06 + max(dot(Ng, L), 0.0) * 1.05);
     lit = mix(lit, cloudCol, clouds * 0.92);
+
+    // Moon transit: umbra + soft penumbra where the fragment -> Sun ray grazes the Moon
+    float eclipse = moonShadow(vWorldPos, L, uMoonPos, uMoonRadius, uMoonPenumbra);
+    lit *= 1.0 - eclipse * 0.88;
 
     // night side: city lights fade under clouds, suppressed where it is day
     vec3 dark = night * (1.0 - clouds * 0.75);
@@ -132,7 +141,11 @@ export default function Earth() {
       uCamPos: { value: new THREE.Vector3() },
       uTime: { value: 0 },
       uExposure: { value: 0 },
-      uCloudShadow: { value: tier === 'low' ? 0 : 1 }
+      uCloudShadow: { value: tier === 'low' ? 0 : 1 },
+      uMoonPos: { value: new THREE.Vector3(1e4, 0, 0) },
+      uMoonRadius: { value: 0.5 },
+      // tier low: hard-edged shadow, no penumbra
+      uMoonPenumbra: { value: tier === 'low' ? 0.02 : 0.45 }
     }),
     [day, night, clouds, spec, normal, tier]
   );
@@ -154,6 +167,8 @@ export default function Earth() {
       exposure.current = 1 - Math.pow(1 - t, 3);
     }
     uniforms.uExposure.value = exposure.current;
+    uniforms.uMoonPos.value.set(moonState.pos[0], moonState.pos[1], moonState.pos[2]);
+    uniforms.uMoonRadius.value = moonState.radius;
     if (mesh.current && !reduced) mesh.current.rotation.y += (delta * Math.PI * 2) / data.rotationPeriod;
   });
 

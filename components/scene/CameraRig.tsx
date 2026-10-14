@@ -47,7 +47,7 @@ export default function CameraRig() {
   }, []);
 
   useFrame((_, delta) => {
-    const { progress, menuOpen } = useJourney.getState();
+    const { progress, menuOpen, sixtyOpen } = useJourney.getState();
     const t = target.current;
     sampleCamera(progress, t);
 
@@ -75,7 +75,7 @@ export default function CameraRig() {
     const finalLook = look.current;
 
     // Cursor parallax (frozen while the menu is open so the backdrop stays still)
-    if (!reduced && !menuOpen) {
+    if (!reduced && !menuOpen && !sixtyOpen) {
       smoothMouse.current.x += (mouse.current.x - smoothMouse.current.x) * (1 - Math.pow(0.02, dt));
       smoothMouse.current.y += (mouse.current.y - smoothMouse.current.y) * (1 - Math.pow(0.02, dt));
     }

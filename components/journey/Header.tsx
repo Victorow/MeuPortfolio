@@ -40,6 +40,21 @@ export default function Header() {
         >
           {t('cv')}
         </a>
+        <button
+          type="button"
+          data-sixty-trigger
+          aria-label={t('sixtyLabel')}
+          aria-haspopup="dialog"
+          data-cursor="link"
+          onClick={() => {
+            setMenuOpen(false);
+            useJourney.getState().setPhotoMode(false);
+            useJourney.getState().setSixtyOpen(true);
+          }}
+          className="inline-flex items-center rounded-full border border-white/12 bg-black/30 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wider2 text-fg/85 backdrop-blur-md transition-colors duration-500 hover:border-[var(--accent)] hover:text-[var(--accent)]"
+        >
+          {t('sixty')}
+        </button>
         <SoundToggle />
         <LocaleSwitch />
         <button
