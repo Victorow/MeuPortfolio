@@ -16,7 +16,6 @@ import {
   SiCapacitor,
   SiAngular,
   SiFlutter,
-  SiAmazonwebservices,
   SiDocker,
   SiGithubactions,
   SiLinux,
@@ -29,7 +28,7 @@ import {
   SiTailscale,
   SiNextdotjs
 } from 'react-icons/si';
-import { TbApi, TbBrandVscode, TbCloud, TbServer, TbShieldLock, TbNetwork, TbBrain, TbPlug, TbSpider, TbBrandAzure, TbRefresh, TbLayoutKanban, TbCoffee } from 'react-icons/tb';
+import { TbApi, TbBrandAws, TbBrandVscode, TbCloud, TbServer, TbShieldLock, TbNetwork, TbBrain, TbPlug, TbSpider, TbBrandAzure, TbRefresh, TbLayoutKanban, TbCoffee } from 'react-icons/tb';
 
 const MAP: Record<string, IconType> = {
   TypeScript: SiTypescript,
@@ -51,7 +50,7 @@ const MAP: Record<string, IconType> = {
   MariaDB: SiMariadb,
   MongoDB: SiMongodb,
   Supabase: SiSupabase,
-  AWS: SiAmazonwebservices,
+  AWS: TbBrandAws,
   Azure: TbBrandAzure,
   VPS: TbServer,
   Docker: SiDocker,
