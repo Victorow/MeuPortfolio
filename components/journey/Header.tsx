@@ -1,6 +1,7 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { writeVersionPref } from '@/lib/version';
 import { useJourney } from '@/lib/journey/store';
 import { goToChapter } from '@/lib/journey/navigate';
 import { SOCIAL } from '@/content/projects';
@@ -9,6 +10,7 @@ import LocaleSwitch from '@/components/ui/LocaleSwitch';
 
 export default function Header() {
   const t = useTranslations('header');
+  const locale = useLocale();
   const menuOpen = useJourney((s) => s.menuOpen);
   const setMenuOpen = useJourney((s) => s.setMenuOpen);
 
@@ -32,6 +34,16 @@ export default function Header() {
       </a>
 
       <nav className="flex items-center gap-2 md:gap-3">
+        <a
+          href={`/${locale}/classic/`}
+          title={t('classicLabel')}
+          data-cursor="link"
+          data-classic-link
+          onClick={() => writeVersionPref('classic')}
+          className="inline-flex items-center rounded-full border border-white/12 bg-black/30 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wider2 text-fg/85 backdrop-blur-md transition-colors duration-500 hover:border-[var(--accent)] hover:text-[var(--accent)]"
+        >
+          {t('classic')}
+        </a>
         <a
           href={SOCIAL.cv}
           download

@@ -1,7 +1,9 @@
 {
   "meta": {
-    "title": "Victor Augusto — FullStack Developer",
-    "description": "FullStack Developer based in São José dos Campos, Brazil. Apps shipped to the stores, AWS back-ends on PostgreSQL and open-source tooling for AI-agent workflows."
+    "title": "Victor Augusto Ferreira dos Santos · FullStack Developer, Brazil",
+    "description": "Victor Augusto Ferreira dos Santos, full-stack developer in São José dos Campos, Brazil. React Native, Node.js, AWS; store apps and open-source AI tools.",
+    "ogAlt": "Victor Augusto Ferreira dos Santos, FullStack Developer in São José dos Campos, Brazil",
+    "siteName": "Victor Augusto · victors.codes"
   },
   "preloader": {
     "caption": "initializing systems · loading Earth"
@@ -12,7 +14,9 @@
     "close": "Close",
     "soundOn": "Sound on",
     "soundOff": "Sound off",
-    "home": "Home"
+    "home": "Home",
+    "classic": "Classic",
+    "classicLabel": "Open the classic version, no 3D"
   },
   "chapters": {
     "earth": "Earth",
@@ -32,7 +36,8 @@
     "uranus": "Telegram Bridge",
     "venus": "VS Code Extensions",
     "neptune": "About & Skills",
-    "deep": "Contact"
+    "deep": "Contact",
+    "classic": "Classic version, no 3D"
   },
   "marquee": "ENGINEERING · PERFORMANCE · ARCHITECTURE · PRODUCT · ",
   "hero": {
@@ -56,7 +61,8 @@
       "stack": "Stack",
       "repo": "Repository",
       "live": "Website",
-      "store": "Stores",
+      "store": "App Store",
+      "playStore": "Google Play",
       "marketplace": "Marketplace"
     },
     "items": {
@@ -127,7 +133,7 @@
     "title1": "Let's build",
     "title2": "something that",
     "title3": "lasts.",
-    "caption": "Open to full-stack developer opportunities. Quick to reply.",
+    "caption": "Projects, collaborations or a chat about engineering. Quick to reply.",
     "emailLabel": "Send an e-mail",
     "cv": "Download resume (PDF)",
     "socials": {
@@ -141,9 +147,175 @@
     "builtWith": "Built with",
     "stack": "Next.js · React Three Fiber · GSAP · Tailwind",
     "rights": "All rights reserved.",
-    "locale": "Language"
+    "locale": "Language",
+    "updated": "Updated {date}"
   },
   "locale": {
     "switchTo": "PT"
+  },
+  "banner": {
+    "text": "This is the 3D version. Prefer the light one?",
+    "cta": "Open classic →"
+  },
+  "classic": {
+    "skip": "Skip to content",
+    "nav": {
+      "label": "Sections",
+      "projects": "Projects",
+      "about": "About",
+      "skills": "Skills",
+      "faq": "FAQ",
+      "faqB": "Questions",
+      "contact": "Contact",
+      "version3d": "3D version ↗",
+      "version3dTitle": "Opens the 3D version, a journey through the planets",
+      "lang": "Language",
+      "aboutAside": "CDT · SESI · Senai",
+      "skillsAside": "{count} areas",
+      "contactAside": "e-mail"
+    },
+    "hero": {
+      "role": "FullStack Developer",
+      "city": "São José dos Campos, Brazil",
+      "line1": "Victor",
+      "line2": "Augusto",
+      "line3": "Ferreira dos Santos",
+      "cv": "Resume PDF ↓",
+      "contact": "Contact",
+      "github": "GitHub ↗",
+      "linkedin": "LinkedIn ↗"
+    },
+    "facts": {
+      "label": "Quick facts",
+      "role": {
+        "dt": "Role",
+        "dd": "Junior Developer · CDT Software"
+      },
+      "city": {
+        "dt": "City",
+        "dd": "São José dos Campos, SP, Brazil"
+      },
+      "education": {
+        "dt": "Education",
+        "dd": "Systems Analysis and Development · Senai Félix Guisard"
+      },
+      "focus": {
+        "dt": "Focus",
+        "dd": "React Native, Node.js, PostgreSQL, AWS, MCP"
+      },
+      "languages": {
+        "dt": "Languages",
+        "dd": "Portuguese (native) · English (intermediate)"
+      },
+      "updated": {
+        "dt": "Updated"
+      }
+    },
+    "projects": {
+      "title": "Selected projects",
+      "titleB": "Projects",
+      "aside": "5 projects · 2 in production · 3 open source",
+      "asideB": "2 in production · 3 open source",
+      "others": "Other",
+      "kinds": {
+        "oppyconnect": "Professional · iOS and Android",
+        "linkbiz": "Professional · AI platform",
+        "duo": "Open source · MCP",
+        "telegram": "Open source · Node.js and Rust",
+        "vscode": "Open source · VS Code"
+      }
+    },
+    "about": {
+      "title": "About",
+      "aside": "Path",
+      "pull": "I like shipping the whole product: <b>the published app</b>, the API behind it and a well-modelled database.",
+      "timeline": {
+        "now": {
+          "when": "Now",
+          "title": "Junior Developer · CDT Software",
+          "text": "React/Vite front-ends, AWS back-ends, PostgreSQL. OppyConnect and LinkBiz."
+        },
+        "before": {
+          "when": "Before",
+          "title": "Intern · SESI",
+          "text": "Internal systems, routine automation, network and workstation infrastructure."
+        },
+        "education": {
+          "when": "Education",
+          "title": "Systems Analysis and Development · Senai Félix Guisard",
+          "text": "Also: OOP and Databases with Java/SQL (Coursera); Cybersecurity Defense Analyst (Cisco, in progress)."
+        }
+      },
+      "p2": "Lately I build tooling that makes AI-agent workflows (MCP, Claude Code) usable day to day: a bridge between two Claude Code instances, a Telegram bridge and VS Code extensions.",
+      "p3": "I write code with intent, favour readability and treat performance and security as requirements, not final polish."
+    },
+    "skills": {
+      "title": "Stack",
+      "aside": "Underlined = daily use"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "titleB": "Questions",
+      "aside": "What recruiters ask"
+    },
+    "contact": {
+      "label": "Contact"
+    },
+    "footer": {
+      "rights": "© {year} Victor Augusto Ferreira dos Santos",
+      "privacy": "No cookies · no tracking",
+      "updated": "Updated {date}"
+    },
+    "switch": {
+      "label": "Page design",
+      "a": "A · Paper",
+      "b": "B · Dossier"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "classic": "Classic"
+    }
+  },
+  "faq": {
+    "items": {
+      "who": {
+        "q": "Who is Victor Augusto Ferreira dos Santos?",
+        "a": "Victor Augusto Ferreira dos Santos is a full-stack developer in São José dos Campos, Brazil. He works at CDT Software on apps published to the stores and AWS back-ends, and maintains open-source tooling for AI-agent workflows."
+      },
+      "work": {
+        "q": "Where does Victor Augusto work and with which technologies?",
+        "a": "He is a Junior Developer at CDT Software. Day to day he uses TypeScript, React and React Native, Node.js, PostgreSQL and AWS; in personal projects, MCP and the Claude Code ecosystem."
+      },
+      "remote": {
+        "q": "On-site or remote?",
+        "a": "Based in São José dos Campos, Brazil. Experience with an on-site team at CDT Software and with remote projects."
+      },
+      "opensource": {
+        "q": "Which open-source projects does Victor Augusto maintain?",
+        "a": "Duo (an MCP bridge between two Claude Code instances), claude-telegram-bridge and two VS Code extensions: AI Diff Tracker and Mini Browser."
+      },
+      "duo": {
+        "q": "What is Duo (an MCP bridge between two Claude Code instances)?",
+        "a": "A pair of MCP servers linking two Claude Code instances: a Tech Lead delegates tasks to an Executor on another machine, over Tailscale, with a local semantic cache and publishing only through protected branches."
+      },
+      "telegram": {
+        "q": "What is claude-telegram-bridge?",
+        "a": "A self-hosted bridge that pings you on Telegram when a Claude Code session finishes and lets you keep replying from the chat. It uses long-polling, needs no public server and ships per-OS binaries."
+      },
+      "contact": {
+        "q": "How do I contact Victor Augusto?",
+        "a": "By e-mail at victoroow@gmail.com or on LinkedIn. The PDF resume is linked at the top of the page."
+      }
+    }
+  },
+  "notFound": {
+    "docTitle": "Lost in space · 404",
+    "eyebrow": "404 · signal lost",
+    "title1": "Lost",
+    "title2": "in space",
+    "missing": "This page does not exist.",
+    "missingPath": "{path} does not exist",
+    "home": "Back to Earth",
+    "classic": "Classic version"
   }
 }

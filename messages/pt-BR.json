@@ -1,7 +1,9 @@
 {
   "meta": {
-    "title": "Victor Augusto — FullStack Developer",
-    "description": "FullStack Developer em São José dos Campos. Apps publicados nas lojas, back-end na AWS com PostgreSQL e ferramentas open source para fluxos com agentes de IA."
+    "title": "Victor Augusto Ferreira dos Santos · FullStack Developer",
+    "description": "Victor Augusto Ferreira dos Santos, desenvolvedor full-stack em São José dos Campos, SP. React Native, Node.js e AWS; apps nas lojas e open source com IA.",
+    "ogAlt": "Victor Augusto Ferreira dos Santos, FullStack Developer em São José dos Campos, SP",
+    "siteName": "Victor Augusto · victors.codes"
   },
   "preloader": {
     "caption": "inicializando sistemas · carregando Terra"
@@ -12,7 +14,9 @@
     "close": "Fechar",
     "soundOn": "Som ligado",
     "soundOff": "Som desligado",
-    "home": "Início"
+    "home": "Início",
+    "classic": "Clássico",
+    "classicLabel": "Abrir a versão clássica, sem 3D"
   },
   "chapters": {
     "earth": "Terra",
@@ -32,7 +36,8 @@
     "uranus": "Telegram Bridge",
     "venus": "Extensões VS Code",
     "neptune": "Sobre & Skills",
-    "deep": "Contato"
+    "deep": "Contato",
+    "classic": "Versão clássica, sem 3D"
   },
   "marquee": "ENGENHARIA · PERFORMANCE · ARQUITETURA · PRODUTO · ",
   "hero": {
@@ -56,7 +61,8 @@
       "stack": "Stack",
       "repo": "Repositório",
       "live": "Site",
-      "store": "Lojas",
+      "store": "App Store",
+      "playStore": "Google Play",
       "marketplace": "Marketplace"
     },
     "items": {
@@ -127,7 +133,7 @@
     "title1": "Vamos construir",
     "title2": "algo que",
     "title3": "dure.",
-    "caption": "Aberto a oportunidades como desenvolvedor full-stack. Respondo rápido.",
+    "caption": "Projetos, colaborações ou uma conversa sobre engenharia. Respondo rápido.",
     "emailLabel": "Envie um e-mail",
     "cv": "Baixar currículo (PDF)",
     "socials": {
@@ -141,9 +147,175 @@
     "builtWith": "Feito com",
     "stack": "Next.js · React Three Fiber · GSAP · Tailwind",
     "rights": "Todos os direitos reservados.",
-    "locale": "Idioma"
+    "locale": "Idioma",
+    "updated": "Atualizado em {date}"
   },
   "locale": {
     "switchTo": "EN"
+  },
+  "banner": {
+    "text": "Esta é a versão 3D. Prefere a versão leve?",
+    "cta": "Abrir clássico →"
+  },
+  "classic": {
+    "skip": "Pular para o conteúdo",
+    "nav": {
+      "label": "Seções",
+      "projects": "Projetos",
+      "about": "Sobre",
+      "skills": "Skills",
+      "faq": "FAQ",
+      "faqB": "Perguntas",
+      "contact": "Contato",
+      "version3d": "Versão 3D ↗",
+      "version3dTitle": "Abre a versão 3D, com a viagem pelos planetas",
+      "lang": "Idioma",
+      "aboutAside": "CDT · SESI · Senai",
+      "skillsAside": "{count} áreas",
+      "contactAside": "e-mail"
+    },
+    "hero": {
+      "role": "FullStack Developer",
+      "city": "São José dos Campos, SP",
+      "line1": "Victor",
+      "line2": "Augusto",
+      "line3": "Ferreira dos Santos",
+      "cv": "Currículo PDF ↓",
+      "contact": "Contato",
+      "github": "GitHub ↗",
+      "linkedin": "LinkedIn ↗"
+    },
+    "facts": {
+      "label": "Fatos rápidos",
+      "role": {
+        "dt": "Cargo",
+        "dd": "Desenvolvedor Júnior · CDT Software"
+      },
+      "city": {
+        "dt": "Cidade",
+        "dd": "São José dos Campos, SP, Brasil"
+      },
+      "education": {
+        "dt": "Formação",
+        "dd": "ADS · Senai Félix Guisard"
+      },
+      "focus": {
+        "dt": "Foco",
+        "dd": "React Native, Node.js, PostgreSQL, AWS, MCP"
+      },
+      "languages": {
+        "dt": "Idiomas",
+        "dd": "Português nativo · Inglês intermediário"
+      },
+      "updated": {
+        "dt": "Atualizado"
+      }
+    },
+    "projects": {
+      "title": "Projetos selecionados",
+      "titleB": "Projetos",
+      "aside": "5 projetos · 2 em produção · 3 open source",
+      "asideB": "2 em produção · 3 open source",
+      "others": "Outros",
+      "kinds": {
+        "oppyconnect": "Profissional · iOS e Android",
+        "linkbiz": "Profissional · plataforma com IA",
+        "duo": "Open source · MCP",
+        "telegram": "Open source · Node.js e Rust",
+        "vscode": "Open source · VS Code"
+      }
+    },
+    "about": {
+      "title": "Sobre",
+      "aside": "Trajetória",
+      "pull": "Gosto de entregar o produto inteiro: <b>o app publicado</b>, a API que o sustenta e o banco bem modelado.",
+      "timeline": {
+        "now": {
+          "when": "Hoje",
+          "title": "Desenvolvedor Júnior · CDT Software",
+          "text": "Front-end em React/Vite, back-end na AWS, PostgreSQL. OppyConnect e LinkBiz."
+        },
+        "before": {
+          "when": "Antes",
+          "title": "Estagiário · SESI",
+          "text": "Sistemas internos, automação de rotinas, infraestrutura de rede e estações."
+        },
+        "education": {
+          "when": "Formação",
+          "title": "Análise e Desenvolvimento de Sistemas · Senai Félix Guisard",
+          "text": "Complementar: OO e Banco de Dados com Java/SQL (Coursera); Cybersecurity Defense Analyst (Cisco, em andamento)."
+        }
+      },
+      "p2": "Nos últimos tempos, construo ferramentas que tornam fluxos com agentes de IA (MCP, Claude Code) utilizáveis no dia a dia: uma ponte entre duas instâncias do Claude Code, uma bridge para o Telegram e extensões para o VS Code.",
+      "p3": "Escrevo código com intenção, priorizo legibilidade e trato performance e segurança como requisito, não como ajuste final."
+    },
+    "skills": {
+      "title": "Stack",
+      "aside": "Sublinhado = uso diário"
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "titleB": "Perguntas",
+      "aside": "O que recrutadores perguntam"
+    },
+    "contact": {
+      "label": "Contato"
+    },
+    "footer": {
+      "rights": "© {year} Victor Augusto Ferreira dos Santos",
+      "privacy": "Sem cookies · sem rastreamento",
+      "updated": "Atualizado em {date}"
+    },
+    "switch": {
+      "label": "Design da página",
+      "a": "A · Papel",
+      "b": "B · Dossiê"
+    },
+    "breadcrumb": {
+      "home": "Início",
+      "classic": "Clássico"
+    }
+  },
+  "faq": {
+    "items": {
+      "who": {
+        "q": "Quem é Victor Augusto Ferreira dos Santos?",
+        "a": "Victor Augusto Ferreira dos Santos é desenvolvedor full-stack em São José dos Campos, SP. Atua na CDT Software em apps publicados nas lojas e em back-end na AWS, e mantém projetos open source para fluxos com agentes de IA."
+      },
+      "work": {
+        "q": "Onde Victor Augusto trabalha e com quais tecnologias?",
+        "a": "É Desenvolvedor Júnior na CDT Software. No dia a dia usa TypeScript, React e React Native, Node.js, PostgreSQL e AWS; em projetos pessoais, MCP e o ecossistema do Claude Code."
+      },
+      "remote": {
+        "q": "Trabalha presencial ou remoto?",
+        "a": "Base em São José dos Campos, SP. Experiência com equipe presencial na CDT Software e com projetos remotos."
+      },
+      "opensource": {
+        "q": "Quais projetos open source Victor Augusto mantém?",
+        "a": "Duo (ponte MCP entre duas instâncias do Claude Code), claude-telegram-bridge e duas extensões para o VS Code: AI Diff Tracker e Mini Browser."
+      },
+      "duo": {
+        "q": "O que é o Duo (ponte MCP entre dois Claude Code)?",
+        "a": "Um par de servidores MCP que liga duas instâncias do Claude Code: um Tech Lead delega tarefas a um Executor em outra máquina, via Tailscale, com cache semântico local e publicação só por branch protegida."
+      },
+      "telegram": {
+        "q": "O que é o claude-telegram-bridge?",
+        "a": "Uma bridge self-hosted que avisa no Telegram quando uma sessão do Claude Code termina e permite continuar respondendo pelo chat. Roda com long-polling, sem servidor público, com binários por sistema operacional."
+      },
+      "contact": {
+        "q": "Como entrar em contato com Victor Augusto?",
+        "a": "Por e-mail em victoroow@gmail.com ou pelo LinkedIn. O currículo em PDF está no topo da página."
+      }
+    }
+  },
+  "notFound": {
+    "docTitle": "Perdido no espaço · 404",
+    "eyebrow": "404 · sinal perdido",
+    "title1": "Perdido",
+    "title2": "no espaço",
+    "missing": "Esta página não existe.",
+    "missingPath": "{path} não existe",
+    "home": "Voltar à Terra",
+    "classic": "Versão clássica"
   }
 }

@@ -16,6 +16,8 @@ import ProgressRail from './ProgressRail';
 import CustomCursor from './CustomCursor';
 import WarpOverlay from './WarpOverlay';
 import LocaleTransition from '@/components/ui/LocaleTransition';
+import ClassicBanner from './ClassicBanner';
+import { readVersionPref } from '@/lib/version';
 
 const SpaceScene = dynamic(() => import('@/components/scene/SpaceScene'), { ssr: false });
 
@@ -27,6 +29,12 @@ export default function JourneyShell({ children, locale }: { children: ReactNode
   const soundOn = useJourney((s) => s.soundOn);
 
   useScrollDriver(reduced, true);
+
+  // Visitors who chose the classic version go straight back to it (unless ?stay=3d).
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('stay') === '3d') return;
+    if (readVersionPref() === 'classic') window.location.replace(`/${locale}/classic/`);
+  }, [locale]);
 
   useEffect(() => {
     document.documentElement.style.setProperty('--accent', CHAPTER_ACCENT[chapter]);
@@ -76,6 +84,7 @@ export default function JourneyShell({ children, locale }: { children: ReactNode
       <Preloader />
       {!poster && <Header />}
       {!poster && <MenuOverlay />}
+      {!poster && <ClassicBanner reduced={reduced} />}
       <main className="relative z-10" style={poster ? { opacity: 0 } : undefined}>
         {children}
       </main>

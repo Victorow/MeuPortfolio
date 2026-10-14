@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Victor — FullStack Developer',
-  description: 'Engineering systems at stellar scale.'
+  title: 'Victor Augusto Ferreira dos Santos · FullStack Developer',
+  description: 'Victor Augusto Ferreira dos Santos, full-stack developer in São José dos Campos, Brazil.'
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

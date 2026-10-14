@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { TODO, type Project } from '@/content/projects';
 import { getTechIcon } from '@/lib/techIcons';
 
-const LINK_ORDER: (keyof Project['links'])[] = ['repo', 'live', 'store', 'marketplace'];
+const LINK_ORDER: (keyof Project['links'])[] = ['repo', 'live', 'store', 'playStore', 'marketplace'];
 
 export default function ProjectChapter({ project }: { project: Project }) {
   const t = useTranslations('projects');

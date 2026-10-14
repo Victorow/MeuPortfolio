@@ -1,0 +1,709 @@
+<title>Odisseia Fase 2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: mission briefing. Left rail nav, one reading column, mono labels for the data layer, CSS wireframes ("mocks") for every UI. Dark-first, black / electric blue / off-white. */
+  :root {
+    --bg: #050609; --bg-2: #0c0e14; --bg-3: #12151d; --fg: #f2f3f5; --fg-2: #a7adba; --fg-3: #5d6472;
+    --line: rgba(255,255,255,0.10); --accent: #4f8dff; --accent-2: #9fc0ff; --ok: #4fd1a5; --warn: #ffb547;
+    --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) { --bg: #f7f8fb; --bg-2: #ffffff; --bg-3: #eef1f6; --fg: #0b0d12; --fg-2: #4a5160; --fg-3: #8a92a3; --line: rgba(5,6,9,0.12); --accent: #1f5fe0; --accent-2: #0f3fa8; --ok: #0f8f66; --warn: #b36b00; color-scheme: light; }
+  }
+  :root[data-theme="light"] { --bg: #f7f8fb; --bg-2: #ffffff; --bg-3: #eef1f6; --fg: #0b0d12; --fg-2: #4a5160; --fg-3: #8a92a3; --line: rgba(5,6,9,0.12); --accent: #1f5fe0; --accent-2: #0f3fa8; --ok: #0f8f66; --warn: #b36b00; color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15.5px; line-height: 1.6; margin: 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover, a:focus-visible { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-block: 32px 96px; padding-inline: 20px; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+  @media (max-width: 860px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+  nav.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+  @media (max-width: 860px) { nav.rail { position: static; } nav.rail ol { display: flex; flex-wrap: wrap; gap: 6px 14px; } }
+  nav.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  nav.rail a { color: var(--fg-2); }
+  nav.rail a:hover { color: var(--accent); text-decoration: none; }
+  nav.rail .k { color: var(--accent); margin-right: 6px; }
+  main { min-width: 0; }
+  header.hero { border-bottom: 1px solid var(--line); padding-bottom: 28px; margin-bottom: 36px; }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 0 0 12px; }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 14px; text-wrap: balance; }
+  h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.45rem, 3vw, 2rem); letter-spacing: -0.02em; margin: 60px 0 10px; line-height: 1.1; text-wrap: balance; scroll-margin-top: 24px; }
+  h2 .n { font-family: var(--font-mono); font-size: 0.55em; color: var(--accent); letter-spacing: 0.1em; vertical-align: middle; margin-right: 10px; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin: 26px 0 6px; letter-spacing: -0.01em; }
+  h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-2); margin: 18px 0 8px; font-weight: 500; }
+  p, li { max-width: 72ch; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--fg-2); font-size: 1.05rem; max-width: 64ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-family: var(--font-mono); font-size: 11.5px; color: var(--fg-2); margin-top: 16px; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  ul, ol { padding-left: 1.2em; margin: 0 0 12px; }
+  li { margin: 4px 0; }
+  li::marker { color: var(--accent); }
+  code { font-family: var(--font-mono); font-size: 0.86em; background: var(--bg-2); border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; }
+  pre { background: var(--bg-2); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.55; margin: 10px 0 16px; }
+  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 10px 0 18px; }
+  .tbl { overflow-x: auto; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-2); font-weight: 500; }
+  td:first-child { white-space: nowrap; font-family: var(--font-mono); font-size: 12.5px; color: var(--accent-2); }
+  .tag { display: inline-block; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; color: var(--fg-2); }
+  .tag.ok { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 50%, transparent); }
+  .tag.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 50%, transparent); }
+  .tag.acc { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+  .callout { border-left: 2px solid var(--accent); background: var(--bg-2); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0 18px; max-width: 78ch; }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout p:last-child { margin-bottom: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 14px 0 18px; }
+  .card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 16px; min-width: 0; }
+  .card h5 { font-family: var(--font-display); font-size: 1rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .card p { font-size: 13.5px; color: var(--fg-2); margin-bottom: 8px; }
+  .card .ref { font-family: var(--font-mono); font-size: 11.5px; }
+  .swatches { display: flex; gap: 6px; margin: 8px 0 10px; }
+  .sw { width: 28px; height: 18px; border-radius: 4px; border: 1px solid var(--line); }
+  .kbd { font-family: var(--font-mono); font-size: 11.5px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; background: var(--bg-2); }
+  .check { list-style: none; padding: 0; }
+  .check li { padding-left: 1.6em; position: relative; }
+  .check li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 10px; height: 10px; border: 1.5px solid var(--accent); border-radius: 3px; }
+  footer.end { border-top: 1px solid var(--line); margin-top: 64px; padding-top: 18px; font-family: var(--font-mono); font-size: 11.5px; color: var(--fg-2); }
+  .src { font-family: var(--font-mono); font-size: 12px; color: var(--fg-2); max-width: none; }
+
+  /* ---- UI mocks (CSS wireframes) ---- */
+  .mock { background: #06080d; color: #eef0f4; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; position: relative; max-width: 100%; font-family: var(--font-body); margin: 12px 0 6px; }
+  .mock * { box-sizing: border-box; }
+  .mock.desk { aspect-ratio: 16 / 9; }
+  .mock.phone { aspect-ratio: 9 / 16; width: min(100%, 240px); }
+  .mock .bar { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .mock .bar .pill { border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 3px 8px; margin-left: 6px; }
+  .mock .bar .pill.on { background: #f2f3f5; color: #06080d; border-color: #f2f3f5; }
+  .mock .planet { position: absolute; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #7fb3ff, #1b4fb3 55%, #061a44 100%); box-shadow: 0 0 40px rgba(79,141,255,0.35); }
+  .mock .moon { position: absolute; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #d8d8de, #6b6b72 70%, #2a2a2e); }
+  .mock .sun { position: absolute; border-radius: 50%; background: radial-gradient(circle, #fff7e0, #ffd27a 40%, rgba(255,180,80,0) 70%); }
+  .mock .ghost { position: absolute; border-radius: 50%; border: 1px solid rgba(255,200,120,0.6); }
+  .mock .stars { position: absolute; inset: 0; background-image: radial-gradient(1px 1px at 20% 30%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 70% 60%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 45% 80%, #cfe0ff 50%, transparent 51%), radial-gradient(1px 1px at 85% 20%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 10% 75%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 60% 15%, #fff 50%, transparent 51%); opacity: 0.8; }
+  .mock .title { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.95; }
+  .mock .mono { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #9aa3b5; }
+  .mock .line { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.18); margin: 5px 0; }
+  .mock .line.s { width: 55%; } .mock .line.m { width: 75%; } .mock .line.l { width: 92%; }
+  .mock .btn { display: inline-block; border-radius: 999px; padding: 6px 12px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.3); margin-right: 6px; }
+  .mock .btn.solid { background: #f2f3f5; color: #06080d; border-color: #f2f3f5; }
+  .mock .overlay { position: absolute; inset: 0; background: rgba(5,6,9,0.86); backdrop-filter: blur(6px); }
+  .mock .panel { position: absolute; background: rgba(8,10,16,0.85); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; font-family: var(--font-mono); font-size: 9px; line-height: 1.5; padding: 8px 10px; color: #c9d1de; }
+  .mock .panel b { color: #4f8dff; font-weight: 500; }
+  .mock .chip { display: inline-block; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 2px 7px; font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; margin: 2px 3px 2px 0; }
+  .mock .ind { position: absolute; bottom: 10px; left: 14px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; }
+  .mock .ind b { color: #4f8dff; font-weight: 500; }
+  .mock .warp { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35), rgba(5,6,9,0.9) 45%), repeating-conic-gradient(from 0deg, rgba(255,255,255,0.0) 0deg 4deg, rgba(159,192,255,0.25) 4.5deg 5deg); }
+  .mock.classic { background: #050609; }
+  .mock.classic .c-head { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .mock.classic .c-body { position: absolute; top: 38px; left: 16px; right: 16px; bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 14px; }
+  .mock.classic .c-row { border-top: 1px solid rgba(255,255,255,0.1); padding: 6px 0; display: grid; grid-template-columns: 24px 1fr 60px; gap: 8px; font-size: 9px; align-items: baseline; }
+  .mock.classic .c-row .idx { font-family: var(--font-mono); color: #4f8dff; }
+  .mock.classic .c-row .r { font-family: var(--font-mono); font-size: 8px; color: #9aa3b5; text-align: right; }
+  .mock .caption { position: absolute; bottom: 0; left: 0; right: 0; }
+  .mockcap { font-family: var(--font-mono); font-size: 11px; color: var(--fg-2); margin: 0 0 18px; }
+  .mocks2 { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+  @media (max-width: 700px) { .mocks2 { grid-template-columns: minmax(0, 1fr); } }
+  .timeline { display: grid; grid-template-columns: 110px 1fr; gap: 6px 12px; font-family: var(--font-mono); font-size: 11.5px; margin: 10px 0 16px; max-width: 640px; }
+  .timeline .t { color: var(--accent); }
+  .timeline .b { color: var(--fg-2); }
+  .bars { display: grid; gap: 6px; margin: 8px 0 16px; max-width: 640px; }
+  .bars .row { display: grid; grid-template-columns: 130px 1fr; gap: 10px; align-items: center; font-family: var(--font-mono); font-size: 11px; }
+  .bars .bar2 { height: 10px; border-radius: 3px; background: var(--bg-3); position: relative; }
+  .bars .bar2 span { position: absolute; top: 0; bottom: 0; border-radius: 3px; background: var(--accent); opacity: 0.85; }
+</style>
+
+<div class="wrap">
+  <nav class="rail" aria-label="Seções">
+    <ol>
+      <li><a href="#resumo"><span class="k">00</span>Resumo</a></li>
+      <li><a href="#decisoes"><span class="k">01</span>Decisões</a></li>
+      <li><a href="#60s"><span class="k">02</span>Em 60 segundos</a></li>
+      <li><a href="#mission"><span class="k">03</span>Mission Control</a></li>
+      <li><a href="#sol"><span class="k">04</span>Sol e eclipse</a></li>
+      <li><a href="#som"><span class="k">05</span>Som do warp</a></li>
+      <li><a href="#foto"><span class="k">06</span>Modo foto</a></li>
+      <li><a href="#og"><span class="k">07</span>OG e sitemap</a></li>
+      <li><a href="#404"><span class="k">08</span>Página 404</a></li>
+      <li><a href="#classico"><span class="k">09</span>Portfólio clássico</a></li>
+      <li><a href="#temas"><span class="k">10</span>Temas pesquisados</a></li>
+      <li><a href="#seo"><span class="k">11</span>SEO completo</a></li>
+      <li><a href="#geo"><span class="k">12</span>Aparecer na IA</a></li>
+      <li><a href="#seguranca"><span class="k">13</span>Segurança</a></li>
+      <li><a href="#arquitetura"><span class="k">14</span>Arquitetura</a></li>
+      <li><a href="#fases"><span class="k">15</span>Fases e testes</a></li>
+      <li><a href="#pendencias"><span class="k">16</span>Pendências</a></li>
+      <li><a href="#fontes"><span class="k">17</span>Fontes</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <p class="eyebrow">Spec · Portfólio Odisseia · Fase 2 · revisão 5</p>
+      <h1>Sete funcionalidades com mockup, um portfólio clássico escondido, SEO para buscadores e IA, e segurança de ponta a ponta</h1>
+      <p class="lead">Documento de planejamento para aprovação. Nada foi implementado. Cada funcionalidade tem: o que é, como fica na tela, como funciona por dentro, como testar e o que depende de você. Removidos nesta revisão, por ordem sua: GitHub ao vivo, órbita da carreira e badge de Lighthouse.</p>
+      <div class="meta">
+        <span><b>Data</b> 2026-10-13</span>
+        <span><b>Base</b> feat/space-odyssey @ 456b4ce</span>
+        <span><b>Stack</b> Next 14 estático · R3F · GSAP · next-intl · Playwright</span>
+        <span><b>Status</b> aguardando sua validação</span>
+      </div>
+    </header>
+
+    <h2 id="resumo"><span class="n">00</span>Resumo em uma tela</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>#</th><th>Entrega</th><th>Para quem</th><th>Esforço</th><th>Risco</th></tr></thead>
+      <tbody>
+        <tr><td>02</td><td>Modo "Em 60 segundos" no header</td><td>Quem tem pressa</td><td>Baixo</td><td><span class="tag ok">baixo</span></td></tr>
+        <tr><td>03</td><td>Painel Mission Control (tecla ~)</td><td>Recrutador técnico</td><td>Baixo</td><td><span class="tag ok">baixo</span></td></tr>
+        <tr><td>04</td><td>Sol com flare ao olhar para trás; eclipse da Lua no hero</td><td>Impressão</td><td>Médio</td><td><span class="tag warn">GPU</span></td></tr>
+        <tr><td>05</td><td>Som espacial sincronizado ao warp</td><td>Impressão</td><td>Baixo</td><td><span class="tag ok">baixo</span></td></tr>
+        <tr><td>06</td><td>Modo foto (tecla P) com export PNG</td><td>Você, no LinkedIn</td><td>Baixo</td><td><span class="tag ok">baixo</span></td></tr>
+        <tr><td>07</td><td>OG por idioma, sitemap, robots, hreflang</td><td>Google e redes</td><td>Baixo</td><td><span class="tag ok">baixo</span></td></tr>
+        <tr><td>08</td><td>404 "Perdido no espaço"</td><td>Todo visitante</td><td>Baixo</td><td><span class="tag ok">baixo</span></td></tr>
+        <tr><td>09</td><td>Portfólio clássico em rota escondida, sem 3D</td><td>Recrutador, Google e IA</td><td>Alto</td><td><span class="tag ok">baixo</span></td></tr>
+        <tr><td>11–12</td><td>SEO completo + visibilidade em IA (GEO)</td><td>Google, Bing, ChatGPT, Perplexity, Gemini, Claude</td><td>Médio</td><td><span class="tag acc">contínuo</span></td></tr>
+        <tr><td>13</td><td>Segurança: cabeçalhos, CSP, CI endurecido, dependências, privacidade, domínio</td><td>Você e todo visitante</td><td>Médio</td><td><span class="tag acc">contínuo</span></td></tr>
+      </tbody>
+    </table></div>
+    <p>Ordem sugerida: 13 (segurança base) junto com 09 e 11–12, depois 07 e 08, e por fim 02 a 06.</p>
+
+    <h2 id="decisoes"><span class="n">01</span>Decisões que precisam do seu OK</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>ID</th><th>Decisão proposta</th><th>Alternativa</th></tr></thead>
+      <tbody>
+        <tr><td>D1</td><td>O clássico vive em <b>/pt-BR/classic/ e /en/classic/</b>, com botão "Clássico" no header 3D e "Versão 3D" no clássico. Substitui os posters como fallback sem WebGL e reduced-motion.</td><td>Rota única sem idioma. Pior para SEO e hreflang.</td></tr>
+        <tr><td>D2</td><td>Tema do clássico: <b>editorial impresso</b>, claro por padrão (papel branco, tinta preta, azul #1A4FFF), com tema escuro automático. Protótipo de alta fidelidade na seção 09.</td><td>Variante escura por padrão, igual ao 3D. Mesmo layout, só invertendo as cores.</td></tr>
+        <tr><td>D3</td><td>O clássico é a <b>página canônica</b> para buscadores e IA. O 3D continua indexável e linkado, mas o Google e os crawlers de IA elegem a página mais rápida e legível.</td><td>Canonical no 3D. Mantém o 3D como "a" página, mas o preloader e o WebGL pesam na avaliação.</td></tr>
+        <tr><td>D4</td><td>Crawlers de IA <b>liberados</b> no robots.txt (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended e outros). Objetivo é ser citado, não bloquear.</td><td>Bloquear treinamento e liberar só busca. Reduz chance de aparecer em respostas de IA.</td></tr>
+        <tr><td>D5</td><td>Sons continuam <b>sintetizados</b> (Web Audio), sem arquivos de áudio.</td><td>Samples .mp3 licenciados. Mais realismo, mais peso e licença.</td></tr>
+        <tr><td>D6</td><td>Modo foto exporta PNG em <b>2x da resolução</b>, sem UI, com opção "com texto".</td><td>Sempre com marca d'água (nome e URL).</td></tr>
+        <tr><td>D7</td><td>Página de FAQ sobre você (perguntas que recrutadores e IAs fazem) entra no clássico como seção com <code>FAQPage</code> em JSON-LD.</td><td>Sem FAQ. Perde um dos sinais mais fortes de citação em IA.</td></tr>
+        <tr><td>D8</td><td>Lighthouse continua como <b>validação interna</b> (meta 95 no clássico), sem badge no site.</td><td>Nenhuma meta. Arriscado para Core Web Vitals.</td></tr>
+        <tr><td>D9</td><td><b>Decidido pelo Victor: sem Cloudflare.</b> Domínio e DNS continuam no Name.com. Cabeçalhos de segurança ficam no que cabe em <code>&lt;meta&gt;</code> (CSP sem frame-ancestors), e DNSSEC, CAA, SPF e DMARC são configurados no painel DNS do Name.com.</td><td>Cloudflare grátis como proxy de DNS (cabeçalhos HTTP reais, HSTS preload, relatório de bots). Pode ser adotado depois sem perder o benefício do Name.com, só trocando nameservers.</td></tr>
+      </tbody>
+    </table></div>
+
+    <!-- ============ 02 ============ -->
+    <h2 id="60s"><span class="n">02</span>Modo "Em 60 segundos"</h2>
+    <p><b>O que o recrutador vê.</b> Botão "60s" no header. Abre um overlay de tela única, sem scroll: nome e cargo, uma frase, os 3 projetos mais fortes em cards, e-mail copiável, botões Currículo e LinkedIn, e um link "Explorar a versão completa". Fecha com Esc ou X. A cena 3D fica parada e desfocada atrás.</p>
+    <h4>Como fica na UI</h4>
+    <div class="mock desk" aria-label="Mockup do modo 60 segundos">
+      <div class="stars"></div>
+      <div class="planet" style="width:34%;aspect-ratio:1;right:-6%;top:14%;filter:blur(3px);opacity:.6"></div>
+      <div class="overlay"></div>
+      <div class="bar"><span>VA<span style="color:#4f8dff">.</span></span><span><span class="pill">Currículo</span><span class="pill on">60s</span><span class="pill">PT</span><span class="pill">☰</span></span></div>
+      <div style="position:absolute;left:8%;right:8%;top:16%;bottom:10%;display:grid;grid-template-columns:1.1fr 1fr;gap:4%;">
+        <div>
+          <div class="mono" style="margin-bottom:6px">FullStack Developer · São José dos Campos</div>
+          <div class="title" style="font-size:clamp(14px,3.2vw,30px)">Victor<br><span style="color:#4f8dff">Augusto</span></div>
+          <div class="line l" style="margin-top:10px"></div><div class="line m"></div>
+          <div style="margin-top:10px"><span class="btn solid">Copiar e-mail</span><span class="btn">Currículo</span><span class="btn">LinkedIn</span></div>
+          <div class="mono" style="margin-top:12px;color:#5d6472">Explorar a versão completa →</div>
+        </div>
+        <div style="display:grid;gap:6px;align-content:start">
+          <div class="panel" style="position:static"><b>01 · Marte</b> OppyConnect<div class="line m"></div><span class="chip">React Native</span><span class="chip">AWS</span></div>
+          <div class="panel" style="position:static"><b>03 · Saturno</b> Duo<div class="line m"></div><span class="chip">MCP</span><span class="chip">TypeScript</span></div>
+          <div class="panel" style="position:static"><b>04 · Urano</b> claude-telegram-bridge<div class="line m"></div><span class="chip">Node.js</span><span class="chip">Rust</span></div>
+        </div>
+      </div>
+      <div class="ind"><b>60s</b> · resumo · Esc fecha</div>
+    </div>
+    <p class="mockcap">Desktop, 1440×900. No mobile os cards empilham abaixo do nome e a tela rola só dentro do overlay.</p>
+    <h4>Por dentro</h4>
+    <ul>
+      <li><code>components/journey/SixtySeconds.tsx</code>, mesma fonte de dados dos capítulos. Os 3 projetos vêm de <code>featured: true</code> em <code>content/projects.ts</code> (OppyConnect, Duo, claude-telegram-bridge).</li>
+      <li>Travamento de scroll e foco presos no overlay, como o menu. Link direto <code>/pt-BR/#60s</code> abre no modo resumo; é o link para candidaturas.</li>
+      <li>Modo foto e Mission Control não abrem por cima dele.</li>
+    </ul>
+    <p><b>Teste.</b> E2E: "60s" mostra 3 cards, e-mail e currículo; Esc fecha; <code>#60s</code> abre direto.</p>
+
+    <!-- ============ 03 ============ -->
+    <h2 id="mission"><span class="n">03</span>Mission Control (tecla ~)</h2>
+    <p><b>O que o recrutador vê.</b> Painel discreto no canto inferior direito, fonte mono, fundo translúcido, atualizado 4 vezes por segundo: FPS (média de 1 s e mínimo), tier de GPU e renderer, capítulo e progresso, texturas carregadas e bytes, draw calls e triângulos, resolução do canvas e DPR, som. Última linha: "R3F + GSAP · código no GitHub".</p>
+    <h4>Como fica na UI</h4>
+    <div class="mock desk" aria-label="Mockup do Mission Control">
+      <div class="stars"></div>
+      <div class="planet" style="width:30%;aspect-ratio:1;right:4%;top:18%;background:radial-gradient(circle at 35% 35%,#f1c48a,#b36b2e 55%,#3a2010)"></div>
+      <div class="bar"><span>VA<span style="color:#4f8dff">.</span></span><span><span class="pill">Currículo</span><span class="pill">60s</span><span class="pill">PT</span><span class="pill">☰</span></span></div>
+      <div style="position:absolute;left:6%;top:30%;width:42%">
+        <div class="mono">03 / 05 — Profissional</div>
+        <div class="title" style="font-size:clamp(12px,2.6vw,24px);margin:6px 0">LinkBiz</div>
+        <div class="line l"></div><div class="line m"></div><div class="line s"></div>
+      </div>
+      <div class="panel" style="right:14px;bottom:14px;width:46%;max-width:300px">
+        <b>MISSION CONTROL</b> <span style="float:right;color:#5d6472">~ fecha</span><br>
+        fps <span style="color:#eef0f4">60</span> · min <span style="color:#eef0f4">57</span><br>
+        gpu <span style="color:#eef0f4">high</span> · ANGLE (NVIDIA RTX…)<br>
+        capítulo <span style="color:#eef0f4">03 júpiter</span> · progress <span style="color:#eef0f4">0.284</span><br>
+        texturas <span style="color:#eef0f4">14/21</span> · 18.2 MB<br>
+        draw calls <span style="color:#eef0f4">41</span> · tris <span style="color:#eef0f4">312k</span><br>
+        canvas <span style="color:#eef0f4">1440×900 @1.75</span> · som <span style="color:#eef0f4">off</span><br>
+        tier <span class="chip">high</span><span class="chip">mid</span><span class="chip">low</span><br>
+        <span style="color:#5d6472">R3F + GSAP · código no GitHub ↗</span>
+      </div>
+      <div class="ind"><b>03</b> / 08 — Júpiter</div>
+    </div>
+    <p class="mockcap">Abre com ~ ou ` e também pelo menu ("Mission Control"), que é o caminho no mobile.</p>
+    <h4>Por dentro</h4>
+    <ul>
+      <li><code>gl.info.render</code> para draw calls e triângulos; <code>WEBGL_debug_renderer_info</code> para a GPU quando o navegador permite; <code>THREE.DefaultLoadingManager</code> e o manifest para texturas; store da jornada para capítulo e progresso.</li>
+      <li>Botões de tier rebaixam ou sobem a qualidade ao vivo, para você e o recrutador testarem.</li>
+    </ul>
+    <p><b>Teste.</b> E2E: tecla ~ mostra "FPS", "tier" e o capítulo atual.</p>
+
+    <!-- ============ 04 ============ -->
+    <h2 id="sol"><span class="n">04</span>Sol com flare real e eclipse da Lua</h2>
+    <h3>Sol no capítulo final</h3>
+    <p>No "Espaço profundo" a câmera passa a olhar de volta para o Sistema Solar nos primeiros 40% do capítulo, e só depois vira para a Via Láctea. Nesse olhar, o Sol ganha um lens flare físico: 6 "ghosts" (discos e anéis) no eixo Sol → centro da tela, halo com dispersão cromática e starburst de 6 pontas. A intensidade cai conforme o Sol é ocluído.</p>
+    <h4>Como fica na UI</h4>
+    <div class="mocks2">
+      <div class="mock desk" aria-label="Mockup do Sol com flare no capítulo final">
+        <div class="stars"></div>
+        <div class="sun" style="width:14%;aspect-ratio:1;left:70%;top:18%"></div>
+        <div class="ghost" style="width:6%;aspect-ratio:1;left:58%;top:36%;border-color:rgba(159,192,255,.55)"></div>
+        <div class="ghost" style="width:3%;aspect-ratio:1;left:50%;top:46%"></div>
+        <div class="ghost" style="width:10%;aspect-ratio:1;left:36%;top:56%;border-color:rgba(255,120,120,.4)"></div>
+        <div class="ghost" style="width:2%;aspect-ratio:1;left:28%;top:68%;background:rgba(255,220,160,.5)"></div>
+        <div style="position:absolute;left:62%;top:12%;width:30%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,240,200,.6),transparent);transform:rotate(-30deg)"></div>
+        <div style="position:absolute;left:62%;top:12%;width:30%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,240,200,.6),transparent);transform:rotate(30deg)"></div>
+        <div class="bar"><span>VA<span style="color:#4f8dff">.</span></span><span><span class="pill">Currículo</span><span class="pill">60s</span><span class="pill">PT</span><span class="pill">☰</span></span></div>
+        <div style="position:absolute;left:8%;bottom:16%;width:50%">
+          <div class="mono">Contato</div>
+          <div class="title" style="font-size:clamp(12px,2.6vw,24px);margin:6px 0">Vamos construir<br>algo que <span style="color:#b8c4ff">dure.</span></div>
+        </div>
+        <div class="ind"><b>08</b> / 08 — Espaço profundo</div>
+      </div>
+      <div class="mock phone" aria-label="Mockup do eclipse da Lua no hero, mobile">
+        <div class="stars"></div>
+        <div class="planet" style="width:120%;aspect-ratio:1;left:22%;top:-8%"></div>
+        <div class="moon" style="width:22%;aspect-ratio:1;left:48%;top:22%;box-shadow:0 0 0 2px rgba(0,0,0,.4)"></div>
+        <div style="position:absolute;left:52%;top:26%;width:30%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(0,0,0,.65),rgba(0,0,0,0) 70%)"></div>
+        <div style="position:absolute;left:8%;right:8%;top:50%">
+          <div class="mono">FullStack Developer</div>
+          <div class="title" style="font-size:22px;margin:6px 0">Victor<br><span style="color:#4f8dff">Augusto</span></div>
+          <div class="line l"></div><div class="line m"></div>
+          <div style="margin-top:8px"><span class="btn solid">Ver projetos</span></div>
+        </div>
+        <div class="ind"><b>01</b> / 08 — Terra</div>
+      </div>
+    </div>
+    <p class="mockcap">Esquerda: olhar de volta no final, Sol com ghosts alinhados ao centro. Direita: instante do trânsito da Lua no hero, com sombra na Terra.</p>
+    <h3>Eclipse rápido da Lua no hero</h3>
+    <p>A Lua orbita a Terra num plano quase alinhado com a câmera do hero. A cada 75 segundos cruza na frente da Terra em 4 segundos, projetando umbra e penumbra na superfície. O primeiro trânsito começa 6 segundos depois do preloader. Fora do hero, a Lua volta a uma órbita lenta e distante.</p>
+    <ul>
+      <li>Sombra: uniform <code>uMoonPos</code> no shader da Terra; o fragmento escurece quando a linha Sol → fragmento passa a menos de um raio lunar da Lua.</li>
+      <li>Tier low: só o halo do Sol, sem ghosts; eclipse sem penumbra. Reduced motion: flare estático e Lua parada.</li>
+    </ul>
+    <p><b>Teste.</b> Unit: oclusão do flare e sombra da Lua com casos fixos. Visual: screenshot do final com o Sol em quadro e do hero no instante do trânsito (relógio da cena forçado).</p>
+
+    <!-- ============ 05 ============ -->
+    <h2 id="som"><span class="n">05</span>Som espacial sincronizado ao warp</h2>
+    <p>Com o som ligado, cada transição tem assinatura própria, sintetizada em Web Audio e agendada no mesmo relógio do <code>WarpOverlay</code>, então nunca desincroniza.</p>
+    <h4>Como fica (linha do tempo do warp, 1 220 ms)</h4>
+    <div class="timeline">
+      <span class="t">0 ms</span><span>Clique no menu ou trilho. Sub-grave em 55 Hz começa a subir; ruído filtrado cresce. Rastros de estrelas aceleram na tela.</span>
+      <span class="t">520 ms</span><span>Pico: tela escura, scroll e câmera saltam. "Ping" de beacon (seno 1,2 kHz, decaimento 0,4 s, eco curto).</span>
+      <span class="t">520–1220 ms</span><span>Grave desce de 110 Hz para 40 Hz e some; rastros desaceleram e dissolvem no novo planeta.</span>
+      <span class="t">1 notch</span><span class="b">Whoosh curto já existente, com pitch por planeta: Júpiter mais grave, Vênus mais agudo.</span>
+      <span class="t">60s e menu</span><span class="b">Clique seco, muito baixo.</span>
+    </div>
+    <div class="bars" aria-hidden="true">
+      <div class="row"><span>sub-grave 55→110 Hz</span><div class="bar2"><span style="left:0;width:43%"></span></div></div>
+      <div class="row"><span>ruído filtrado</span><div class="bar2"><span style="left:10%;width:40%;opacity:.5"></span></div></div>
+      <div class="row"><span>ping do beacon</span><div class="bar2"><span style="left:43%;width:14%;background:var(--ok)"></span></div></div>
+      <div class="row"><span>grave 110→40 Hz</span><div class="bar2"><span style="left:43%;width:57%;opacity:.6"></span></div></div>
+    </div>
+    <ul>
+      <li>Volume mestre 0,28. Nada toca sem interação do usuário. O toggle do header continua mandando.</li>
+      <li>Mission Control mostra "som on/off" e o último evento tocado.</li>
+    </ul>
+    <p><b>Teste.</b> Unit: o agendador cria os nós com os tempos certos (mock do AudioContext). E2E: com som ligado, warp sem erros de console.</p>
+
+    <!-- ============ 06 ============ -->
+    <h2 id="foto"><span class="n">06</span>Modo foto (tecla P)</h2>
+    <p>Pressionar <span class="kbd">P</span> esconde toda a UI e mostra só a cena, com uma barra mínima: "Capturar", "Com texto", "Voltar". Capturar renderiza um frame em 2x, gera PNG e baixa <code>victor-augusto-{capitulo}.png</code>.</p>
+    <h4>Como fica na UI</h4>
+    <div class="mock desk" aria-label="Mockup do modo foto">
+      <div class="stars"></div>
+      <div class="planet" style="width:46%;aspect-ratio:1;right:10%;top:10%;background:radial-gradient(circle at 35% 35%,#f3e2b8,#c9a96a 55%,#4a3a1e)"></div>
+      <div style="position:absolute;left:30%;right:-4%;top:52%;height:7%;border-radius:50%;border:3px solid rgba(220,200,160,.5);transform:rotate(-14deg)"></div>
+      <div class="panel" style="left:50%;transform:translateX(-50%);bottom:14px;padding:6px 10px;white-space:nowrap"><span class="btn solid" style="margin-right:8px">Capturar</span><span class="btn">Com texto</span><span class="btn">Voltar</span><span style="margin-left:10px;color:#5d6472">P · 2880×1800 · PNG</span></div>
+    </div>
+    <p class="mockcap">Sem header, sem indicador, sem cursor custom. Só a cena e a barra. "Com texto" inclui o título do capítulo na imagem.</p>
+    <ul>
+      <li>Técnica: render extra no <code>useFrame</code> com <code>gl.setPixelRatio(2)</code> temporário e <code>canvas.toBlob</code> logo após <code>gl.render</code>, sem <code>preserveDrawingBuffer</code>. Pós-processamento incluso.</li>
+      <li>Texto DOM desenhado na imagem via <code>html-to-image</code> só com "Com texto".</li>
+      <li>Mobile: botão "Foto" no menu.</li>
+    </ul>
+    <p><b>Teste.</b> E2E: P esconde o header; Capturar dispara download com nome correto.</p>
+
+    <!-- ============ 07 ============ -->
+    <h2 id="og"><span class="n">07</span>Imagem OG por idioma, sitemap e robots</h2>
+    <h4>Como fica a imagem OG (1200×630)</h4>
+    <div class="mock" style="aspect-ratio:1200/630" aria-label="Mockup da imagem OG">
+      <div class="stars"></div>
+      <div class="planet" style="width:44%;aspect-ratio:1;right:-4%;top:6%"></div>
+      <div style="position:absolute;left:7%;top:18%;width:52%">
+        <div class="mono">FullStack Developer · São José dos Campos, SP</div>
+        <div class="title" style="font-size:clamp(16px,4.2vw,40px);margin:8px 0">Victor Augusto<br>Ferreira dos Santos</div>
+        <div class="line l"></div><div class="line m"></div>
+        <div class="mono" style="margin-top:14px;color:#4f8dff">victors.codes</div>
+      </div>
+    </div>
+    <p class="mockcap">Versão en: "FullStack Developer · São José dos Campos, Brazil". Também 1080×1080 para WhatsApp e LinkedIn.</p>
+    <ul>
+      <li><b>OG dinâmica.</b> <code>scripts/og.mjs</code> (Playwright + sharp) renderiza o hero no modo poster e compõe nome, cargo e URL por idioma. <code>generateMetadata</code> escolhe a imagem pelo locale.</li>
+      <li><b>sitemap.xml.</b> <code>scripts/sitemap.mjs</code> gera as 4 URLs (2 home, 2 clássicas) com <code>lastmod</code> do último commit e <code>xhtml:link</code> hreflang. <code>robots.txt</code> aponta para o sitemap e libera crawlers de IA (D4).</li>
+      <li><b>hreflang.</b> <code>pt-BR</code>, <code>en</code> e <code>x-default</code> (pt-BR) em todas as páginas.</li>
+    </ul>
+    <p><b>Teste.</b> Unit: sitemap com 4 URLs e alternates. E2E: meta OG por idioma.</p>
+
+    <!-- ============ 08 ============ -->
+    <h2 id="404"><span class="n">08</span>Página 404: "Perdido no espaço"</h2>
+    <h4>Como fica na UI</h4>
+    <div class="mock desk" aria-label="Mockup da página 404">
+      <div class="stars"></div>
+      <div class="planet" style="width:5%;aspect-ratio:1;left:78%;top:30%;box-shadow:0 0 18px rgba(79,141,255,.5)"></div>
+      <div style="position:absolute;left:0;right:0;top:26%;text-align:center">
+        <div class="mono">404 · sinal perdido</div>
+        <div class="title" style="font-size:clamp(16px,4vw,38px);margin:8px 0">Perdido<br>no espaço</div>
+        <div class="mono" style="color:#5d6472">/pt-BR/projetos/duo não existe · Lost in space</div>
+        <div style="margin-top:14px"><span class="btn solid">Voltar à Terra</span><span class="btn">Versão clássica</span></div>
+      </div>
+    </div>
+    <p class="mockcap">Fundo estático (poster do skybox), sem WebGL. Texto em pt-BR e en lado a lado, já que a 404 não tem locale.</p>
+    <ul>
+      <li><code>app/not-found.tsx</code> vira <code>404.html</code> no export; o GitHub Pages serve esse arquivo para qualquer rota inexistente. Tem <code>noindex</code> e devolve status 404 real, para não virar "soft 404".</li>
+    </ul>
+    <p><b>Teste.</b> E2E: <code>/qualquer-coisa/</code> mostra "Perdido no espaço" e o botão leva ao hero.</p>
+
+    <!-- ============ 09 ============ -->
+    <h2 id="classico"><span class="n">09</span>Portfólio clássico em rota escondida</h2>
+    <p><b>O que é.</b> O mesmo conteúdo (hero, 5 projetos, sobre, skills, outros projetos, FAQ, contato), sem 3D, sem preloader, sem som, sem cursor custom. Página longa, rápida, preto, azul e branco. Rotas <code>/pt-BR/classic/</code> e <code>/en/classic/</code>.</p>
+    <h4>Como fica na UI</h4>
+    <div class="callout"><p><b>Protótipo de alta fidelidade, em página inteira, com o conteúdo real:</b> <a href="https://claude.ai/artifact/K4fnTsgpvh88TMahCmAp93">abrir o protótipo do clássico</a>. Funciona no desktop e no celular, com tema claro e escuro, projetos expansíveis, FAQ e contato. Esse protótipo substitui o wireframe anterior e é a referência de implementação.</p></div>
+    <p><b>Direção: editorial impresso.</b> Fundo branco de papel, tinta preta e um único azul elétrico. Grade de 12 colunas com linhas finas, nome em display gigante (Bricolage Grotesque), corpo em Instrument Sans e rótulos em IBM Plex Mono. Projetos como um livro-razão: índice, nome grande, uma linha de descrição, stack e um "+" que abre desafio, solução, impacto e links. Nada de cards, sombras, gradientes, cantos arredondados, emojis ou "Olá, eu sou". Fecha com um bloco de contato em azul sólido, o único momento de cor cheia da página.</p>
+    <p>Referências de restrição editorial premiadas em 2026 no Awwwards: By-Kin (Site of the Day, "masterclass in restraint"), MONOLOG e IRONHILL (Typography Honors e Developer Award). Fontes na seção 17.</p>
+    <h4>Como fica o botão de troca no 3D</h4>
+    <div class="mock desk" aria-label="Mockup do botão Clássico no header 3D" style="aspect-ratio:16/4">
+      <div class="stars"></div>
+      <div class="bar"><span>VA<span style="color:#4f8dff">.</span></span><span><span class="pill">Clássico</span><span class="pill">Currículo</span><span class="pill">60s</span><span class="pill">····</span><span class="pill on">PT</span><span class="pill">EN</span><span class="pill">☰</span></span></div>
+      <div class="panel" style="left:14px;bottom:10px;max-width:420px">Sem WebGL ou com reduced-motion: faixa de uma linha no topo: <b>"Esta é a versão 3D. Prefere a versão leve? Abrir clássico →"</b></div>
+    </div>
+    <p class="mockcap">A preferência fica em localStorage; quem escolheu o clássico volta nele na próxima visita, até trocar.</p>
+    <h4>Por dentro</h4>
+    <ul>
+      <li><code>app/[locale]/classic/page.tsx</code> com layout próprio (sem JourneyShell). Componentes em <code>components/classic/</code>: <code>ClassicHeader</code>, <code>ClassicHero</code>, <code>QuickFacts</code>, <code>ProjectList</code>, <code>About</code>, <code>SkillGroups</code>, <code>Faq</code>, <code>ContactBlock</code>, <code>ClassicFooter</code>.</li>
+      <li>Fontes de dados: os mesmos <code>content/*.ts</code> e <code>messages/*.json</code>. Zero duplicação de texto. FAQ nova em <code>content/faq.ts</code>.</li>
+      <li>Sem JavaScript obrigatório: a página funciona com JS desligado (expansão dos projetos via <code>&lt;details&gt;</code>).</li>
+      <li>Estilos <code>@media print</code>: vira um currículo de 2 páginas com links visíveis.</li>
+      <li>Metas: LCP &lt; 1,5 s, CLS 0, INP &lt; 100 ms, peso total &lt; 300 KB sem o PDF.</li>
+    </ul>
+    <p><b>Teste.</b> E2E: rotas respondem; botão de troca nos dois sentidos; preferência persiste; conteúdo idêntico ao 3D (mesmos 5 projetos e e-mail); Lighthouse local ≥ 95 em Performance, Acessibilidade, Boas práticas e SEO.</p>
+
+    <!-- ============ 10 ============ -->
+    <h2 id="temas"><span class="n">10</span>Temas pesquisados para o clássico</h2>
+    <p>Seis direções vistas em portfólios de desenvolvedores bem avaliados em 2025 e 2026, todas adaptáveis a preto, azul e branco. Recomendação: A.</p>
+    <div class="grid">
+      <div class="card">
+        <h5>A · Editorial Swiss <span class="tag acc">recomendado</span></h5>
+        <div class="swatches"><span class="sw" style="background:#050609"></span><span class="sw" style="background:#4F8DFF"></span><span class="sw" style="background:#F2F3F5"></span></div>
+        <p>Tipografia grande, grid de 12 colunas com linhas finas, muito espaço, zero sombra. Nome em display, seções numeradas, projetos como linhas de tabela expansíveis. Herda o DNA do 3D; as duas versões parecem o mesmo produto.</p>
+        <p class="ref">Vistos em: portfólios "swiss/bento" no Muz.li e Gallereee; Constance Souville no Colorlib.</p>
+      </div>
+      <div class="card">
+        <h5>B · Navy terminal (Brittany Chiang)</h5>
+        <div class="swatches"><span class="sw" style="background:#0A192F"></span><span class="sw" style="background:#64B5FF"></span><span class="sw" style="background:#E6F1FF"></span></div>
+        <p>Fundo azul-marinho, acento azul claro, navegação numerada, mono nos rótulos, cards com overlay. O portfólio mais forkado do GitHub. Risco: parecer template.</p>
+        <p class="ref">brittanychiang.com (8 mil+ estrelas).</p>
+      </div>
+      <div class="card">
+        <h5>C · Minimal preto e branco (leerob)</h5>
+        <div class="swatches"><span class="sw" style="background:#000000"></span><span class="sw" style="background:#2F6FED"></span><span class="sw" style="background:#FFFFFF"></span></div>
+        <p>Uma coluna de 65 caracteres, Inter, links em azul, nada de cards. Lê como texto bem escrito. O mais rápido. Risco: parecer blog.</p>
+        <p class="ref">leerob.com.</p>
+      </div>
+      <div class="card">
+        <h5>D · Bento grid</h5>
+        <div class="swatches"><span class="sw" style="background:#0B0D12"></span><span class="sw" style="background:#3B82F6"></span><span class="sw" style="background:#EDEFF3"></span></div>
+        <p>Blocos de tamanhos variados: foto, status, mapa, GitHub, projetos. Escaneável, bom no mobile. Risco: tendência de 2024, já cansa.</p>
+        <p class="ref">bento.me e exemplos no Really Good Designs.</p>
+      </div>
+      <div class="card">
+        <h5>E · Documento técnico</h5>
+        <div class="swatches"><span class="sw" style="background:#07090E"></span><span class="sw" style="background:#5B9DFF"></span><span class="sw" style="background:#F5F7FA"></span></div>
+        <p>Sidebar com âncoras, headings, tabelas de stack, blocos de código reais. Fala direto com recrutador técnico. Risco: frio para RH.</p>
+        <p class="ref">Sites de engenheiros de infra e autores open source.</p>
+      </div>
+      <div class="card">
+        <h5>F · Currículo interativo</h5>
+        <div class="swatches"><span class="sw" style="background:#000000"></span><span class="sw" style="background:#1D4ED8"></span><span class="sw" style="background:#FFFFFF"></span></div>
+        <p>Duas colunas, filtros por tecnologia, "baixar PDF". O mais próximo do que o recrutador procura. Risco: pouca personalidade.</p>
+        <p class="ref">Templates no Site Builder Report e Templyo.</p>
+      </div>
+    </div>
+
+    <!-- ============ 11 ============ -->
+    <h2 id="seo"><span class="n">11</span>SEO completo: buscadores</h2>
+    <p><b>Objetivo medível.</b> Primeira posição no Google e no Bing para "Victor Augusto Ferreira dos Santos", "Victor Augusto desenvolvedor", "victors.codes" e para o nome com "full stack São José dos Campos", em pt-BR e en, em até 8 semanas após o deploy. Seu nome tem pouca concorrência: o que decide é domínio próprio com HTML legível, dados estruturados corretos, consistência de nome e 3 a 5 links de fontes fortes. Tudo abaixo está no plano.</p>
+
+    <h3>11.1 Rastreio e indexação</h3>
+    <ul class="check">
+      <li><b>robots.txt</b> liberando tudo, apontando para o sitemap, com regras explícitas para os crawlers de IA (seção 12).</li>
+      <li><b>sitemap.xml</b> com as 4 URLs e hreflang, <code>lastmod</code> real. Enviado ao Google Search Console e ao Bing Webmaster Tools.</li>
+      <li><b>IndexNow</b>: o workflow de deploy avisa Bing e Yandex da mudança de URL em segundos (chave em <code>public/{chave}.txt</code>, uma requisição GET no Actions). Bing alimenta o ChatGPT e o Copilot.</li>
+      <li><b>Canonical e hreflang</b> em todas as páginas (D3); <code>x-default</code> em pt-BR; nunca duas URLs canônicas para o mesmo conteúdo.</li>
+      <li>Página raiz <code>/</code> deixa de ser meta-refresh e vira redirecionamento por script + canonical, com <code>noindex</code>, para o Google não indexar uma página vazia.</li>
+      <li>404 com status 404 real e <code>noindex</code>; sem soft 404.</li>
+      <li>HTML estático pré-renderizado (já é): todo texto existe sem JavaScript. O clássico vai além: funciona com JS desligado.</li>
+      <li>HTTPS, um único host (sem www), trailing slash consistente, sem parâmetros de URL.</li>
+    </ul>
+
+    <h3>11.2 Dados estruturados (JSON-LD)</h3>
+    <ul class="check">
+      <li><code>Person</code>: nome completo, <code>alternateName</code> "Victor Augusto", <code>jobTitle</code>, <code>worksFor</code> (CDT Software), <code>alumniOf</code> (Senai Félix Guisard), <code>address</code> (São José dos Campos, SP, BR), <code>email</code>, <code>image</code>, <code>knowsAbout</code> com as skills, <code>knowsLanguage</code> pt-BR e en, <code>sameAs</code> com GitHub, LinkedIn, Marketplace do VS Code e dev.to.</li>
+      <li><code>ProfilePage</code> na home e no clássico, com <code>mainEntity</code> o Person e <code>dateModified</code>.</li>
+      <li><code>WebSite</code> com <code>inLanguage</code> e <code>publisher</code>.</li>
+      <li><code>SoftwareSourceCode</code> para Duo, claude-telegram-bridge e as extensões (<code>codeRepository</code>, <code>programmingLanguage</code>, <code>runtimePlatform</code>); <code>CreativeWork</code> para OppyConnect e LinkBiz.</li>
+      <li><code>FAQPage</code> com as perguntas da seção 12.3 (D7).</li>
+      <li><code>BreadcrumbList</code> no clássico. Validação com o Rich Results Test e o Schema Markup Validator no CI (script que falha o build se o JSON-LD não parsear).</li>
+    </ul>
+
+    <h3>11.3 On-page</h3>
+    <ul class="check">
+      <li><code>title</code> com nome completo: "Victor Augusto Ferreira dos Santos · FullStack Developer" (pt) e "· FullStack Developer, Brazil" (en), 50 a 60 caracteres.</li>
+      <li><code>description</code> de até 155 caracteres com cargo, cidade, 3 tecnologias e "disponível".</li>
+      <li>h1 do clássico com o nome completo; no 3D, "Victor Augusto" no h1 e o nome completo no eyebrow.</li>
+      <li>Headings sem saltos; <code>article</code>, <code>time</code>, <code>address</code>; <code>alt</code> descritivo em toda imagem; canvas <code>aria-hidden</code> com parágrafo <code>sr-only</code> descrevendo a cena.</li>
+      <li>Links internos entre 3D e clássico nos dois idiomas, com texto-âncora descritivo.</li>
+      <li>Favicon SVG e PNG, <code>manifest.webmanifest</code>, <code>theme-color</code>.</li>
+    </ul>
+
+    <h3>11.4 Performance (Core Web Vitals)</h3>
+    <ul class="check">
+      <li>Clássico: LCP &lt; 1,5 s, CLS &lt; 0,05, INP &lt; 100 ms, TTFB do GitHub Pages já é baixo.</li>
+      <li>3D: texto do hero renderizado antes do canvas (o preloader passa a cobrir só o canvas), fontes com <code>display: swap</code> e preload, Terra em 4K no primeiro paint e 8K trocada depois, planetas carregados sob demanda por capítulo. Meta LCP &lt; 3,5 s, INP &lt; 200 ms.</li>
+      <li>Lighthouse CI no deploy como validação (D8): clássico ≥ 95 em tudo; 3D A11y, BP e SEO ≥ 95, Performance ≥ 80.</li>
+    </ul>
+
+    <h3>11.5 Entidade e nome (Knowledge Graph)</h3>
+    <ul class="check">
+      <li>Mesmo nome, cargo e cidade em site, LinkedIn, GitHub, Marketplace, dev.to e qualquer perfil. Essa consistência é o que o Google usa para juntar tudo numa entidade só.</li>
+      <li><code>sameAs</code> ligando todos os perfis ao site, e os perfis ligando de volta (campo "site" do LinkedIn, "Website" do GitHub, homepage das extensões).</li>
+      <li>Opcional, maior alavanca para painel de conhecimento: uma entrada no Wikidata com nome, ocupação, site oficial e links para os perfis. É gratuito e aceito para pessoas com presença pública verificável.</li>
+      <li>Google Search profile (lançado em 2026 para criadores): criar e vincular ao site.</li>
+      <li>Opcional: registrar <code>victoraugusto.dev</code> ou similar redirecionando 301 para victors.codes, para capturar buscas pelo nome.</li>
+    </ul>
+
+    <h3>11.6 Off-page (com você)</h3>
+    <ul class="check">
+      <li>Google Search Console e Bing Webmaster: verificar o domínio (TXT no DNS), enviar sitemap, pedir indexação das 4 URLs. O Name.com não suporta registro CAA; esse item sai.</li>
+      <li>LinkedIn: "Site" com victors.codes, headline "FullStack Developer · React Native, Node.js, AWS", post de lançamento com o link.</li>
+      <li>GitHub: campo "Website" e README de perfil com link; READMEs de Duo, claude-telegram-bridge e extensões com "feito por Victor Augusto · victors.codes".</li>
+      <li>Marketplace do VS Code: homepage das extensões apontando para o site.</li>
+      <li>Um artigo técnico por trimestre (dev.to, Hashnode ou Medium) sobre Duo ou a bridge, com link de volta. Para nomes pouco concorridos, é o que mais move posição.</li>
+      <li>Presença em comunidades indexadas por IA: responder 2 a 3 perguntas por mês no Reddit (r/brdev, r/ClaudeAI) e Stack Overflow com o site no perfil.</li>
+    </ul>
+
+    <h3>11.7 Medição</h3>
+    <ul class="check">
+      <li>Search Console semanal: impressões, cliques e posição média para o nome; cobertura das 4 URLs.</li>
+      <li>Bing Webmaster: indexação e erros.</li>
+      <li>PageSpeed Insights mensal com dados de campo (CrUX) assim que houver tráfego.</li>
+      <li>Rich Results Test depois de cada deploy que mexa em JSON-LD.</li>
+    </ul>
+
+    <!-- ============ 12 ============ -->
+    <h2 id="geo"><span class="n">12</span>Aparecer na IA (GEO / AEO)</h2>
+    <p>ChatGPT, Perplexity, Gemini, Claude e o Google AI Mode respondem "quem é Victor Augusto?" a partir de páginas que conseguem rastrear, ler e citar. As pesquisas de 2026 apontam o mesmo conjunto de sinais: HTML limpo, resposta direta no topo, tabelas, FAQ, dados estruturados, datas visíveis, presença em plataformas que os modelos indexam (GitHub, LinkedIn, Reddit) e, principalmente, estar no índice do Bing (ChatGPT) além do Google; o Brave (usado pelo Claude) rastreia por links, sem painel.</p>
+
+    <h3>12.1 Acesso dos crawlers de IA (D4)</h3>
+    <pre><code># robots.txt (trecho)
+User-agent: *
+Allow: /
+
+# Busca e citação em IA
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Bingbot
+User-agent: Applebot-Extended
+User-agent: Amazonbot
+User-agent: Meta-ExternalAgent
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://victors.codes/sitemap.xml</code></pre>
+    <ul class="check">
+      <li><b>Bing Webmaster Tools</b> verificado e sitemap enviado: é o índice que o ChatGPT usa.</li>
+      <li><b>Brave Search</b> não tem painel de webmaster (verificado em 2026-10-13: a central de ajuda só documenta o crawler). Ele rastreia por links; o robots.txt libera o crawler e o sitemap cobre o resto.</li>
+      <li><b>IndexNow</b> no deploy (11.1): Bing e Copilot veem a mudança em minutos.</li>
+      <li><code>llms.txt</code> e <code>llms-full.txt</code> na raiz: índice em Markdown com os fatos, projetos e links. Custo zero; os crawlers de busca ainda ignoram, mas agentes e ferramentas de desenvolvimento (Cursor, Claude Code, Copilot) já leem, e OpenAI e Microsoft começaram a buscar o arquivo.</li>
+    </ul>
+
+    <h3>12.2 Conteúdo que a IA consegue citar</h3>
+    <ul class="check">
+      <li><b>Bloco "Fatos rápidos"</b> no topo do clássico (mockup na seção 09): nome completo, cargo, empresa, cidade, formação, idiomas, disponibilidade, e-mail. É o resumo que os modelos extraem primeiro.</li>
+      <li><b>Parágrafo de resposta direta</b> nos primeiros 100 caracteres de cada página: "Victor Augusto Ferreira dos Santos é desenvolvedor full-stack em São José dos Campos, SP, na CDT Software, autor de …".</li>
+      <li><b>Tabelas</b>: projetos (nome, tipo, stack, link) e skills (categoria, tecnologias, nível). Tabelas são o formato com maior taxa de citação em comparações.</li>
+      <li><b>Datas visíveis</b>: "atualizado em" no rodapé e <code>dateModified</code> no JSON-LD. Perplexity e AI Mode favorecem conteúdo com data.</li>
+      <li><b>Versão em inglês completa</b> (já existe): os modelos globais pesam mais o inglês.</li>
+      <li><b>Conteúdo original e específico</b>: cada projeto com problema, solução, impacto e números reais (usuários, releases, estrelas). Sem genéricos.</li>
+      <li><b>Páginas por projeto</b> (fase opcional): <code>/pt-BR/projetos/duo/</code> com case study curto. Cauda longa como "MCP bridge Claude Code" é onde IA cita projetos pequenos.</li>
+    </ul>
+
+    <h3>12.3 FAQ (D7)</h3>
+    <p>Seção no clássico e <code>FAQPage</code> em JSON-LD, nos dois idiomas:</p>
+    <ul>
+      <li>Quem é Victor Augusto Ferreira dos Santos?</li>
+      <li>Onde Victor Augusto trabalha e com quais tecnologias?</li>
+      <li>Victor Augusto está disponível para novas oportunidades?</li>
+      <li>Quais projetos open source Victor Augusto mantém?</li>
+      <li>O que é o Duo (ponte MCP entre dois Claude Code)?</li>
+      <li>O que é o claude-telegram-bridge?</li>
+      <li>Como entrar em contato com Victor Augusto?</li>
+    </ul>
+
+    <h3>12.4 Medição em IA</h3>
+    <ul class="check">
+      <li>Mensalmente, as mesmas 10 perguntas no ChatGPT (com busca), Perplexity, Gemini e Claude: "quem é Victor Augusto desenvolvedor", "Victor Augusto São José dos Campos", "autor do claude-telegram-bridge", etc. Registrar se cita, qual URL e com que texto.</li>
+      <li>Logs não existem no GitHub Pages; usar o relatório de crawlers do Cloudflare (gratuito, DNS proxy) se você quiser ver GPTBot e ClaudeBot visitando. Opcional.</li>
+    </ul>
+
+    <div class="callout"><p><b>Checklist "perfeito" em uma frase:</b> HTML estático legível, canonical no clássico, JSON-LD Person + ProfilePage + FAQ + projetos, sitemap e robots liberando IA, verificado em Google, Bing e Brave, IndexNow no deploy, llms.txt, fatos no topo, tabelas, datas, inglês completo, nome idêntico em todos os perfis apontando para o site, um artigo por trimestre e medição mensal.</p></div>
+
+
+    <!-- ============ 13 ============ -->
+    <h2 id="seguranca"><span class="n">13</span>Segurança de ponta a ponta</h2>
+    <p><b>Modelo de ameaças.</b> O site é estático, sem servidor, sem banco e sem login: não há injeção de SQL nem sessão para roubar. O que existe para proteger: o visitante (XSS, clickjacking, scripts de terceiros, privacidade), o deploy (cadeia de suprimentos npm, GitHub Actions, token), o domínio (DNS, HTTPS, sequestro) e você (dados pessoais expostos, spam, phishing em seu nome). Cada item abaixo tem verificação automática ou manual.</p>
+
+    <h3>13.1 Cabeçalhos e política de conteúdo</h3>
+    <ul class="check">
+      <li><b>CSP estrita</b>: <code>default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests</code>. Possível porque as fontes já são self-hosted via <code>next/font</code> e não há script de terceiro. Os estilos inline do GSAP e do R3F exigem <code>'unsafe-inline'</code> em style; scripts não.</li>
+      <li>No GitHub Pages a CSP vai em <code>&lt;meta http-equiv&gt;</code> (sem <code>frame-ancestors</code>, que só funciona em cabeçalho). Sem proxy (D9), HSTS e frame-ancestors ficam de fora; o GitHub Pages já envia <code>X-Frame-Options</code> e força HTTPS, o que cobre o essencial.</li>
+      <li><b>HSTS</b> com <code>max-age=31536000; includeSubDomains; preload</code> e inscrição na lista de preload. <b>X-Content-Type-Options: nosniff</b>, <b>Referrer-Policy: strict-origin-when-cross-origin</b>, <b>Permissions-Policy</b> negando câmera, microfone, geolocalização, pagamento e sensores, <b>X-Frame-Options: DENY</b> como redundância.</li>
+      <li>Meta realista sem proxy: <b>B+ no securityheaders.com</b> (CSP via meta conta parcialmente) e A no Mozilla Observatory, checada no CI por um script que faz GET na URL publicada.</li>
+    </ul>
+
+    <h3>13.2 Código do site</h3>
+    <ul class="check">
+      <li>Único <code>dangerouslySetInnerHTML</code> é o JSON-LD; o serializador escapa <code>&lt;</code>, <code>&gt;</code> e <code>&amp;</code> como sequências unicode, para o conteúdo das mensagens nunca fechar a tag script.</li>
+      <li>Nenhum conteúdo vindo de URL, hash ou localStorage é renderizado como HTML. O hash só é comparado com a lista fixa de capítulos; o localStorage só guarda booleanos e enums validados.</li>
+      <li>Links externos com <code>rel="noopener noreferrer"</code>; nenhum <code>target=_blank</code> sem isso.</li>
+      <li>Sem analytics, pixels, fontes remotas ou iframes de terceiros. Zero requisições para fora do domínio no 3D e no clássico.</li>
+      <li>Modo foto e Mission Control só leem dados do próprio canvas; nada é enviado a lugar nenhum.</li>
+      <li>Web Audio só inicia após interação; sem <code>autoplay</code>.</li>
+      <li>Dependências: <code>npm audit --audit-level=high</code> falha o CI; Dependabot semanal com alertas de segurança; <code>package-lock.json</code> commitado e <code>npm ci</code> no build; <code>overrides</code> para forçar versões corrigidas em transitivos vulneráveis.</li>
+      <li>Sem secrets no cliente. Variáveis <code>NEXT_PUBLIC_*</code> auditadas: hoje não há nenhuma.</li>
+    </ul>
+
+    <h3>13.3 Deploy e repositório</h3>
+    <ul class="check">
+      <li>GitHub Actions: cada action fixada por <b>SHA completo</b> (não por tag), <code>permissions</code> mínimas por job (<code>contents: read</code>; <code>pages: write</code> e <code>id-token: write</code> só no deploy), <code>concurrency</code> para nunca haver dois deploys, nenhum <code>pull_request_target</code>.</li>
+      <li>Branch <code>main</code> protegida: PR obrigatório, CI verde obrigatório (tipos, testes, e2e, audit, cabeçalhos), sem force push. Commits assinados recomendados.</li>
+      <li>Secret scanning e push protection ligados. O único "segredo" é a chave do IndexNow, pública por definição.</li>
+      <li>2FA por app ou chave física no GitHub e no Name.com.</li>
+      <li>O job de deploy só publica o artefato que o job de build gerou, sem reconstruir.</li>
+    </ul>
+
+    <h3>13.4 Domínio, DNS e HTTPS</h3>
+    <ul class="check">
+      <li>HTTPS obrigatório no GitHub Pages ("Enforce HTTPS") e redirecionamento de http para https.</li>
+      <li>DNSSEC e CAA ficam de fora: os nameservers padrão do Name.com não suportam nenhum dos dois (verificado em 2026-10-13). Ambos voltam a ser possíveis se um dia o DNS for para um provedor terceiro.</li>
+      <li>Domínio verificado no GitHub ("Verified domains" nas configurações do usuário): impede outro usuário de sequestrar <code>victors.codes</code> se o CNAME ficar órfão.</li>
+      <li>SPF <code>v=spf1 -all</code> e DMARC <code>p=reject</code> mesmo sem e-mail no domínio, para ninguém enviar phishing como <code>@victors.codes</code>.</li>
+      <li>Bloqueio de transferência e renovação automática no registrador.</li>
+    </ul>
+
+    <h3>13.5 Privacidade e dados pessoais</h3>
+    <ul class="check">
+      <li>Sem cookies, sem rastreamento. Só localStorage para preferências (som, versão clássica). Uma linha no rodapé diz isso; dispensa banner.</li>
+      <li>O currículo PDF publicado tem metadados removidos (autor, software, datas) e <b>sem telefone nem endereço residencial</b>; só e-mail, cidade e links. Script <code>scripts/strip-pdf.mjs</code> no build.</li>
+      <li>E-mail aparece como texto e <code>mailto</code> (necessário para recrutadores e JSON-LD). Contra spam: filtro no Gmail e, se virar problema, alias <code>contato@victors.codes</code> via encaminhamento gratuito do Cloudflare, trocável sem mexer no site.</li>
+      <li>Modo foto gera a imagem localmente; nada sai do navegador.</li>
+      <li><code>/.well-known/security.txt</code> com contato e política de divulgação.</li>
+    </ul>
+
+    <h3>13.6 Verificação contínua</h3>
+    <ul class="check">
+      <li>CI: <code>npm audit</code>, validação de JSON-LD, teste de cabeçalhos pós-deploy, Playwright com checagem de erros de console e de requisições para domínios externos (falha se houver qualquer uma).</li>
+      <li>Mensal: securityheaders.com, Mozilla Observatory, SSL Labs (A+), revisão do Dependabot.</li>
+      <li>Trimestral: revisão de permissões do Actions e de chaves de acesso.</li>
+    </ul>
+    <div class="callout"><p><b>Resumo:</b> superfície mínima (estático, sem terceiros, sem segredos), cabeçalhos A+, cadeia de suprimentos travada (SHA, lockfile, audit, Dependabot), domínio protegido (DNSSEC, CAA, verificado, SPF/DMARC) e privacidade por padrão.</p></div>
+
+    <!-- ============ 14 ============ -->
+    <h2 id="arquitetura"><span class="n">14</span>Arquitetura e arquivos novos</h2>
+    <pre><code>app/[locale]/classic/page.tsx          clássico (D1)
+app/not-found.tsx                      404 temática
+components/classic/*                   ClassicHeader, ClassicHero, QuickFacts, ProjectList, About, SkillGroups, Faq, ContactBlock, ClassicFooter
+components/journey/SixtySeconds.tsx    modo 60 s
+components/journey/MissionControl.tsx  painel ~
+components/journey/PhotoMode.tsx       tecla P + export PNG
+components/scene/LensFlare.tsx         ghosts, halo, starburst
+components/scene/planets/Moon.tsx      órbita com trânsito; Earth.tsx ganha uMoonPos
+content/faq.ts                         perguntas e respostas (pt-BR / en em messages)
+lib/audio.ts                           warp, ping, pitch por planeta
+lib/seo/{jsonld,alternates,robots}.ts  JSON-LD, hreflang, robots por ambiente
+scripts/og.mjs, sitemap.mjs, llms.mjs  build
+scripts/indexnow.mjs                   roda no Actions após o deploy
+scripts/strip-pdf.mjs                  remove metadados do currículo
+scripts/check-headers.mjs              falha o CI se faltar cabeçalho de segurança
+scripts/validate-jsonld.mjs            falha o build se o JSON-LD estiver inválido
+.github/workflows/deploy.yml           + jobs lighthouse (validação) e indexnow
+public/og/*, sitemap.xml, robots.txt, llms.txt, llms-full.txt, manifest.webmanifest, .well-known/security.txt</code></pre>
+    <p>Tudo continua export estático no GitHub Pages. Nenhum servidor, nenhum segredo além da chave do IndexNow (pública por definição).</p>
+
+    <!-- ============ 14 ============ -->
+    <h2 id="fases"><span class="n">15</span>Fases, validação e riscos</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Fase</th><th>Entrega</th><th>Validação</th></tr></thead>
+      <tbody>
+        <tr><td>F1</td><td>Segurança base (13.1 a 13.3) + Clássico (09) + SEO técnico e dados estruturados (11) + OG, sitemap, robots, llms.txt (07, 12) + 404 (08)</td><td>Lighthouse local ≥ 95 no clássico; E2E das rotas, metas, hreflang e troca; validador de JSON-LD no CI; Rich Results Test sem erros</td></tr>
+        <tr><td>F2</td><td>DNS no Name.com (13.4) + verificações externas: Search Console, Bing, IndexNow, perfis com link (11.6, 12.1)</td><td>B+ em securityheaders e A+ no SSL Labs; 4 URLs indexadas no Google e no Bing; sitemap aceito; primeira medição em IA</td></tr>
+        <tr><td>F3</td><td>Modo 60 s (02) + Mission Control (03) + Modo foto (06)</td><td>E2E de cada atalho e overlay; download do PNG</td></tr>
+        <tr><td>F4</td><td>Sol com flare, eclipse (04) + som sincronizado (05)</td><td>Unit das funções de oclusão e sombra; screenshots; FPS no Mission Control ≥ 55 no tier high</td></tr>
+        <tr><td>F5</td><td>Medição e ajuste: posição para o nome, citações em IA, artigo 1</td><td>Relatório mensal</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Riscos</h3>
+    <ul>
+      <li><b>Flare e eclipse custam GPU:</b> versão reduzida no tier mid, ausente no low; o Mission Control mostra o custo ao vivo.</li>
+      <li><b>Conteúdo duplicado 3D vs clássico:</b> resolvido com canonical (D3).</li>
+      <li><b>Crawlers de IA liberados</b> significa que o conteúdo pode entrar em treinamento. É o preço de ser citado; é conteúdo público de portfólio.</li>
+      <li><b>Tempo de indexação:</b> Google pode levar 2 a 6 semanas para um domínio novo; IndexNow e Search Console encurtam para o Bing.</li>
+    </ul>
+
+    <!-- ============ 15 ============ -->
+    <h2 id="pendencias"><span class="n">16</span>O que depende de você</h2>
+    <ul class="check">
+      <li>Aprovar ou mudar as decisões D1 a D8.</li>
+      <li>Links do Marketplace das extensões (deixado para depois, a seu pedido). LinkedIn e lojas do OppyConnect já estão no código.</li>
+      <li>PDF do currículo em <code>public/cv/Victor-Augusto-Ferreira-dos-Santos.pdf</code>.</li>
+      <li>Uma foto sua (quadrada, boa luz) para o <code>Person.image</code>, a OG e o painel de conhecimento.</li>
+      <li>Números reais dos projetos quando existirem: usuários do OppyConnect, downloads das extensões, estrelas.</li>
+      <li>No Name.com: feito em 2026-10-13 (SPF, DMARC, verificação do GitHub e do Google confirmados por DNS). Pendente só a verificação do Bing.</li>
+      <li>Confirmar 2FA no GitHub e no registrador do domínio.</li>
+    </ul>
+
+    <!-- ============ 16 ============ -->
+    <h2 id="fontes"><span class="n">17</span>Fontes da pesquisa</h2>
+    <p class="src"><b>GEO e IA:</b> <a href="https://www.yotpo.com/blog/chatgpt-seo-geo-tips/">Yotpo, 12 tips to get cited in AI answers</a> · <a href="https://seocrawl.ai/blog/generative-engine-optimization">SEOCrawl, GEO 2026 guide</a> · <a href="https://www.aimagicx.com/blog/generative-engine-optimization-chatgpt-perplexity-2026">AI Magicx, getting cited in ChatGPT, Claude and Perplexity</a> · <a href="https://www.leapd.ai/blog/ai-visibility/how-chatgpt-google-ai-overviews-and-perplexity-source-information-in-2026">Leapd, how ChatGPT, AI Overviews and Perplexity source information</a> · <a href="https://www.techpluto.com/generative-engine-optimization-2026-complete-guide/">TechPluto, GEO complete guide</a> · <a href="https://llmpulse.ai/blog/how-to-rank-in-google-ai-overviews/">LLM Pulse, rank in AI Overviews and AI Mode</a> · <a href="https://guptadeepak.com/geo-compass/guides/google-ai-mode-explained-2026/">Gupta Deepak, Google AI Mode explained</a><br>
+    <b>llms.txt e crawlers:</b> <a href="https://limy.ai/blog/llms-txt-in-2026-the-full-guide">Limy, llms.txt full guide</a> · <a href="https://www.semrush.com/blog/llms-txt/">Semrush, what is llms.txt</a> · <a href="https://www.worknido.com/blog/does-llmstxt-actually-work-evidence-from-2026-server-logs">Worknido, evidence from server logs</a> · <a href="https://www.openhermit.com/blog/llms-txt-guide">OpenHermit, when to bother</a><br>
+    <b>SEO técnico:</b> <a href="https://www.thehoth.com/blog/seo-technical-checklist/">The HOTH, technical SEO checklist 2026</a> · <a href="https://searchengineinfo.org/seo/technical-seo/technical-seo-audit-checklist-2026/">SearchEngineInfo, 47-point audit</a> · <a href="https://nogood.io/blog/technical-seo-checklist/">NoGood, what really matters</a> · <a href="https://www.rivuletiq.com/technical-seo-checklist-2026-complete-audit-guide/">Rivulet IQ, complete audit guide</a><br>
+    <b>Nome e entidade:</b> <a href="https://blitzmetrics.com/own-your-name-on-google/">BlitzMetrics, own your name on Google</a> · <a href="https://blitzmetrics.com/unlocking-google-knowledge-panels/">BlitzMetrics, knowledge panel steps</a> · <a href="https://metricspot.com/docs/sameas-social-profiles/">MetricSpot, sameAs social profiles</a><br>
+    <b>Temas de portfólio:</b> <a href="https://www.awwwards.com/websites/winner_category_portfolio/">Awwwards, best portfolios</a> · <a href="https://www.awwwards.com/websites/winner_category_typography/">Awwwards, typography</a> · <a href="https://www.hontran.dev/blog/best-award-winning-websites-2026">Hon Tran, best award-winning websites 2026</a> · <a href="https://colorlib.com/wp/developer-portfolios/">Colorlib</a> · <a href="https://muz.li/blog/top-100-most-creative-and-unique-portfolio-websites-of-2025/">Muz.li</a> · <a href="https://reallygooddesigns.com/developer-portfolio-examples/">Really Good Designs</a> · <a href="https://www.gallereee.com/style/minimal">Gallereee</a> · <a href="https://www.sitebuilderreport.com/inspiration/web-developer-designer-portfolios">Site Builder Report</a> · <a href="https://templyo.io/blog/17-best-web-developer-portfolio-examples-for-2024">Templyo</a></p>
+
+    <footer class="end">Spec · Portfólio Odisseia · Fase 2 · revisão 5 · 2026-10-13 · preparado para validação, nada implementado.</footer>
+  </main>
+</div>

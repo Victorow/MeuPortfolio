@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { writeVersionPref } from '@/lib/version';
 import gsap from 'gsap';
 import { useJourney } from '@/lib/journey/store';
 import { CHAPTERS } from '@/lib/journey/timeline';
@@ -12,6 +13,7 @@ import { CHAPTER_ACCENT } from '@/content/planets';
 /** Full-screen chapter menu. The big label is the project/section; the planet is the small caption. */
 export default function MenuOverlay() {
   const t = useTranslations('menu');
+  const locale = useLocale();
   const tc = useTranslations('chapters');
   const open = useJourney((s) => s.menuOpen);
   const chapter = useJourney((s) => s.chapter);
@@ -104,6 +106,17 @@ export default function MenuOverlay() {
             </a>
           </li>
         ))}
+        <li className="pt-5 md:pt-7">
+          <a
+            href={`/${locale}/classic/`}
+            data-cursor="link"
+            data-classic-link
+            onClick={() => writeVersionPref('classic')}
+            className="font-mono text-[11px] uppercase tracking-wider2 text-fg/60 transition-colors hover:text-[var(--accent)] focus-visible:text-[var(--accent)]"
+          >
+            {t('classic')} →
+          </a>
+        </li>
       </ul>
     </div>
   );

@@ -9,10 +9,19 @@ export type Project = {
   planet: ProjectPlanet;
   kind: 'professional' | 'oss';
   stack: string[];
+  /** Two-item stack summary for the classic ledger row. */
+  ledger: string[];
+  /** Shown in compact summaries (60 seconds mode). */
+  featured?: boolean;
+  /** schema.org type used in JSON-LD. */
+  schemaType: 'SoftwareSourceCode' | 'CreativeWork';
   links: {
     repo?: string;
     live?: string;
+    /** App Store */
     store?: string;
+    /** Google Play */
+    playStore?: string;
     marketplace?: string;
   };
 };
@@ -27,7 +36,13 @@ export const projects: Project[] = [
     planet: 'mars',
     kind: 'professional',
     stack: ['React Native', 'Capacitor', 'Node.js', 'PostgreSQL', 'AWS'],
-    links: { store: TODO }
+    ledger: ['React Native', 'AWS'],
+    featured: true,
+    schemaType: 'CreativeWork',
+    links: {
+      store: 'https://apps.apple.com/ec/app/oppyconnect/id6767213224',
+      playStore: 'https://play.google.com/store/apps/details?id=com.linkbiz.oppyconnect'
+    }
   },
   {
     key: 'linkbiz',
@@ -35,6 +50,8 @@ export const projects: Project[] = [
     planet: 'jupiter',
     kind: 'professional',
     stack: ['React', 'Node.js', 'PostgreSQL', 'AWS'],
+    ledger: ['React', 'Node.js'],
+    schemaType: 'CreativeWork',
     links: { live: 'https://linkbiz.ai' }
   },
   {
@@ -43,6 +60,9 @@ export const projects: Project[] = [
     planet: 'saturn',
     kind: 'oss',
     stack: ['TypeScript', 'MCP', 'Node.js', 'Tailscale'],
+    ledger: ['TypeScript', 'MCP'],
+    featured: true,
+    schemaType: 'SoftwareSourceCode',
     links: { repo: 'https://github.com/Victorow/A2A-and-cache-semantic-for-claude' }
   },
   {
@@ -51,6 +71,9 @@ export const projects: Project[] = [
     planet: 'uranus',
     kind: 'oss',
     stack: ['Node.js', 'Rust', 'Telegram Bot API'],
+    ledger: ['Node.js', 'Rust'],
+    featured: true,
+    schemaType: 'SoftwareSourceCode',
     links: { repo: 'https://github.com/Victorow/claude-telegram-bridge' }
   },
   {
@@ -59,6 +82,8 @@ export const projects: Project[] = [
     planet: 'venus',
     kind: 'oss',
     stack: ['TypeScript', 'VS Code API'],
+    ledger: ['TypeScript'],
+    schemaType: 'SoftwareSourceCode',
     links: { marketplace: TODO }
   }
 ];
@@ -75,6 +100,6 @@ export const otherProjects: { key: OtherProjectKey; url: string }[] = [
 export const SOCIAL = {
   email: 'victoroow@gmail.com',
   github: 'https://github.com/Victorow',
-  linkedin: TODO,
+  linkedin: 'https://www.linkedin.com/in/victoraugustoferreiradossantos',
   cv: '/cv/Victor-Augusto-Ferreira-dos-Santos.pdf'
 };

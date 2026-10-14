@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run seo:build",
     "build": "next build",
+    "postbuild": "node scripts/validate-jsonld.mjs out",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
@@ -12,7 +14,12 @@
     "e2e": "playwright test -c e2e/playwright.config.ts",
     "assets": "node scripts/assets.mjs",
     "posters": "node scripts/posters.mjs",
-    "build:e2e": "cross-env NEXT_DIST_DIR=.next-e2e next build"
+    "prebuild:e2e": "npm run seo:build",
+    "build:e2e": "cross-env NEXT_DIST_DIR=.next-e2e next build",
+    "postbuild:e2e": "node scripts/validate-jsonld.mjs .next-e2e",
+    "seo:build": "node scripts/strip-pdf.mjs && node scripts/sitemap.mjs && node scripts/llms.mjs && node scripts/validate-jsonld.mjs",
+    "og": "node scripts/og.mjs",
+    "audit:prod": "node scripts/audit.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.114.0",
@@ -43,12 +50,17 @@
     "cross-env": "^10.1.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.15",
+    "jiti": "^1.21.7",
     "jsdom": "^30.1.2",
-    "postcss": "^8.4.47",
+    "pdf-lib": "^1.17.1",
+    "postcss": "^8.5.30",
     "serve": "^14.2.6",
     "sharp": "^0.35.5",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3",
     "vitest": "^3.2.7"
+  },
+  "overrides": {
+    "postcss": "$postcss"
   }
 }

@@ -1,7 +1,9 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { formatUpdated } from '@/lib/seo/format';
 
-export default function Footer() {
+export default function Footer({ updated }: { updated: string }) {
   const t = useTranslations('footer');
+  const locale = useLocale();
   const year = new Date().getFullYear();
   return (
     <footer className="relative z-10 hairline-t bg-bg/70 px-5 py-6 backdrop-blur-sm md:px-[3vw]">
@@ -11,6 +13,10 @@ export default function Footer() {
         </p>
         <p>{t('credits')}</p>
         <p>
+          <time dateTime={updated} data-updated>
+            {t('updated', { date: formatUpdated(updated, locale) })}
+          </time>
+          {' · '}
           {t('builtWith')} {t('stack')}
         </p>
       </div>
