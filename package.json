@@ -19,7 +19,8 @@
     "postbuild:e2e": "node scripts/validate-jsonld.mjs .next-e2e",
     "seo:build": "node scripts/strip-pdf.mjs && node scripts/sitemap.mjs && node scripts/llms.mjs && node scripts/validate-jsonld.mjs",
     "og": "node scripts/og.mjs",
-    "audit:prod": "node scripts/audit.mjs"
+    "audit:prod": "node scripts/audit.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.114.0",
