@@ -87,10 +87,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-<<<<<<< Updated upstream
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
-=======
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
 
   # Tells IndexNow (Bing, Yandex and partners) which URLs changed, seconds after the deploy.
   notify:
@@ -109,4 +106,3 @@ jobs:
           node-version: 20
       - name: IndexNow ping
         run: node scripts/indexnow.mjs
->>>>>>> Stashed changes
