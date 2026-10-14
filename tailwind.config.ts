@@ -1,16 +1,14 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    './app/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './content/**/*.{ts,tsx}'
-  ],
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './content/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
+        bg: '#030305',
+        fg: '#F2F2F0',
         ink: {
-          950: '#060607',
+          950: '#030305',
           900: '#0A0A0B',
           800: '#111113',
           700: '#141416',
@@ -22,11 +20,21 @@ const config: Config = {
           100: '#C9C9CE',
           50: '#E6E6E8'
         },
-        glow: 'rgba(220,230,255,0.08)'
+        accent: {
+          earth: '#5FA8FF',
+          mars: '#D96A3C',
+          jupiter: '#E0A862',
+          saturn: '#E8C98A',
+          uranus: '#8FD8E8',
+          venus: '#F0D9A0',
+          neptune: '#3E6CFF',
+          deep: '#B8C4FF'
+        }
       },
       fontFamily: {
         display: ['var(--font-display)', 'ui-sans-serif', 'system-ui'],
-        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui']
+        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace']
       },
       letterSpacing: {
         tightest: '-0.04em',
@@ -34,16 +42,18 @@ const config: Config = {
         wider3: '0.22em'
       },
       fontSize: {
-        'display-xl': ['clamp(3.5rem, 12vw, 11rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
+        'display-xl': ['clamp(3.5rem, 12vw, 11rem)', { lineHeight: '0.88', letterSpacing: '-0.04em' }],
         'display-lg': ['clamp(2.5rem, 8vw, 7rem)', { lineHeight: '0.92', letterSpacing: '-0.03em' }],
-        'display-md': ['clamp(2rem, 5vw, 4rem)', { lineHeight: '0.98', letterSpacing: '-0.02em' }]
-      },
-      boxShadow: {
-        glow: '0 0 80px 0 rgba(220,230,255,0.06)',
-        panel: '0 1px 0 0 rgba(255,255,255,0.04) inset, 0 30px 60px -30px rgba(0,0,0,0.8)'
+        'display-md': ['clamp(2.2rem, 5vw, 4.5rem)', { lineHeight: '0.98', letterSpacing: '-0.02em' }]
       },
       transitionTimingFunction: {
         cine: 'cubic-bezier(0.22, 1, 0.36, 1)'
+      },
+      keyframes: {
+        marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } }
+      },
+      animation: {
+        marquee: 'marquee 28s linear infinite'
       }
     }
   },

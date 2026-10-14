@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Victor Augusto · Dossiê</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: a dossier. Fixed left column (identity, nav, contact) and a scrolling right column with oversized section titles. Dark-first to match the 3D site; black, white and one electric blue. Hairlines only; no cards, shadows, gradients or rounded boxes. */
+  :root {
+    --bg: #06070a; --bg-2: #0b0d12; --fg: #f3f4f6; --fg-2: #a9afbc; --fg-3: #626a7a;
+    --rule: rgba(243,244,246,0.14); --rule-strong: #f3f4f6; --blue: #4f8dff; --blue-ink: #06070a;
+    --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) { --bg: #fbfbfc; --bg-2: #f1f2f5; --fg: #0a0b0e; --fg-2: #4b5160; --fg-3: #8b91a0; --rule: rgba(10,11,14,0.14); --rule-strong: #0a0b0e; --blue: #1a4fff; --blue-ink: #ffffff; color-scheme: light; }
+  }
+  :root[data-theme="light"] { --bg: #fbfbfc; --bg-2: #f1f2f5; --fg: #0a0b0e; --fg-2: #4b5160; --fg-3: #8b91a0; --rule: rgba(10,11,14,0.14); --rule-strong: #0a0b0e; --blue: #1a4fff; --blue-ink: #ffffff; color-scheme: light; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-3); }
+
+  .shell { display: grid; grid-template-columns: minmax(300px, 38%) minmax(0, 1fr); min-height: 100vh; }
+  @media (max-width: 920px) { .shell { grid-template-columns: minmax(0, 1fr); } }
+
+  /* Left column */
+  .side { position: sticky; top: env(safe-area-inset-top, 0px); height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 40px clamp(20px, 4vw, 56px); border-right: 1px solid var(--rule); }
+  @media (max-width: 920px) { .side { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--rule); padding-bottom: 28px; } .side .nav, .side .foot { display: none; } }
+  .side .id .eyebrow { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 22px; }
+  .side h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.6rem, 5.2vw, 5rem); line-height: 0.9; letter-spacing: -0.045em; margin: 0; text-transform: uppercase; }
+  .side h1 .l2 { color: var(--blue); }
+  .side h1 .l3 { display: block; font-size: 0.42em; letter-spacing: -0.02em; text-transform: none; font-weight: 500; color: var(--fg-2); margin-top: 14px; line-height: 1.1; }
+  .side p.bio { margin: 22px 0 0; max-width: 36ch; color: var(--fg-2); font-size: 15px; }
+  .side .nav { list-style: none; margin: 34px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+  .side .nav li { border-bottom: 1px solid var(--rule); }
+  .side .nav a { display: grid; grid-template-columns: 36px 1fr auto; align-items: baseline; gap: 12px; padding: 12px 0; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--fg-2); transition: color .25s, padding-left .35s cubic-bezier(.22,1,.36,1); }
+  .side .nav a .n { font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.1em; color: var(--fg-3); }
+  .side .nav a .c { font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.1em; color: var(--fg-3); }
+  .side .nav a:hover, .side .nav a.on { color: var(--fg); padding-left: 6px; }
+  .side .nav a.on .n { color: var(--blue); }
+  .side .foot { display: grid; gap: 14px; }
+  .side .foot .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 11px 14px; border: 1px solid var(--rule-strong); transition: background .25s, color .25s, border-color .25s; }
+  .btn.primary { background: var(--fg); color: var(--bg); }
+  .btn.primary:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .btn:hover { background: var(--fg); color: var(--bg); }
+  .side .foot .meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .side .foot .meta b { color: var(--fg); font-weight: 500; }
+
+  /* Right column */
+  .main { min-width: 0; padding: 0 clamp(20px, 4vw, 64px) 96px; }
+  section { padding-top: 72px; }
+  @media (max-width: 920px) { section { padding-top: 48px; } }
+  .sec { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 12px 24px; border-bottom: 1px solid var(--rule-strong); padding-bottom: 14px; margin-bottom: 8px; }
+  .sec h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 6vw, 5.4rem); letter-spacing: -0.045em; line-height: 0.9; margin: 0; text-transform: uppercase; }
+  .sec h2 .n { font-family: var(--font-mono); font-weight: 400; font-size: 12px; letter-spacing: 0.14em; color: var(--blue); vertical-align: top; margin-right: 10px; }
+  .sec .aside { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); padding-bottom: 6px; }
+
+  /* Projects */
+  .proj { border-bottom: 1px solid var(--rule); }
+  .proj details > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 16px; padding: 30px 0 26px; }
+  .proj summary::-webkit-details-marker { display: none; }
+  .proj .k { display: flex; gap: 16px; align-items: baseline; margin-bottom: 10px; }
+  .proj .k .idx { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--blue); }
+  .proj .k .kind { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); }
+  .proj h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 3.6rem); letter-spacing: -0.04em; line-height: 0.95; margin: 0; transition: color .25s; }
+  .proj summary:hover h3 { color: var(--blue); }
+  .proj .lead { margin: 12px 0 0; color: var(--fg-2); max-width: 60ch; font-size: 15.5px; }
+  .proj .stack { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3); }
+  .proj .plus { width: 44px; height: 44px; border: 1px solid var(--rule-strong); display: grid; place-items: center; font-size: 22px; font-weight: 300; line-height: 1; align-self: start; margin-top: 30px; transition: transform .35s cubic-bezier(.22,1,.36,1), background .25s, color .25s; }
+  .proj details[open] .plus { transform: rotate(45deg); background: var(--fg); color: var(--bg); }
+  .proj .body { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 0 0 30px; border-top: 1px dashed var(--rule); padding-top: 22px; }
+  @media (max-width: 760px) { .proj .body { grid-template-columns: 1fr; } }
+  .proj .body h4 { margin: 0 0 6px; font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
+  .proj .body p { margin: 0; color: var(--fg-2); font-size: 14.5px; }
+  .proj .links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .proj .links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--rule-strong); padding: 10px 14px; transition: background .25s, color .25s; }
+  .proj .links a:hover { background: var(--fg); color: var(--bg); }
+  .others { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  .others a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2); border-bottom: 1px solid var(--blue); padding-bottom: 3px; }
+  .others a:hover { color: var(--blue); }
+
+  /* About */
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; padding-top: 22px; }
+  @media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+  .about .pull { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.4rem, 2.5vw, 2rem); letter-spacing: -0.03em; line-height: 1.15; margin: 0; text-wrap: balance; }
+  .about .pull b { font-weight: 700; color: var(--blue); }
+  .about .text p { margin: 0 0 14px; color: var(--fg-2); max-width: 58ch; }
+  .tl { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+  .tl li { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .tl .w { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); padding-top: 4px; }
+  .tl .w.now { color: var(--blue); }
+  .tl b { display: block; font-weight: 600; }
+  .tl span { color: var(--fg-2); font-size: 14.5px; }
+
+  /* Stack */
+  .matrix { padding-top: 8px; }
+  .matrix .row { display: grid; grid-template-columns: 190px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+  @media (max-width: 640px) { .matrix .row { grid-template-columns: 1fr; gap: 8px; } }
+  .matrix .cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-3); padding-top: 4px; }
+  .matrix .items { display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; letter-spacing: -0.01em; }
+  .matrix .items .hi { color: var(--fg); position: relative; }
+  .matrix .items .hi::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px; background: var(--blue); }
+  .matrix .items span:not(.hi) { color: var(--fg-2); }
+
+  /* FAQ */
+  .faq { padding-top: 6px; }
+  .faq details { border-bottom: 1px solid var(--rule); }
+  .faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr 24px; gap: 16px; align-items: center; padding: 18px 0; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary span { font-size: 20px; font-weight: 300; color: var(--fg-3); transition: transform .3s; }
+  .faq details[open] summary span { transform: rotate(45deg); color: var(--blue); }
+  .faq p { margin: 0 0 18px; color: var(--fg-2); max-width: 64ch; }
+
+  /* Contact */
+  .contact { padding-top: 72px; }
+  .contact .big { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.6rem, 7vw, 6.4rem); letter-spacing: -0.05em; line-height: 0.88; margin: 14px 0 0; text-transform: uppercase; }
+  .contact .big .b { color: var(--blue); }
+  .contact .email { display: inline-block; margin-top: 30px; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.3rem, 3vw, 2.4rem); letter-spacing: -0.02em; border-bottom: 2px solid var(--blue); padding-bottom: 4px; position: relative; }
+  .contact .email .ok { position: absolute; left: 0; top: 100%; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); opacity: 0; transition: opacity .25s; }
+  .contact .email .ok.show { opacity: 1; }
+  .contact .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 34px; }
+  .pagefoot { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
+  .mobile-only { display: none; }
+  @media (max-width: 920px) { .mobile-only { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } html { scroll-behavior: auto; } }
+  @media print { .side { position: static; height: auto; } .side .nav, .btn, .plus, .mobile-only { display: none !important; } .shell { display: block; } body { font-size: 12px; } }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="side">
+    <div class="id">
+      <div class="eyebrow mono"><span>FullStack Developer</span><span>São José dos Campos, SP</span></div>
+      <h1>Victor<br><span class="l2">Augusto</span><span class="l3">Ferreira dos Santos</span></h1>
+      <p class="bio">Entrego produto de ponta a ponta: apps publicados nas lojas, back-end na AWS com PostgreSQL e ferramentas open source para fluxos com agentes de IA.</p>
+      <ol class="nav" aria-label="Seções">
+        <li><a class="on" href="#projetos"><span class="n">01</span>Projetos<span class="c">05</span></a></li>
+        <li><a href="#sobre"><span class="n">02</span>Sobre<span class="c">CDT · SESI · Senai</span></a></li>
+        <li><a href="#stack"><span class="n">03</span>Stack<span class="c">6 áreas</span></a></li>
+        <li><a href="#faq"><span class="n">04</span>Perguntas<span class="c">05</span></a></li>
+        <li><a href="#contato"><span class="n">05</span>Contato<span class="c">e-mail</span></a></li>
+      </ol>
+      <div class="mobile-only">
+        <a class="btn primary" href="#">Currículo PDF ↓</a>
+        <a class="btn" href="#contato">Contato</a>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="row">
+        <a class="btn primary" href="#">Currículo PDF ↓</a>
+        <a class="btn" href="https://www.linkedin.com/in/victoraugustoferreiradossantos" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/Victorow" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+      <div class="meta mono"><span><b>PT</b> / EN</span><span><a href="#" title="Abre a versão 3D">Versão 3D ↗</a></span><span>victors.codes</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section id="projetos">
+      <div class="sec"><h2><span class="n">01</span>Projetos</h2><span class="aside">2 em produção · 3 open source</span></div>
+
+      <div class="proj"><details open>
+        <summary>
+          <div>
+            <div class="k"><span class="idx">01</span><span class="kind">Profissional · iOS e Android</span></div>
+            <h3>OppyConnect</h3>
+            <p class="lead">Mensageiro do ecossistema LinkBiz, desenvolvido integralmente e publicado na App Store e no Google Play.</p>
+            <div class="stack"><span>React Native</span><span>Capacitor</span><span>Node.js</span><span>PostgreSQL</span><span>AWS</span></div>
+          </div>
+          <span class="plus">+</span>
+        </summary>
+        <div class="body">
+          <div><h4>Desafio</h4><p>A plataforma precisava de um canal de conversa próprio, com mídia, documentos e voz, sem depender de apps de terceiros.</p></div>
+          <div><h4>Solução</h4><p>Chat individual e em grupo, envio de mídia e documentos, mensagens de voz e busca. Front-end em React Native com Capacitor, back-end Node.js na AWS, PostgreSQL.</p></div>
+          <div><h4>Impacto</h4><p>App completo em produção nas duas lojas, mantido de ponta a ponta.</p></div>
+          <div class="links"><a href="https://apps.apple.com/ec/app/oppyconnect/id6767213224" target="_blank" rel="noopener noreferrer">App Store ↗</a><a href="https://play.google.com/store/apps/details?id=com.linkbiz.oppyconnect" target="_blank" rel="noopener noreferrer">Google Play ↗</a></div>
+        </div>
+      </details></div>
+
+      <div class="proj"><details>
+        <summary>
+          <div>
+            <div class="k"><span class="idx">02</span><span class="kind">Profissional · plataforma com IA</span></div>
+            <h3>LinkBiz</h3>
+            <p class="lead">Plataforma de networking e oportunidades de negócio com IA. Novas funcionalidades, correções e itens de segurança.</p>
+            <div class="stack"><span>React</span><span>Node.js</span><span>PostgreSQL</span><span>AWS</span></div>
+          </div>
+          <span class="plus">+</span>
+        </summary>
+        <div class="body">
+          <div><h4>Desafio</h4><p>Produto em crescimento, com demanda contínua por novas funcionalidades sem abrir mão de estabilidade e segurança.</p></div>
+          <div><h4>Solução</h4><p>Atuação no time de desenvolvimento, do front-end ao back-end na AWS, com PostgreSQL.</p></div>
+          <div><h4>Impacto</h4><p>Entregas constantes em um app em produção com usuários reais.</p></div>
+          <div class="links"><a href="https://linkbiz.ai" target="_blank" rel="noopener noreferrer">linkbiz.ai ↗</a></div>
+        </div>
+      </details></div>
+
+      <div class="proj"><details>
+        <summary>
+          <div>
+            <div class="k"><span class="idx">03</span><span class="kind">Open source · MCP</span></div>
+            <h3>Duo</h3>
+            <p class="lead">Ponte MCP entre duas instâncias do Claude Code: um Tech Lead delega trabalho a um Executor em outra máquina.</p>
+            <div class="stack"><span>TypeScript</span><span>MCP</span><span>Node.js</span><span>Tailscale</span></div>
+          </div>
+          <span class="plus">+</span>
+        </summary>
+        <div class="body">
+          <div><h4>Desafio</h4><p>Um único agente não consegue ter, ao mesmo tempo, a visão do líder técnico e as mãos no projeto em outra máquina.</p></div>
+          <div><h4>Solução</h4><p>Servidores MCP nos dois lados, rede via Tailscale, cache semântico local, delegação de tasks e barreira de publicação por branch protegida.</p></div>
+          <div><h4>Impacto</h4><p>Fluxo agente-a-agente funcional, com contenção real de risco no Git.</p></div>
+          <div class="links"><a href="https://github.com/Victorow/A2A-and-cache-semantic-for-claude" target="_blank" rel="noopener noreferrer">Repositório ↗</a></div>
+        </div>
+      </details></div>
+
+      <div class="proj"><details>
+        <summary>
+          <div>
+            <div class="k"><span class="idx">04</span><span class="kind">Open source · Node.js e Rust</span></div>
+            <h3>claude-telegram-bridge</h3>
+            <p class="lead">Bridge self-hosted que avisa no Telegram quando uma sessão do Claude Code termina e permite continuar pelo chat.</p>
+            <div class="stack"><span>Node.js</span><span>Rust</span><span>Telegram Bot API</span></div>
+          </div>
+          <span class="plus">+</span>
+        </summary>
+        <div class="body">
+          <div><h4>Desafio</h4><p>Sessões longas de agente exigiam ficar na frente do computador para saber quando acabavam ou precisavam de uma decisão.</p></div>
+          <div><h4>Solução</h4><p>Binário por sistema operacional, long-polling sem servidor público, múltiplos projetos e usuários em um só bot, hooks instalados automaticamente.</p></div>
+          <div><h4>Impacto</h4><p>Publicado com releases por OS; configuração em dois passos.</p></div>
+          <div class="links"><a href="https://github.com/Victorow/claude-telegram-bridge" target="_blank" rel="noopener noreferrer">Repositório ↗</a></div>
+        </div>
+      </details></div>
+
+      <div class="proj"><details>
+        <summary>
+          <div>
+            <div class="k"><span class="idx">05</span><span class="kind">Open source · VS Code</span></div>
+            <h3>Extensões VS Code</h3>
+            <p class="lead">AI Diff Tracker mostra em tempo real as alterações feitas por agentes de IA. Mini Browser traz um navegador lateral com abas e modo áudio.</p>
+            <div class="stack"><span>TypeScript</span><span>VS Code API</span></div>
+          </div>
+          <span class="plus">+</span>
+        </summary>
+        <div class="body">
+          <div><h4>Desafio</h4><p>Agentes de IA alteram muitos arquivos de uma vez; é difícil enxergar o que mudou em tempo real.</p></div>
+          <div><h4>Solução</h4><p>AI Diff Tracker destaca as alterações conforme acontecem. Mini Browser adiciona abas, favoritos, histórico e modo áudio dentro do editor.</p></div>
+          <div><h4>Impacto</h4><p>Duas extensões públicas, feitas para o fluxo diário de quem programa com agentes.</p></div>
+        </div>
+      </details></div>
+
+      <div class="others"><span class="mono">Outros</span><a href="https://github.com/Victorow/mcp-devflow" target="_blank" rel="noopener noreferrer">mcp-devflow</a><a href="https://alexandre-site-ten.vercel.app" target="_blank" rel="noopener noreferrer">focuspt</a><a href="https://github.com/Victorow/radar-de-vagas" target="_blank" rel="noopener noreferrer">radar-de-vagas</a></div>
+    </section>
+
+    <section id="sobre">
+      <div class="sec"><h2><span class="n">02</span>Sobre</h2><span class="aside">Trajetória</span></div>
+      <div class="about">
+        <div>
+          <p class="pull">Gosto de entregar o produto inteiro: <b>o app publicado</b>, a API que o sustenta e o banco bem modelado.</p>
+          <ol class="tl">
+            <li><span class="w now">Hoje</span><div><b>Desenvolvedor Júnior · CDT Software</b><span>Front-end em React/Vite, back-end na AWS, PostgreSQL. OppyConnect e LinkBiz.</span></div></li>
+            <li><span class="w">Antes</span><div><b>Estagiário · SESI</b><span>Sistemas internos, automação de rotinas, infraestrutura de rede e estações.</span></div></li>
+            <li><span class="w">Formação</span><div><b>Análise e Desenvolvimento de Sistemas · Senai Félix Guisard</b><span>Complementar: OO e Banco de Dados com Java/SQL (Coursera); Cybersecurity Defense Analyst (Cisco, em andamento).</span></div></li>
+          </ol>
+        </div>
+        <div class="text">
+          <p>Sou FullStack Developer em São José dos Campos. Hoje atuo como Desenvolvedor Júnior na CDT Software, com front-end em React/Vite, back-end hospedado na AWS e bancos PostgreSQL. Antes, fui estagiário no SESI, em sistemas internos, automação e infraestrutura.</p>
+          <p>Nos últimos tempos, construo ferramentas que tornam fluxos com agentes de IA (MCP, Claude Code) utilizáveis no dia a dia: uma ponte entre duas instâncias do Claude Code, uma bridge para o Telegram e extensões para o VS Code.</p>
+          <p>Escrevo código com intenção, priorizo legibilidade e trato performance e segurança como requisito, não como ajuste final. Português nativo, inglês intermediário.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="sec"><h2><span class="n">03</span>Stack</h2><span class="aside">Sublinhado = uso diário</span></div>
+      <div class="matrix">
+        <div class="row"><span class="cat">Linguagens</span><div class="items"><span class="hi">TypeScript</span><span class="hi">JavaScript</span><span>Java</span><span>Kotlin</span><span>Python</span></div></div>
+        <div class="row"><span class="cat">Frameworks</span><div class="items"><span class="hi">React</span><span class="hi">React Native</span><span class="hi">Node.js</span><span>Capacitor</span><span>NestJS</span><span>Spring Boot</span><span>Angular</span><span>Flutter</span></div></div>
+        <div class="row"><span class="cat">Bancos de dados</span><div class="items"><span class="hi">PostgreSQL</span><span>MySQL</span><span>MariaDB</span><span>MongoDB</span><span>Supabase</span></div></div>
+        <div class="row"><span class="cat">Cloud, DevOps e redes</span><div class="items"><span class="hi">AWS</span><span>Azure</span><span>VPS</span><span>Docker</span><span>CI/CD</span><span>GitHub Actions</span><span>Linux</span><span>Redes</span><span>Cibersegurança</span></div></div>
+        <div class="row"><span class="cat">IA e integrações</span><div class="items"><span class="hi">MCP</span><span>APIs REST</span><span>Web scraping</span><span>IA generativa</span></div></div>
+        <div class="row"><span class="cat">Métodos e ferramentas</span><div class="items"><span>Scrum</span><span>Jira</span><span class="hi">Git</span><span class="hi">GitHub</span><span>Postman</span></div></div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="sec"><h2><span class="n">04</span>Perguntas</h2><span class="aside">O que recrutadores perguntam</span></div>
+      <div class="faq">
+        <details><summary>Quem é Victor Augusto Ferreira dos Santos? <span>+</span></summary><p>Desenvolvedor full-stack em São José dos Campos, SP. Atua na CDT Software em apps publicados nas lojas e em back-end na AWS, e mantém projetos open source para fluxos com agentes de IA.</p></details>
+        <details><summary>Quais tecnologias usa no dia a dia? <span>+</span></summary><p>TypeScript, React e React Native, Node.js, PostgreSQL e AWS. Em projetos pessoais, MCP e o ecossistema do Claude Code.</p></details>
+        <details><summary>Quais projetos open source mantém? <span>+</span></summary><p>Duo (ponte MCP entre duas instâncias do Claude Code), claude-telegram-bridge e duas extensões para o VS Code: AI Diff Tracker e Mini Browser.</p></details>
+        <details><summary>Trabalha presencial ou remoto? <span>+</span></summary><p>Base em São José dos Campos, SP. Experiência com equipe presencial na CDT Software e com projetos remotos.</p></details>
+        <details><summary>Como entrar em contato? <span>+</span></summary><p>Por e-mail em victoroow@gmail.com ou pelo LinkedIn. O currículo em PDF está no topo da página.</p></details>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <div class="mono">05 · Contato</div>
+      <p class="big">Vamos construir<br>algo que <span class="b">dure.</span></p>
+      <a class="email" href="mailto:victoroow@gmail.com" id="email">victoroow@gmail.com<span class="ok" id="ok">copiado</span></a>
+      <div class="row">
+        <a class="btn primary" href="#">Currículo PDF ↓</a>
+        <a class="btn" href="https://www.linkedin.com/in/victoraugustoferreiradossantos" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/Victorow" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+      <div class="pagefoot mono"><span>© 2026 Victor Augusto Ferreira dos Santos</span><span>Sem cookies · sem rastreamento</span><span>Atualizado em 13 out 2026</span></div>
+    </section>
+  </main>
+</div>
+
+<script>
+  (function () {
+    // e-mail: copy on click (mailto is unreliable inside the viewer)
+    var a = document.getElementById('email'), ok = document.getElementById('ok');
+    if (a) a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var t = 'victoroow@gmail.com';
+      function done() { ok.classList.add('show'); setTimeout(function () { ok.classList.remove('show'); }, 1600); }
+      function fallback() { var r = document.createRange(); r.selectNodeContents(a); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done).catch(fallback); else fallback();
+    });
+    // nav: highlight the section in view
+    var links = Array.prototype.slice.call(document.querySelectorAll('.side .nav a'));
+    var secs = links.map(function (l) { return document.querySelector(l.getAttribute('href')); });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { links.forEach(function (l) { l.classList.toggle('on', l.getAttribute('href') === '#' + en.target.id); }); }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      secs.forEach(function (s) { if (s) io.observe(s); });
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,107 +1,369 @@
 {
   "meta": {
-    "title": "Victor — FullStack Developer",
-    "description": "Engineering digital systems at stellar scale. Robust backends, cinematic frontends, secure architecture, and product-grade performance."
+    "title": "Victor Augusto Ferreira dos Santos · FullStack Developer, Brazil",
+    "description": "Victor Augusto Ferreira dos Santos, full-stack developer in São José dos Campos, Brazil. React Native, Node.js, AWS; store apps and open-source AI tools.",
+    "ogAlt": "Victor Augusto Ferreira dos Santos, FullStack Developer in São José dos Campos, Brazil",
+    "siteName": "Victor Augusto · victors.codes"
   },
-  "nav": {
-    "hero": "Start",
-    "projects": "Projects",
-    "about": "About",
-    "expertise": "Expertise",
-    "contact": "Contact"
+  "preloader": {
+    "caption": "initializing systems · loading Earth"
   },
+  "header": {
+    "cv": "Resume",
+    "menu": "Menu",
+    "close": "Close",
+    "soundOn": "Sound on",
+    "soundOff": "Sound off",
+    "home": "Home",
+    "classic": "Classic",
+    "classicLabel": "Open the classic version, no 3D",
+    "sixty": "60s",
+    "sixtyLabel": "60-second summary"
+  },
+  "chapters": {
+    "earth": "Earth",
+    "mars": "Mars",
+    "jupiter": "Jupiter",
+    "saturn": "Saturn",
+    "uranus": "Uranus",
+    "venus": "Venus",
+    "neptune": "Neptune",
+    "deep": "Deep space"
+  },
+  "menu": {
+    "earth": "Home",
+    "mars": "OppyConnect",
+    "jupiter": "LinkBiz",
+    "saturn": "Duo",
+    "uranus": "Telegram Bridge",
+    "venus": "VS Code Extensions",
+    "neptune": "About & Skills",
+    "deep": "Contact",
+    "classic": "Classic version, no 3D",
+    "tools": "Tools",
+    "mission": "Mission Control",
+    "photo": "Photo"
+  },
+  "marquee": "ENGINEERING · PERFORMANCE · ARCHITECTURE · PRODUCT · ",
   "hero": {
-    "eyebrow": "FullStack Developer — Systems at scale",
-    "title1": "Engineering",
-    "title2": "at stellar",
-    "title3": "scale.",
-    "subtitle": "I build robust, scalable and secure digital systems — pairing backend depth with refined frontend execution, and an obsession with performance, architecture and product quality.",
-    "ctaProjects": "View projects",
-    "ctaAbout": "About me",
-    "scroll": "Scroll to navigate"
+    "eyebrow": "FullStack Developer · São José dos Campos, Brazil",
+    "name1": "Victor",
+    "name2": "Augusto",
+    "subtitle": "I ship product end to end: apps in the stores, AWS back-ends on PostgreSQL and open-source tooling for AI-agent workflows.",
+    "ctaProjects": "See projects",
+    "ctaContact": "Contact",
+    "scroll": "Scroll to explore"
   },
   "projects": {
-    "eyebrow": "— Featured builds",
-    "title": "Selected projects",
-    "caption": "Platforms and systems built with a focus on architecture, performance and reliability.",
+    "kind": {
+      "professional": "Professional · closed source",
+      "oss": "Open source"
+    },
     "labels": {
       "problem": "Challenge",
       "solution": "Solution",
+      "impact": "Impact",
       "stack": "Stack",
-      "architecture": "Architecture",
-      "links": "Links",
-      "liveDemo": "Live",
-      "caseStudy": "Case study",
-      "repository": "Repository"
+      "repo": "Repository",
+      "live": "Website",
+      "store": "App Store",
+      "playStore": "Google Play",
+      "marketplace": "Marketplace"
     },
     "items": {
-      "auth": {
-        "title": "Distributed Identity Platform",
-        "summary": "Unified authentication and authorization layer for multi-tenant products, with SSO, granular RBAC and real-time auditing.",
-        "problem": "Fragmented identity across services, with risk of permission leaks and weak observability.",
-        "solution": "Stateless auth core with rotating tokens, declarative policies and audit event streaming to a data lake.",
-        "architecture": "Edge gateway · Policy service · Event bus · Encrypted storage · Real-time audit console"
+      "oppyconnect": {
+        "title": "OppyConnect",
+        "summary": "Messenger of the LinkBiz ecosystem, published on the App Store and Google Play.",
+        "problem": "The platform needed its own conversation channel, with media, documents and voice, without relying on third-party apps.",
+        "solution": "I built the app in its entirety: one-to-one and group chat, media and document sharing, voice messages and search.",
+        "impact": "A complete app in production on both stores, maintained by me end to end."
       },
-      "analytics": {
-        "title": "Realtime Analytics Pipeline",
-        "summary": "Event ingestion, processing and visualization at scale, with sub-second latency and exactly-once delivery guarantees.",
-        "problem": "Stale dashboards and brittle pipelines prevented fast product decisions.",
-        "solution": "Event-driven architecture with windowed processing, incremental materialization and a read-optimized query API.",
-        "architecture": "Stream ingestion · Windowed processing · Columnar store · Query API · Streaming reactive UI"
+      "linkbiz": {
+        "title": "LinkBiz",
+        "summary": "AI-powered networking and business-opportunity platform for iOS and Android.",
+        "problem": "A growing product with continuous demand for new features without giving up stability and security.",
+        "solution": "I work on the development team: new features, bug fixes and security items, from the front-end to the AWS back-end.",
+        "impact": "Steady delivery on a production app with real users."
       },
-      "ai": {
-        "title": "AI-Assisted Operations Console",
-        "summary": "Internal console combining telemetry, runbooks and AI agents to accelerate operations and reduce MTTR.",
-        "problem": "Ops teams spending hours correlating logs, metrics and manual procedures.",
-        "solution": "Contextual signal aggregation, LLM-backed action recommendations and auditable runbook execution.",
-        "architecture": "Telemetry collector · Agent orchestrator · Policy layer · Sandboxed execution · Audit trail"
+      "duo": {
+        "title": "Duo",
+        "summary": "MCP bridge between two Claude Code instances: a Tech Lead delegates work to an Executor on another machine.",
+        "problem": "A single agent cannot hold the tech lead's overview and the hands on a project living on another machine at the same time.",
+        "solution": "MCP servers on both sides, networking over Tailscale, local semantic cache, task delegation and a publish barrier via protected branches.",
+        "impact": "A working agent-to-agent flow with real risk containment in Git."
+      },
+      "telegram": {
+        "title": "claude-telegram-bridge",
+        "summary": "Self-hosted bridge that pings you on Telegram when a Claude Code session finishes and lets you continue it from the chat.",
+        "problem": "Long agent sessions meant sitting at the computer just to know when they ended or needed a decision.",
+        "solution": "Per-OS binaries, long-polling with no public server, multiple projects and users on one bot, hooks installed automatically.",
+        "impact": "Published with per-OS releases; a two-step setup."
+      },
+      "vscode": {
+        "title": "VS Code Extensions",
+        "summary": "AI Diff Tracker and Mini Browser, published on the VS Code Marketplace.",
+        "problem": "AI agents change many files at once; seeing what changed in real time is hard.",
+        "solution": "AI Diff Tracker visually shows the edits agents make as they happen. Mini Browser adds a side browser with tabs, bookmarks, history and an audio mode.",
+        "impact": "Two public extensions on the Marketplace, built for my own daily workflow."
       }
     }
   },
   "about": {
-    "eyebrow": "— About",
-    "title": "Product engineering, from core to pixel.",
-    "p1": "I work as a FullStack Developer focused on production systems: high-availability APIs, secure architectures, well-modeled databases and interfaces that turn complexity into clarity.",
-    "p2": "I'm drawn to the point where engineering meets product — where architectural decisions set the ceiling for velocity, reliability and experience. I write code with intent, prioritize readability, and treat performance as a requirement, not a final tweak.",
-    "p3": "I work well in uncertain territory: defining contracts, shaping data flows, hardening systems and shipping refined interfaces in the same cycle."
+    "eyebrow": "About",
+    "title": "Product end to end, from the app in the store to the database.",
+    "p1": "I'm a FullStack Developer based in São José dos Campos, Brazil. Today I'm a Junior Developer at CDT Software, working on React/Vite front-ends, AWS-hosted back-ends and PostgreSQL databases. Before that I interned at SESI on internal systems, automation and infrastructure.",
+    "p2": "I like shipping the whole product: the published app, the API behind it and a well-modelled database. Lately I build tooling that makes AI-agent workflows (MCP, Claude Code) usable day to day.",
+    "p3": "Degree in Systems Analysis and Development from Faculdade de Tecnologia Senai Félix Guisard. Also: OOP and Databases with Java/SQL (Coursera) and Cybersecurity Defense Analyst (Cisco, in progress). Intermediate English."
   },
-  "expertise": {
-    "eyebrow": "— Expertise",
-    "title": "Technical stack",
-    "caption": "Tools and domains that sustain serious systems in production.",
+  "skills": {
+    "eyebrow": "Skills",
+    "title": "Technical constellation",
     "clusters": {
-      "backend": { "name": "Backend", "desc": "Resilient APIs, stateless services, queues, workers and integrations." },
-      "frontend": { "name": "Frontend", "desc": "Performant, accessible interfaces with high-grade motion." },
-      "apis": { "name": "APIs", "desc": "REST, GraphQL, gRPC and versioned contracts with observability." },
-      "auth": { "name": "Auth", "desc": "OAuth2, OIDC, JWT, RBAC/ABAC and cryptographic auditing." },
-      "db": { "name": "Databases", "desc": "Relational and NoSQL, modeling, indexing and tuning." },
-      "cloud": { "name": "Cloud", "desc": "AWS, containers, IaC, CI/CD and reproducible environments." },
-      "automation": { "name": "Automation", "desc": "Pipelines, scheduled jobs and event-driven orchestration." },
-      "ai": { "name": "AI", "desc": "LLM integrations, RAG, agents and sandboxed execution." },
-      "performance": { "name": "Performance", "desc": "Load profiles, layered caching and end-to-end tuning." },
-      "security": { "name": "Security", "desc": "Threat modeling, hardening, secrets and attack surface." }
+      "languages": "Languages",
+      "frameworks": "Frameworks",
+      "databases": "Databases",
+      "cloud": "Cloud, DevOps & Networking",
+      "ai": "AI & Integrations",
+      "methods": "Methods & Tools"
+    },
+    "othersTitle": "Other projects",
+    "others": {
+      "mcpDevflow": "mcp-devflow — MCP server integrated with the company's task system",
+      "focuspt": "focuspt — freelance site for a personal trainer (Angular, Supabase, AI)",
+      "radar": "radar-de-vagas — job radar by e-mail (GitHub Actions + Gemini)"
     }
   },
   "contact": {
-    "eyebrow": "— Contact",
-    "title1": "Building",
-    "title2": "premium digital",
-    "title3": "systems.",
-    "caption": "Available for selected collaborations in product engineering.",
-    "emailLabel": "Send a message",
-    "email": "hello@example.dev",
+    "eyebrow": "Contact",
+    "title1": "Let's build",
+    "title2": "something that",
+    "title3": "lasts.",
+    "caption": "Projects, collaborations or a chat about engineering. Quick to reply.",
+    "emailLabel": "Send an e-mail",
+    "cv": "Download resume (PDF)",
     "socials": {
       "github": "GitHub",
-      "linkedin": "LinkedIn",
-      "x": "X"
+      "linkedin": "LinkedIn"
     },
     "final": "Engineering as craft. Product as purpose."
   },
   "footer": {
-    "builtWith": "This experience uses",
-    "stack": "Next.js · React · Tailwind CSS · Framer Motion · React Three Fiber · Drei · Lenis · next-intl",
+    "credits": "Textures: Solar System Scope (CC BY 4.0) · Galaxy and nebula photos: NASA, ESA, CSA, STScI (Hubble / JWST)",
+    "builtWith": "Built with",
+    "stack": "Next.js · React Three Fiber · GSAP · Tailwind",
     "rights": "All rights reserved.",
-    "locale": "Language"
+    "locale": "Language",
+    "updated": "Updated {date}"
   },
-  "locale": { "switchTo": "PT" }
+  "locale": {
+    "switchTo": "PT"
+  },
+  "banner": {
+    "text": "This is the 3D version. Prefer the light one?",
+    "cta": "Open classic →"
+  },
+  "classic": {
+    "skip": "Skip to content",
+    "nav": {
+      "label": "Sections",
+      "projects": "Projects",
+      "about": "About",
+      "skills": "Skills",
+      "faq": "FAQ",
+      "faqB": "Questions",
+      "contact": "Contact",
+      "version3d": "3D version ↗",
+      "version3dTitle": "Opens the 3D version, a journey through the planets",
+      "lang": "Language",
+      "aboutAside": "CDT · SESI · Senai",
+      "skillsAside": "{count} areas",
+      "contactAside": "e-mail"
+    },
+    "hero": {
+      "role": "FullStack Developer",
+      "city": "São José dos Campos, Brazil",
+      "line1": "Victor",
+      "line2": "Augusto",
+      "line3": "Ferreira dos Santos",
+      "cv": "Resume PDF ↓",
+      "contact": "Contact",
+      "github": "GitHub ↗",
+      "linkedin": "LinkedIn ↗"
+    },
+    "facts": {
+      "label": "Quick facts",
+      "role": {
+        "dt": "Role",
+        "dd": "Junior Developer · CDT Software"
+      },
+      "city": {
+        "dt": "City",
+        "dd": "São José dos Campos, SP, Brazil"
+      },
+      "education": {
+        "dt": "Education",
+        "dd": "Systems Analysis and Development · Senai Félix Guisard"
+      },
+      "focus": {
+        "dt": "Focus",
+        "dd": "React Native, Node.js, PostgreSQL, AWS, MCP"
+      },
+      "languages": {
+        "dt": "Languages",
+        "dd": "Portuguese (native) · English (intermediate)"
+      },
+      "updated": {
+        "dt": "Updated"
+      }
+    },
+    "projects": {
+      "title": "Selected projects",
+      "titleB": "Projects",
+      "aside": "5 projects · 2 in production · 3 open source",
+      "asideB": "2 in production · 3 open source",
+      "others": "Other",
+      "kinds": {
+        "oppyconnect": "Professional · iOS and Android",
+        "linkbiz": "Professional · AI platform",
+        "duo": "Open source · MCP",
+        "telegram": "Open source · Node.js and Rust",
+        "vscode": "Open source · VS Code"
+      }
+    },
+    "about": {
+      "title": "About",
+      "aside": "Path",
+      "pull": "I like shipping the whole product: <b>the published app</b>, the API behind it and a well-modelled database.",
+      "timeline": {
+        "now": {
+          "when": "Now",
+          "title": "Junior Developer · CDT Software",
+          "text": "React/Vite front-ends, AWS back-ends, PostgreSQL. OppyConnect and LinkBiz."
+        },
+        "before": {
+          "when": "Before",
+          "title": "Intern · SESI",
+          "text": "Internal systems, routine automation, network and workstation infrastructure."
+        },
+        "education": {
+          "when": "Education",
+          "title": "Systems Analysis and Development · Senai Félix Guisard",
+          "text": "Also: OOP and Databases with Java/SQL (Coursera); Cybersecurity Defense Analyst (Cisco, in progress)."
+        }
+      },
+      "p2": "Lately I build tooling that makes AI-agent workflows (MCP, Claude Code) usable day to day: a bridge between two Claude Code instances, a Telegram bridge and VS Code extensions.",
+      "p3": "I write code with intent, favour readability and treat performance and security as requirements, not final polish."
+    },
+    "skills": {
+      "title": "Stack",
+      "aside": "Underlined = daily use"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "titleB": "Questions",
+      "aside": "What recruiters ask"
+    },
+    "contact": {
+      "label": "Contact"
+    },
+    "footer": {
+      "rights": "© {year} Victor Augusto Ferreira dos Santos",
+      "privacy": "No cookies · no tracking",
+      "updated": "Updated {date}"
+    },
+    "switch": {
+      "label": "Page design",
+      "a": "A · Paper",
+      "b": "B · Dossier"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "classic": "Classic"
+    }
+  },
+  "faq": {
+    "items": {
+      "who": {
+        "q": "Who is Victor Augusto Ferreira dos Santos?",
+        "a": "Victor Augusto Ferreira dos Santos is a full-stack developer in São José dos Campos, Brazil. He works at CDT Software on apps published to the stores and AWS back-ends, and maintains open-source tooling for AI-agent workflows."
+      },
+      "work": {
+        "q": "Where does Victor Augusto work and with which technologies?",
+        "a": "He is a Junior Developer at CDT Software. Day to day he uses TypeScript, React and React Native, Node.js, PostgreSQL and AWS; in personal projects, MCP and the Claude Code ecosystem."
+      },
+      "remote": {
+        "q": "On-site or remote?",
+        "a": "Based in São José dos Campos, Brazil. Experience with an on-site team at CDT Software and with remote projects."
+      },
+      "opensource": {
+        "q": "Which open-source projects does Victor Augusto maintain?",
+        "a": "Duo (an MCP bridge between two Claude Code instances), claude-telegram-bridge and two VS Code extensions: AI Diff Tracker and Mini Browser."
+      },
+      "duo": {
+        "q": "What is Duo (an MCP bridge between two Claude Code instances)?",
+        "a": "A pair of MCP servers linking two Claude Code instances: a Tech Lead delegates tasks to an Executor on another machine, over Tailscale, with a local semantic cache and publishing only through protected branches."
+      },
+      "telegram": {
+        "q": "What is claude-telegram-bridge?",
+        "a": "A self-hosted bridge that pings you on Telegram when a Claude Code session finishes and lets you keep replying from the chat. It uses long-polling, needs no public server and ships per-OS binaries."
+      },
+      "contact": {
+        "q": "How do I contact Victor Augusto?",
+        "a": "By e-mail at victoroow@gmail.com or on LinkedIn. The PDF resume is linked at the top of the page."
+      }
+    }
+  },
+  "notFound": {
+    "docTitle": "Lost in space · 404",
+    "eyebrow": "404 · signal lost",
+    "title1": "Lost",
+    "title2": "in space",
+    "missing": "This page does not exist.",
+    "missingPath": "{path} does not exist",
+    "home": "Back to Earth",
+    "classic": "Classic version"
+  },
+  "sixty": {
+    "eyebrow": "In 60 seconds",
+    "pitch": "Full-stack developer who ships the whole product: the app in the stores, the API on AWS and a well-modelled PostgreSQL database.",
+    "featured": "Featured projects",
+    "copy": "Copy e-mail",
+    "copied": "E-mail copied",
+    "cv": "Resume",
+    "linkedin": "LinkedIn",
+    "explore": "Explore the full version",
+    "close": "Close summary",
+    "hint": "Esc closes",
+    "chapter": "See chapter"
+  },
+  "mission": {
+    "title": "Mission Control",
+    "close": "Close Mission Control",
+    "hint": "~ closes",
+    "fps": "fps",
+    "min": "min",
+    "gpu": "gpu",
+    "chapter": "chapter",
+    "progress": "progress",
+    "textures": "textures",
+    "draws": "draw calls",
+    "tris": "tris",
+    "canvas": "canvas",
+    "sound": "sound",
+    "on": "on",
+    "off": "off",
+    "last": "last",
+    "tier": "tier",
+    "forceTier": "Force tier {tier}",
+    "footer": "R3F + GSAP · code on GitHub"
+  },
+  "photo": {
+    "label": "Photo mode",
+    "capture": "Capture",
+    "withText": "With text",
+    "back": "Back",
+    "busy": "Rendering…",
+    "meta": "P · {w}×{h} · PNG",
+    "heroCaption": "FullStack Developer"
+  }
 }

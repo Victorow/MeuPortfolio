@@ -5,6 +5,8 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Builds run by tests/CI use a separate dist dir so they never clobber a running `next dev`.
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   transpilePackages: ['three'],
   experimental: {
     optimizePackageImports: ['framer-motion', '@react-three/drei']

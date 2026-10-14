@@ -2,80 +2,95 @@
 
 import { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useActiveSection, type SectionId } from '@/lib/activeSection';
-import { useMotionValue, useSpring } from 'framer-motion';
 import * as THREE from 'three';
+import { sampleCamera, type CameraSample } from '@/lib/journey/cameraPath';
+import { useJourney } from '@/lib/journey/store';
+import { useReducedMotion, useIsMobile } from '@/lib/device';
 
-type CamPose = { pos: [number, number, number]; look: [number, number, number]; fov: number };
-
-const POSES: Record<SectionId, CamPose> = {
-  hero:      { pos: [0, 0, 8],      look: [0, 0, 0],    fov: 42 },
-  projects:  { pos: [-3, 0.6, 9.5], look: [1, 0, 0],    fov: 38 },
-  about:     { pos: [3, -0.4, 8.5], look: [-1, 0, 0],   fov: 40 },
-  expertise: { pos: [0, 1.5, 10],   look: [0, 0, -1],   fov: 46 },
-  contact:   { pos: [-1.5, -1, 7],  look: [1.5, -0.5, 0], fov: 48 },
-  footer:    { pos: [0, -0.5, 12],  look: [0, -0.8, 0], fov: 36 }
-};
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
+/**
+ * Samples the camera path at the current journey progress with exponential
+ * smoothing and adds cursor parallax (fine pointers only).
+ */
 export default function CameraRig() {
   const { camera } = useThree();
-  const active = useActiveSection();
+  const reduced = useReducedMotion();
+  const mobile = useIsMobile();
 
-  // Cursor input
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 45, damping: 22, mass: 0.6 });
-  const sy = useSpring(my, { stiffness: 45, damping: 22, mass: 0.6 });
+  const target = useRef<CameraSample>({ position: new THREE.Vector3(), lookAt: new THREE.Vector3(), fov: 42 });
+  const pos = useRef(new THREE.Vector3());
+  const look = useRef(new THREE.Vector3());
+  const fov = useRef(42);
+  const mouse = useRef({ x: 0, y: 0 });
+  const smoothMouse = useRef({ x: 0, y: 0 });
+  const init = useRef(false);
+
+  // Warp jumps ask the rig to snap to the path instead of easing across every planet.
+  useEffect(
+    () =>
+      useJourney.subscribe(
+        (s) => s.snapNonce,
+        () => {
+          init.current = false;
+        }
+      ),
+    []
+  );
 
   useEffect(() => {
-    const fine = window.matchMedia('(pointer: fine)').matches;
-    if (!fine) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
     const onMove = (e: MouseEvent) => {
-      mx.set((e.clientX / window.innerWidth) * 2 - 1);
-      my.set((e.clientY / window.innerHeight) * 2 - 1);
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = (e.clientY / window.innerHeight) * 2 - 1;
     };
     window.addEventListener('mousemove', onMove, { passive: true });
     return () => window.removeEventListener('mousemove', onMove);
-  }, [mx, my]);
-
-  const state = useRef<CamPose>({ ...POSES.hero });
-  const lookAt = useRef(new THREE.Vector3(0, 0, 0));
+  }, []);
 
   useFrame((_, delta) => {
-    const target = POSES[active];
-    const t = 1 - Math.pow(0.002, delta);
+    const { progress, menuOpen, sixtyOpen } = useJourney.getState();
+    const t = target.current;
+    sampleCamera(progress, t);
 
-    state.current.pos = [
-      lerp(state.current.pos[0], target.pos[0], t),
-      lerp(state.current.pos[1], target.pos[1], t),
-      lerp(state.current.pos[2], target.pos[2], t)
-    ];
-    state.current.fov = lerp(state.current.fov, target.fov, t);
-
-    lookAt.current.x = lerp(lookAt.current.x, target.look[0], t);
-    lookAt.current.y = lerp(lookAt.current.y, target.look[1], t);
-    lookAt.current.z = lerp(lookAt.current.z, target.look[2], t);
-
-    const parallaxX = sx.get() * 0.8;
-    const parallaxY = -sy.get() * 0.5;
-
-    camera.position.set(
-      state.current.pos[0] + parallaxX,
-      state.current.pos[1] + parallaxY,
-      state.current.pos[2]
-    );
-
-    if ((camera as THREE.PerspectiveCamera).isPerspectiveCamera) {
-      const cam = camera as THREE.PerspectiveCamera;
-      cam.fov = state.current.fov;
-      cam.updateProjectionMatrix();
+    // Mobile (portrait): pull the camera back so the planet fits the narrow frame,
+    // and aim lower so the planet sits in the upper half with text below.
+    if (mobile) {
+      t.position.sub(t.lookAt).multiplyScalar(1.75).add(t.lookAt);
+      t.lookAt.y -= 2.2;
     }
 
-    camera.lookAt(lookAt.current);
+    const dt = Math.min(delta, 1 / 20);
+    const k = reduced ? 1 : 1 - Math.pow(0.0015, dt);
+
+    if (!init.current) {
+      pos.current.copy(t.position);
+      look.current.copy(t.lookAt);
+      fov.current = t.fov;
+      init.current = true;
+    } else {
+      pos.current.lerp(t.position, k);
+      look.current.lerp(t.lookAt, k);
+      fov.current += (t.fov - fov.current) * k;
+    }
+
+    const finalLook = look.current;
+
+    // Cursor parallax (frozen while the menu is open so the backdrop stays still)
+    if (!reduced && !menuOpen && !sixtyOpen) {
+      smoothMouse.current.x += (mouse.current.x - smoothMouse.current.x) * (1 - Math.pow(0.02, dt));
+      smoothMouse.current.y += (mouse.current.y - smoothMouse.current.y) * (1 - Math.pow(0.02, dt));
+    }
+
+    const cam = camera as THREE.PerspectiveCamera;
+    cam.position.copy(pos.current);
+    cam.up.set(0, 1, 0);
+    cam.lookAt(finalLook);
+    // parallax applied as a small rotation offset so it never changes framing distance
+    cam.rotateY(-smoothMouse.current.x * 0.012);
+    cam.rotateX(-smoothMouse.current.y * 0.008);
+    if (Math.abs(cam.fov - fov.current) > 0.01) {
+      cam.fov = fov.current;
+      cam.updateProjectionMatrix();
+    }
   });
 
   return null;

@@ -1,0 +1,6 @@
+# Security contact for victors.codes (RFC 9116).
+# Static site on GitHub Pages: no server, no accounts, no data collection.
+Contact: mailto:victoroow@gmail.com
+Expires: 2027-10-13T00:00:00.000Z
+Preferred-Languages: pt, en
+Canonical: https://victors.codes/.well-known/security.txt
