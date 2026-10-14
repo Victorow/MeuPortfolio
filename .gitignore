@@ -60,3 +60,6 @@ e2e/screenshots/
 public/sitemap.xml
 public/llms.txt
 public/llms-full.txt
+
+# agent worktrees
+.claude/worktrees/

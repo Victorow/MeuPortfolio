@@ -18,6 +18,15 @@ type JourneyState = {
   warping: boolean;
   /** Incremented to ask the camera rig to snap to the path instead of easing. */
   snapNonce: number;
+  /** "60 seconds" summary overlay. */
+  sixtyOpen: boolean;
+  /** Mission Control debug panel. */
+  missionOpen: boolean;
+  /** Photo mode: all UI hidden, capture bar shown. */
+  photoMode: boolean;
+  setSixtyOpen: (b: boolean) => void;
+  setMissionOpen: (b: boolean) => void;
+  setPhotoMode: (b: boolean) => void;
   setWarping: (b: boolean) => void;
   requestSnap: () => void;
   setProgress: (p: number, v: number) => void;
@@ -40,6 +49,12 @@ export const useJourney = create<JourneyState>()(
     hoveredSkill: null,
     warping: false,
     snapNonce: 0,
+    sixtyOpen: false,
+    missionOpen: false,
+    photoMode: false,
+    setSixtyOpen: (sixtyOpen) => set({ sixtyOpen }),
+    setMissionOpen: (missionOpen) => set({ missionOpen }),
+    setPhotoMode: (photoMode) => set({ photoMode }),
     setWarping: (warping) => set({ warping }),
     requestSnap: () => set((st) => ({ snapNonce: st.snapNonce + 1 })),
     setProgress: (p, v) =>

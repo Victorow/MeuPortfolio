@@ -32,12 +32,12 @@ export const TODO = 'TODO-VICTOR';
 export const projects: Project[] = [
   {
     key: 'oppyconnect',
+    featured: true,
     index: '01',
     planet: 'mars',
     kind: 'professional',
     stack: ['React Native', 'Capacitor', 'Node.js', 'PostgreSQL', 'AWS'],
     ledger: ['React Native', 'AWS'],
-    featured: true,
     schemaType: 'CreativeWork',
     links: {
       store: 'https://apps.apple.com/ec/app/oppyconnect/id6767213224',
@@ -56,23 +56,23 @@ export const projects: Project[] = [
   },
   {
     key: 'duo',
+    featured: true,
     index: '03',
     planet: 'saturn',
     kind: 'oss',
     stack: ['TypeScript', 'MCP', 'Node.js', 'Tailscale'],
     ledger: ['TypeScript', 'MCP'],
-    featured: true,
     schemaType: 'SoftwareSourceCode',
     links: { repo: 'https://github.com/Victorow/A2A-and-cache-semantic-for-claude' }
   },
   {
     key: 'telegram',
+    featured: true,
     index: '04',
     planet: 'uranus',
     kind: 'oss',
     stack: ['Node.js', 'Rust', 'Telegram Bot API'],
     ledger: ['Node.js', 'Rust'],
-    featured: true,
     schemaType: 'SoftwareSourceCode',
     links: { repo: 'https://github.com/Victorow/claude-telegram-bridge' }
   },
@@ -87,6 +87,8 @@ export const projects: Project[] = [
     links: { marketplace: TODO }
   }
 ];
+
+export const featuredProjects = () => projects.filter((p) => p.featured);
 
 export const projectByPlanet = (planet: ProjectPlanet) => projects.find((p) => p.planet === planet)!;
 

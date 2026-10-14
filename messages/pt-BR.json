@@ -16,7 +16,9 @@
     "soundOff": "Som desligado",
     "home": "Início",
     "classic": "Clássico",
-    "classicLabel": "Abrir a versão clássica, sem 3D"
+    "classicLabel": "Abrir a versão clássica, sem 3D",
+    "sixty": "60s",
+    "sixtyLabel": "Resumo em 60 segundos"
   },
   "chapters": {
     "earth": "Terra",
@@ -37,7 +39,10 @@
     "venus": "Extensões VS Code",
     "neptune": "Sobre & Skills",
     "deep": "Contato",
-    "classic": "Versão clássica, sem 3D"
+    "classic": "Versão clássica, sem 3D",
+    "tools": "Ferramentas",
+    "mission": "Mission Control",
+    "photo": "Foto"
   },
   "marquee": "ENGENHARIA · PERFORMANCE · ARQUITETURA · PRODUTO · ",
   "hero": {
@@ -317,5 +322,48 @@
     "missingPath": "{path} não existe",
     "home": "Voltar à Terra",
     "classic": "Versão clássica"
+  },
+  "sixty": {
+    "eyebrow": "Em 60 segundos",
+    "pitch": "Desenvolvedor full-stack que entrega produto inteiro: app publicado nas lojas, API na AWS e banco PostgreSQL bem modelado.",
+    "featured": "Projetos em destaque",
+    "copy": "Copiar e-mail",
+    "copied": "E-mail copiado",
+    "cv": "Currículo",
+    "linkedin": "LinkedIn",
+    "explore": "Explorar a versão completa",
+    "close": "Fechar resumo",
+    "hint": "Esc fecha",
+    "chapter": "Ver no capítulo"
+  },
+  "mission": {
+    "title": "Mission Control",
+    "close": "Fechar Mission Control",
+    "hint": "~ fecha",
+    "fps": "fps",
+    "min": "min",
+    "gpu": "gpu",
+    "chapter": "capítulo",
+    "progress": "progress",
+    "textures": "texturas",
+    "draws": "draw calls",
+    "tris": "tris",
+    "canvas": "canvas",
+    "sound": "som",
+    "on": "on",
+    "off": "off",
+    "last": "último",
+    "tier": "tier",
+    "forceTier": "Forçar tier {tier}",
+    "footer": "R3F + GSAP · código no GitHub"
+  },
+  "photo": {
+    "label": "Modo foto",
+    "capture": "Capturar",
+    "withText": "Com texto",
+    "back": "Voltar",
+    "busy": "Gerando…",
+    "meta": "P · {w}×{h} · PNG",
+    "heroCaption": "FullStack Developer"
   }
 }

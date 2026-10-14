@@ -118,6 +118,35 @@ export default function MenuOverlay() {
           </a>
         </li>
       </ul>
+      <div
+        role="group"
+        aria-label={t('tools')}
+        className="absolute bottom-6 left-6 flex items-center gap-6 font-mono text-[11px] uppercase tracking-wider2 text-fg/50 md:bottom-8 md:left-[8vw]"
+        style={{ marginBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      >
+        <button
+          type="button"
+          data-cursor="link"
+          onClick={() => {
+            setOpen(false);
+            useJourney.getState().setMissionOpen(true);
+          }}
+          className="u-link transition-colors hover:text-fg"
+        >
+          {t('mission')}
+        </button>
+        <button
+          type="button"
+          data-cursor="link"
+          onClick={() => {
+            setOpen(false);
+            window.setTimeout(() => useJourney.getState().setPhotoMode(true), 300);
+          }}
+          className="u-link transition-colors hover:text-fg"
+        >
+          {t('photo')}
+        </button>
+      </div>
     </div>
   );
 }

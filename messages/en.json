@@ -16,7 +16,9 @@
     "soundOff": "Sound off",
     "home": "Home",
     "classic": "Classic",
-    "classicLabel": "Open the classic version, no 3D"
+    "classicLabel": "Open the classic version, no 3D",
+    "sixty": "60s",
+    "sixtyLabel": "60-second summary"
   },
   "chapters": {
     "earth": "Earth",
@@ -37,7 +39,10 @@
     "venus": "VS Code Extensions",
     "neptune": "About & Skills",
     "deep": "Contact",
-    "classic": "Classic version, no 3D"
+    "classic": "Classic version, no 3D",
+    "tools": "Tools",
+    "mission": "Mission Control",
+    "photo": "Photo"
   },
   "marquee": "ENGINEERING · PERFORMANCE · ARCHITECTURE · PRODUCT · ",
   "hero": {
@@ -317,5 +322,48 @@
     "missingPath": "{path} does not exist",
     "home": "Back to Earth",
     "classic": "Classic version"
+  },
+  "sixty": {
+    "eyebrow": "In 60 seconds",
+    "pitch": "Full-stack developer who ships the whole product: the app in the stores, the API on AWS and a well-modelled PostgreSQL database.",
+    "featured": "Featured projects",
+    "copy": "Copy e-mail",
+    "copied": "E-mail copied",
+    "cv": "Resume",
+    "linkedin": "LinkedIn",
+    "explore": "Explore the full version",
+    "close": "Close summary",
+    "hint": "Esc closes",
+    "chapter": "See chapter"
+  },
+  "mission": {
+    "title": "Mission Control",
+    "close": "Close Mission Control",
+    "hint": "~ closes",
+    "fps": "fps",
+    "min": "min",
+    "gpu": "gpu",
+    "chapter": "chapter",
+    "progress": "progress",
+    "textures": "textures",
+    "draws": "draw calls",
+    "tris": "tris",
+    "canvas": "canvas",
+    "sound": "sound",
+    "on": "on",
+    "off": "off",
+    "last": "last",
+    "tier": "tier",
+    "forceTier": "Force tier {tier}",
+    "footer": "R3F + GSAP · code on GitHub"
+  },
+  "photo": {
+    "label": "Photo mode",
+    "capture": "Capture",
+    "withText": "With text",
+    "back": "Back",
+    "busy": "Rendering…",
+    "meta": "P · {w}×{h} · PNG",
+    "heroCaption": "FullStack Developer"
   }
 }

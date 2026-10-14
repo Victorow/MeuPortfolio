@@ -29,6 +29,12 @@ export function downgradeTier() {
   listeners.forEach((l) => l(cachedTier!));
 }
 
+/** Manual override (Mission Control): sets the tier live, up or down. */
+export function forceTier(t: PerfTier) {
+  cachedTier = t;
+  listeners.forEach((l) => l(t));
+}
+
 const listeners = new Set<(t: PerfTier) => void>();
 
 export function usePerfTier(): PerfTier {
