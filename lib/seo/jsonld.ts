@@ -70,7 +70,7 @@ function projectNodes(locale: string, m: JsonLdMessages) {
     if (p.schemaType === 'SoftwareSourceCode') {
       if (p.links.repo) base.codeRepository = p.links.repo;
       base.programmingLanguage = p.stack.filter((s) => ['TypeScript', 'JavaScript', 'Rust', 'Node.js'].includes(s));
-      base.runtimePlatform = p.key === 'vscode' ? 'Visual Studio Code' : 'Node.js';
+      base.runtimePlatform = 'Node.js';
     }
     return base;
   });

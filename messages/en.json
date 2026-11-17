@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Victor Augusto Ferreira dos Santos · FullStack Developer, Brazil",
-    "description": "Victor Augusto Ferreira dos Santos, full-stack developer in São José dos Campos, Brazil. React Native, Node.js, AWS; store apps and open-source AI tools.",
+    "description": "Victor Augusto Ferreira dos Santos, full-stack developer in São José dos Campos, Brazil. React, Node.js, Python, PostgreSQL; production SaaS and AI agents.",
     "ogAlt": "Victor Augusto Ferreira dos Santos, FullStack Developer in São José dos Campos, Brazil",
     "siteName": "Victor Augusto · victors.codes"
   },
@@ -36,7 +36,7 @@
     "jupiter": "LinkBiz",
     "saturn": "Duo",
     "uranus": "Telegram Bridge",
-    "venus": "VS Code Extensions",
+    "venus": "GestAI",
     "neptune": "About & Skills",
     "deep": "Contact",
     "classic": "Classic version, no 3D",
@@ -49,7 +49,7 @@
     "eyebrow": "FullStack Developer · São José dos Campos, Brazil",
     "name1": "Victor",
     "name2": "Augusto",
-    "subtitle": "I ship product end to end: apps in the stores, AWS back-ends on PostgreSQL and open-source tooling for AI-agent workflows.",
+    "subtitle": "I ship product end to end: apps in the stores, SaaS platforms in production, AI agents and open-source tooling for Claude Code.",
     "ctaProjects": "See projects",
     "ctaContact": "Contact",
     "scroll": "Scroll to explore"
@@ -73,16 +73,16 @@
     "items": {
       "oppyconnect": {
         "title": "OppyConnect",
-        "summary": "Messenger of the LinkBiz ecosystem, published on the App Store and Google Play.",
+        "summary": "The LinkBiz messaging app, published on the App Store and Google Play.",
         "problem": "The platform needed its own conversation channel, with media, documents and voice, without relying on third-party apps.",
-        "solution": "I built the app in its entirety: one-to-one and group chat, media and document sharing, voice messages and search.",
+        "solution": "I was the sole developer of the app and its chat API: one-to-one and group conversations, media, voice messages, search and push notifications.",
         "impact": "A complete app in production on both stores, maintained by me end to end."
       },
       "linkbiz": {
         "title": "LinkBiz",
-        "summary": "AI-powered networking and business-opportunity platform for iOS and Android.",
+        "summary": "Networking platform that uses AI to connect professionals with business opportunities, on web, iOS and Android.",
         "problem": "A growing product with continuous demand for new features without giving up stability and security.",
-        "solution": "I work on the development team: new features, bug fixes and security items, from the front-end to the AWS back-end.",
+        "solution": "On a team of 9 developers, I implemented opportunity recommendations with embeddings, the feed and payments: Stripe and Pix subscriptions, credits and gift cards.",
         "impact": "Steady delivery on a production app with real users."
       },
       "duo": {
@@ -99,21 +99,21 @@
         "solution": "Per-OS binaries, long-polling with no public server, multiple projects and users on one bot, hooks installed automatically.",
         "impact": "Published with per-OS releases; a two-step setup."
       },
-      "vscode": {
-        "title": "VS Code Extensions",
-        "summary": "AI Diff Tracker and Mini Browser, published on the VS Code Marketplace.",
-        "problem": "AI agents change many files at once; seeing what changed in real time is hard.",
-        "solution": "AI Diff Tracker visually shows the edits agents make as they happen. Mini Browser adds a side browser with tabs, bookmarks, history and an audio mode.",
-        "impact": "Two public extensions on the Marketplace, built for my own daily workflow."
+      "gestai": {
+        "title": "GestAI and GestAI Hub",
+        "summary": "Management system for dental clinic networks and a single customer-service inbox with an AI agent.",
+        "problem": "Clinics talk to patients over WhatsApp, Instagram, Facebook and e-mail in separate channels, disconnected from scheduling, CRM and finance.",
+        "solution": "In GestAI Hub, I built the visual editor for automated service flows and bulk WhatsApp campaigns. I developed the AI agent that answers patients from the clinic knowledge base (RAG) and integrated the GestAI CRM with the Hub.",
+        "impact": "Every new contact automatically becomes an opportunity in the sales funnel, and the agent hands the conversation to a human when needed."
       }
     }
   },
   "about": {
     "eyebrow": "About",
     "title": "Product end to end, from the app in the store to the database.",
-    "p1": "I'm a FullStack Developer based in São José dos Campos, Brazil. Today I'm a Junior Developer at CDT Software, working on React/Vite front-ends, AWS-hosted back-ends and PostgreSQL databases. Before that I interned at SESI on internal systems, automation and infrastructure.",
-    "p2": "I like shipping the whole product: the published app, the API behind it and a well-modelled database. Lately I build tooling that makes AI-agent workflows (MCP, Claude Code) usable day to day.",
-    "p3": "Degree in Systems Analysis and Development from Faculdade de Tecnologia Senai Félix Guisard. Also: OOP and Databases with Java/SQL (Coursera) and Cybersecurity Defense Analyst (Cisco, in progress). Intermediate English."
+    "p1": "I am a Full Stack Developer based in São José dos Campos, Brazil. Since October 2025 I have worked at CDT Software, from the database to the interface, on SaaS products in production: GestAI, GestAI Hub, LinkBiz and OppyConnect. Before that I interned at SESI on internal systems, automation and support.",
+    "p2": "I like shipping the whole product: the published app, the API behind it and a well-modelled database. Much of my work today is applied generative AI: customer-service agents, RAG and MCP.",
+    "p3": "Degree in Systems Analysis and Development from Faculdade de Tecnologia SENAI Félix Guisard (2024 to 2025). Also: OOP and Databases with Java/SQL (Coursera) and Cybersecurity Defense Analyst (Cisco, in progress). Intermediate English."
   },
   "skills": {
     "eyebrow": "Skills",
@@ -194,7 +194,7 @@
       "label": "Quick facts",
       "role": {
         "dt": "Role",
-        "dd": "Junior Developer · CDT Software"
+        "dd": "Full Stack Developer · CDT Software"
       },
       "city": {
         "dt": "City",
@@ -206,7 +206,7 @@
       },
       "focus": {
         "dt": "Focus",
-        "dd": "React Native, Node.js, PostgreSQL, AWS, MCP"
+        "dd": "TypeScript, React, Node.js, Python, PostgreSQL, AI agents"
       },
       "languages": {
         "dt": "Languages",
@@ -219,15 +219,15 @@
     "projects": {
       "title": "Selected projects",
       "titleB": "Projects",
-      "aside": "5 projects · 2 in production · 3 open source",
-      "asideB": "2 in production · 3 open source",
+      "aside": "5 projects · 3 in production · 2 open source",
+      "asideB": "3 in production · 2 open source",
       "others": "Other",
       "kinds": {
         "oppyconnect": "Professional · iOS and Android",
         "linkbiz": "Professional · AI platform",
         "duo": "Open source · MCP",
         "telegram": "Open source · Node.js and Rust",
-        "vscode": "Open source · VS Code"
+        "gestai": "Professional · SaaS with an AI agent"
       }
     },
     "about": {
@@ -237,18 +237,18 @@
       "timeline": {
         "now": {
           "when": "Now",
-          "title": "Junior Developer · CDT Software",
-          "text": "React/Vite front-ends, AWS back-ends, PostgreSQL. OppyConnect and LinkBiz."
+          "title": "Full Stack Developer · CDT Software",
+          "text": "Since October 2025. GestAI, GestAI Hub, LinkBiz and OppyConnect."
         },
         "before": {
           "when": "Before",
           "title": "Intern · SESI",
-          "text": "Internal systems, routine automation, network and workstation infrastructure."
+          "text": "Feb to Dec 2024. Internal systems, routine automation, network and workstation support."
         },
         "education": {
           "when": "Education",
           "title": "Systems Analysis and Development · Senai Félix Guisard",
-          "text": "Also: OOP and Databases with Java/SQL (Coursera); Cybersecurity Defense Analyst (Cisco, in progress)."
+          "text": "2024 to 2025. Also: OOP and Databases with Java/SQL (Coursera); Cybersecurity Defense Analyst (Cisco, in progress)."
         }
       },
       "p2": "Lately I build tooling that makes AI-agent workflows (MCP, Claude Code) usable day to day: a bridge between two Claude Code instances, a Telegram bridge and VS Code extensions.",
@@ -285,11 +285,11 @@
     "items": {
       "who": {
         "q": "Who is Victor Augusto Ferreira dos Santos?",
-        "a": "Victor Augusto Ferreira dos Santos is a full-stack developer in São José dos Campos, Brazil. He works at CDT Software on apps published to the stores and AWS back-ends, and maintains open-source tooling for AI-agent workflows."
+        "a": "Victor Augusto Ferreira dos Santos is a full-stack developer in São José dos Campos, Brazil. He works at CDT Software on SaaS products in production (GestAI, GestAI Hub, LinkBiz and OppyConnect) and maintains open-source tooling for AI-agent workflows."
       },
       "work": {
         "q": "Where does Victor Augusto work and with which technologies?",
-        "a": "He is a Junior Developer at CDT Software. Day to day he uses TypeScript, React and React Native, Node.js, PostgreSQL and AWS; in personal projects, MCP and the Claude Code ecosystem."
+        "a": "He has been a Full Stack Developer at CDT Software since October 2025. Day to day he uses TypeScript, React and React Native, Node.js, Python, Ruby on Rails, PostgreSQL and AWS, plus AI agents with RAG and MCP."
       },
       "remote": {
         "q": "On-site or remote?",
@@ -325,7 +325,7 @@
   },
   "sixty": {
     "eyebrow": "In 60 seconds",
-    "pitch": "Full-stack developer who ships the whole product: the app in the stores, the API on AWS and a well-modelled PostgreSQL database.",
+    "pitch": "Full-stack developer who ships the whole product: apps in the stores, SaaS in production and AI agents.",
     "featured": "Featured projects",
     "copy": "Copy e-mail",
     "copied": "E-mail copied",

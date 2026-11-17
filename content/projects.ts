@@ -1,6 +1,6 @@
 import type { PlanetId } from './planets';
 
-export type ProjectKey = 'oppyconnect' | 'linkbiz' | 'duo' | 'telegram' | 'vscode';
+export type ProjectKey = 'oppyconnect' | 'linkbiz' | 'duo' | 'telegram' | 'gestai';
 export type ProjectPlanet = Extract<PlanetId, 'mars' | 'jupiter' | 'saturn' | 'uranus' | 'venus'>;
 
 export type Project = {
@@ -36,8 +36,8 @@ export const projects: Project[] = [
     index: '01',
     planet: 'mars',
     kind: 'professional',
-    stack: ['React Native', 'Capacitor', 'Node.js', 'PostgreSQL', 'AWS'],
-    ledger: ['React Native', 'AWS'],
+    stack: ['React Native', 'Expo', 'NestJS', 'Supabase', 'AWS'],
+    ledger: ['React Native', 'NestJS'],
     schemaType: 'CreativeWork',
     links: {
       store: 'https://apps.apple.com/ec/app/oppyconnect/id6767213224',
@@ -49,8 +49,8 @@ export const projects: Project[] = [
     index: '02',
     planet: 'jupiter',
     kind: 'professional',
-    stack: ['React', 'Node.js', 'PostgreSQL', 'AWS'],
-    ledger: ['React', 'Node.js'],
+    stack: ['React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Stripe'],
+    ledger: ['React', 'Supabase'],
     schemaType: 'CreativeWork',
     links: { live: 'https://linkbiz.ai' }
   },
@@ -67,7 +67,6 @@ export const projects: Project[] = [
   },
   {
     key: 'telegram',
-    featured: true,
     index: '04',
     planet: 'uranus',
     kind: 'oss',
@@ -77,14 +76,15 @@ export const projects: Project[] = [
     links: { repo: 'https://github.com/Victorow/claude-telegram-bridge' }
   },
   {
-    key: 'vscode',
+    key: 'gestai',
+    featured: true,
     index: '05',
     planet: 'venus',
-    kind: 'oss',
-    stack: ['TypeScript', 'VS Code API'],
-    ledger: ['TypeScript'],
-    schemaType: 'SoftwareSourceCode',
-    links: { marketplace: TODO }
+    kind: 'professional',
+    stack: ['Ruby on Rails', 'Vue.js', 'Python', 'FastAPI', 'PostgreSQL', 'MCP'],
+    ledger: ['Python', 'Ruby on Rails'],
+    schemaType: 'CreativeWork',
+    links: { live: 'https://gestaihub.com' }
   }
 ];
 
